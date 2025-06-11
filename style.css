@@ -22,22 +22,72 @@ body {
 	content: "\e003";
 }
 @font-face {
-	font-family: shengdan;
-	src: url("./yiqishengdanti.ttf") format("truetype");
+	font-family: "shengdan";
+	src: url("./YiQiShengDanTi.ttf") format("truetype");
 }
 @font-face {
-	font-family: music;
-	src: url("./zhulangyinyuefuhaogeputi.otf") format("opentype");
+	font-family: "music";
+	src: url("./ZhuLangYinYueFuHaoGePuTi.otf") format("opentype");
 }
 @font-face {
-	font-family: pragmata;
+	font-family: "pragmata";
 	src: url("./PragmataPro.ttf") format("truetype");
 }
 @font-face {
-	font-family: Poppins;
+	font-family: "Poppins";
 	src: url("./Poppins/Poppins-Regular.ttf") format("truetype");
 }
 @font-face {
-	font-family: Roboto Mono;
+	font-family: "Roboto Mono";
 	src: url("./Roboto\ Mono/static/RobotoMono-Regular.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PingFang SC Ultra Light";
+	src: url("./PingFang/PingFangSC/PingFangSC-UltraLight.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PingFang SC Thin";
+	src: url("./PingFang/PingFangSC/PingFangSC-Thin.ttf") format("truetype"), url("./PingFang/PingFangSC/PingFangSC-Thin.woff2");
+}
+
+@font-face {
+	font-family: "PingFang SC Light";
+	src: url("./PingFang/PingFangSC/PingFangSC-Light.ttf") format("truetype"), url("./PingFang/PingFangSC/PingFangSC-Light.woff2");
+}
+@font-face {
+	font-family: "PingFang SC Regular";
+	src: url("./PingFang/PingFangSC/PingFangSC-Regular.ttf") format("truetype"), url("./PingFang/PingFangSC/PingFangSC-Regular.eot") format("embedded-opentype"),
+		url("./PingFang/PingFangSC/PingFangSC-Regular.woff") format("woff"), url("./PingFang/PingFangSC/PingFangSC-Regular.woff2") format("woff2");
+}
+@font-face {
+	font-family: "PingFang SC Medium";
+	src: url("./PingFang/PingFangSC/PingFangSC-Medium.ttf") format("truetype"), url("./PingFang/PingFangSC/PingFangSC-Medium.woff2") format("woff2");
+}
+@font-face {
+	font-family: "PingFang SC Semi Bold";
+	src: url("./PingFang/PingFangSC/PingFangSC-SemiBold.ttf") format("truetype"), url("./PingFang/PingFangSC/PingFangSC-SemiBold.woff2") format("woff2");
+}
+@font-face {
+	font-family: "PingFang TC Ultra Light";
+	src: url("./PingFang/PingFangTC/PingFangTC-UltraLight.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PingFang TC Thin";
+	src: url("./PingFang/PingFangTC/PingFangTC-Thin.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PingFang TC Light";
+	src: url("./PingFang/PingFangTC/PingFangTC-Light.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PingFang TC Regular";
+	src: url("./PingFang/PingFangTC/PingFangTC-Regular.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PingFang TC Medium";
+	src: url("./PingFang/PingFangTC/PingFangTC-Medium.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PingFang TC Semi Bold";
+	src: url("./PingFang/PingFangTC/PingFangTC-SemiBold.ttf") format("truetype");
 }
