@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+:root {
+	--background: #ffffff;
+	--foreground: #171717;
+}
+/* --font-sans: var(--font-music);
+	--font-mono: var(--font-roboto-mono); */
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
+}
+
+body {
+	background: var(--background);
+	color: var(--foreground);
+	font-family: Arial, Helvetica, sans-serif;
+}
+/*
+@font-face {
+	font-family: "icomoon";
+	/~ src:  url('./icomoon.eot?3u91s4'); ~/
+	src: url("./assets/Iconmoon/icomoon.eot?3u91s4#iefix") format("embedded-opentype"), url("./assets/Iconmoon/icomoon.ttf?3u91s4") format("truetype"),
+		url("./assets/Iconmoon/icomoon.woff?3u91s4") format("woff"), url("./assets/Iconmoon/icomoon.svg?3u91s4#icomoon") format("svg");
+}
+
+.icon-headphones:before {
+	content: "\e001";
+}
+
+.icon-connection:before {
+	content: "\e002";
+}
+
+.icon-bubbles:before {
+	content: "\e003";
+}
+
+@font-face {
+	font-family: "christmas";
+	src: url("./assets/Christmas/YiQiShengDanTi.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "music";
+	src: url("./assets/Music/ZhuLangYinYueFuHaoGePuTi.otf") format("opentype");
+}
+
+@font-face {
+	font-family: "pragmata";
+	src: url("./assets/Pragmata/Pragmata.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Poppins-Regular";
+	src: url("./assets/Poppins/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "RobotoMono-Regular";
+	src: url("./assets/Roboto\ Mono/static/RobotoMono-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "PingFang SC Ultra Light";
+	src: url("./assets/PingFang/PingFangSC/PingFangSC-UltraLight.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "PingFang SC Thin";
+	src: url("./assets/PingFang/PingFangSC/PingFangSC-Thin.ttf") format("truetype"), url("./assets/PingFang/PingFangSC/PingFangSC-Thin.woff2");
+}
+
+@font-face {
+	font-family: "PingFang SC Light";
+	src: url("./assets/PingFang/PingFangSC/PingFangSC-Light.ttf") format("truetype"), url("./assets/PingFang/PingFangSC/PingFangSC-Light.woff2");
+}
+
+@font-face {
+	font-family: "PingFang SC Regular";
+	src: url("./assets/PingFang/PingFangSC/PingFangSC-Regular.ttf") format("truetype"),
+		url("./assets/PingFang/PingFangSC/PingFangSC-Regular.eot") format("embedded-opentype"),
+		url("./assets/PingFang/PingFangSC/PingFangSC-Regular.woff") format("woff"),
+		url("./assets/PingFang/PingFangSC/PingFangSC-Regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "PingFang SC Medium";
+	src: url("./assets/PingFang/PingFangSC/PingFangSC-Medium.ttf") format("truetype"),
+		url("./assets/PingFang/PingFangSC/PingFangSC-Medium.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "PingFang SC Semi Bold";
+	src: url("./assets/PingFang/PingFangSC/PingFangSC-SemiBold.ttf") format("truetype"),
+		url("./assets/PingFang/PingFangSC/PingFangSC-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "PingFang TC Ultra Light";
+	src: url("./assets/PingFang/PingFangTC/PingFangTC-UltraLight.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "PingFang TC Thin";
+	src: url("./assets/PingFang/PingFangTC/PingFangTC-Thin.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "PingFang TC Light";
+	src: url("./assets/PingFang/PingFangTC/PingFangTC-Light.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "PingFang TC Regular";
+	src: url("./assets/PingFang/PingFangTC/PingFangTC-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "PingFang TC Medium";
+	src: url("./assets/PingFang/PingFangTC/PingFangTC-Medium.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "PingFang TC Semi Bold";
+	src: url("./assets/PingFang/PingFangTC/PingFangTC-SemiBold.ttf") format("truetype");
+}
+*/
