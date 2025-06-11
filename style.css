@@ -1,0 +1,43 @@
+html,
+body {
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 64px;
+}
+@font-face {
+	font-family: "icomoon";
+	/* src:  url('./icomoon.eot?3u91s4'); */
+	src: url("./iconmoon/icomoon.eot?3u91s4#iefix") format("embedded-opentype"), url("./iconmoon/icomoon.ttf?3u91s4") format("truetype"),
+		url("./iconmoon/icomoon.woff?3u91s4") format("woff"), url(".//iconmoon/icomoon.svg?3u91s4#icomoon") format("svg");
+}
+
+.icon-headphones:before {
+	content: "\e001";
+}
+.icon-connection:before {
+	content: "\e002";
+}
+.icon-bubbles:before {
+	content: "\e003";
+}
+@font-face {
+	font-family: shengdan;
+	src: url("./yiqishengdanti.ttf") format("truetype");
+}
+@font-face {
+	font-family: music;
+	src: url("./zhulangyinyuefuhaogeputi.otf") format("opentype");
+}
+@font-face {
+	font-family: pragmata;
+	src: url("./PragmataPro.ttf") format("truetype");
+}
+@font-face {
+	font-family: Poppins;
+	src: url("./Poppins/Poppins-Regular.ttf") format("truetype");
+}
+@font-face {
+	font-family: Roboto Mono;
+	src: url("./Roboto\ Mono/static/RobotoMono-Regular.ttf") format("truetype");
+}
