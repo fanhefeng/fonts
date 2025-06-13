@@ -1,15 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
 import "./global.css";
+import { Pragmata, Music, Poppins, RobotoMono } from "@/fonts";
 
-export const metadata: Metadata = {
-  title: "Fonts",
-  description: "Fonts share",
-};
-export default function RootLayout(props: { children: React.ReactNode }) {
-	return (
-		<html lang="en">
-			<body className="antialiased">{props.children}</body>
-		</html>
-	);
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${Pragmata.variable} ${Music.variable} ${Poppins.variable} ${RobotoMono.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
 }
