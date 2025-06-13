@@ -4,18 +4,18 @@
 import { myFonts } from "@/fonts";
 // 引入MyFont组件
 import MyFont from "@/components/ui/MyFont";
-import { type GetProp, type ColorPickerProps, Space, Input, Button, Typography, Slider, Switch, ColorPicker, Row, Col, Card } from "antd";
-import { useEffect, useState, useCallback } from "react";
-import { type NextFontWithVariableWithLiked } from "@/types/global";
+import FontConfig from "@/components/ui/FontConfig";
+import { Space, Typography, Divider } from "antd";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import type { Color, NextFontWithVariableWithLiked } from "@/types/global";
 import "@ant-design/v5-patch-for-react-19";
-import { ItalicOutlined, HeartFilled, HeartOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
-type Color = GetProp<ColorPickerProps, "value">;
+
 export default function Home() {
-  // 初始数据快照
+	// 初始数据快照
 	const [fonts, setFonts] = useState<NextFontWithVariableWithLiked[]>([]);
-  // 展示数据
+	// 展示数据
 	const [filteredFonts, setFilteredFonts] = useState<NextFontWithVariableWithLiked[]>([]);
 
 	// 搜索和筛选状态
@@ -23,17 +23,10 @@ export default function Home() {
 	const [showOnlyLiked, setShowOnlyLiked] = useState(false);
 
 	// 全局字体样式配置
-	const [globalSettings, setGlobalSettings] = useState<{
-		fontSize: number;
-		isItalic: boolean;
-		fontColor: Color;
-		fontWeight: number;
-	}>({
-		fontSize: 24,
-		isItalic: false,
-		fontColor: "#000000",
-		fontWeight: 400,
-	});
+	const [globalFontSize, setGlobalFontSize] = useState<number>(24);
+	const [globalIsItalic, setGlobalIsItalic] = useState<boolean>(false);
+	const [globalFontColor, setGlobalFontColor] = useState<Color>("#000000");
+	const [globalFontWeight, setGlobalFontWeight] = useState<number>(400);
 
 	// 初始化字体数据
 	useEffect(() => {
@@ -81,104 +74,46 @@ export default function Home() {
 		});
 	}, []);
 
-	// 处理搜索输入变化
-	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		console.log("handleSearchChange");
-		setSearchValue(e.target.value);
-	};
-
-	// 清空搜索
-	const handleClearSearch = () => {
-		console.log("handleClearSearch");
-		setSearchValue("");
-	};
-
 	// 切换收藏显示
 	const toggleShowLiked = () => {
 		setShowOnlyLiked(!showOnlyLiked);
 	};
-	{
-		/* 搜索和筛选 */
-	}
-	const globalExtra = (
-		<Space className="">
-			<Input
-				placeholder="搜索字体..."
-				allowClear
-				value={searchValue}
-				onChange={handleSearchChange}
-				onClear={handleClearSearch}
-				className="max-w-md flex-grow"
-			/>
-
-			<Button type={showOnlyLiked ? "primary" : "default"} onClick={toggleShowLiked} icon={showOnlyLiked ? <HeartFilled /> : <HeartOutlined />}>
-				{showOnlyLiked ? "显示所有字体" : "显示收藏"}
-			</Button>
-		</Space>
-	);
 
 	return (
 		<div className="container mx-auto p-4">
 			<Title level={2} className="mb-6">
 				字体库
 			</Title>
-
 			{/* 全局预览设置 */}
-			<Card title="全局预览设置" extra={globalExtra}>
-				<Row gutter={[16, 16]}>
-					<Col xs={24} sm={12} md={6} className="!flex flex-col justify-center">
-						<div className="flex justify-between mb-2">
-							<span>Font Size:{globalSettings.fontSize}px</span>
-						</div>
-						<Slider
-							min={12}
-							max={72}
-							value={globalSettings.fontSize}
-							onChange={(val) => setGlobalSettings(prev => ({ ...prev, fontSize: val }))}
-						/>
-					</Col>
-
-					<Col xs={24} sm={12} md={6} className="!flex flex-col justify-center">
-						<div className="flex justify-between items-center mb-2">
-							<span>Font Weight:{globalSettings.fontWeight}</span>
-						</div>
-						<Slider
-							min={100}
-							max={900}
-							step={100}
-							value={globalSettings.fontWeight}
-							onChange={(val) => setGlobalSettings(prev => ({ ...prev, fontWeight: val }))}
-						/>
-					</Col>
-
-					<Col xs={24} sm={12} md={6} className="!flex flex-col justify-center">
-						<div className="flex justify-between mb-2">
-							<Switch
-								checked={globalSettings.isItalic}
-								onChange={(val) => setGlobalSettings(prev => ({ ...prev, isItalic: val }))}
-								checkedChildren={<ItalicOutlined />}
-								unCheckedChildren="正常"
-							/>
-						</div>
-					</Col>
-
-					<Col xs={24} sm={12} md={6} className="!flex flex-col justify-center">
-						<div className="flex justify-between mb-2">
-							<ColorPicker
-								value={globalSettings.fontColor}
-								onChange={(val) => setGlobalSettings(prev => ({ ...prev, fontColor: val.toCssString() }))}
-								showText
-								size="small"
-							/>
-						</div>
-					</Col>
-				</Row>
-			</Card>
-
+			<FontConfig
+				searchValue={searchValue}
+				setSearchValue={setSearchValue}
+				showOnlyLiked={showOnlyLiked}
+				toggleShowLiked={toggleShowLiked}
+				globalFontSize={globalFontSize}
+				setGlobalFontSize={setGlobalFontSize}
+				globalFontColor={globalFontColor}
+				setGlobalFontColor={setGlobalFontColor}
+				globalFontWeight={globalFontWeight}
+				setGlobalFontWeight={setGlobalFontWeight}
+				globalIsItalic={globalIsItalic}
+				setGlobalIsItalic={setGlobalIsItalic}
+			/>
+			<Divider />
 			{/* 字体卡片网格 */}
 			<Space direction="vertical" className="w-full">
 				{filteredFonts.length > 0 ? (
-					filteredFonts.map((font) => <MyFont key={font.className} font={font} onToggleLike={toggleLike} previewSettings={globalSettings} />)
+					filteredFonts.map((font) => (
+						<MyFont
+							key={font.className}
+							font={font}
+							onToggleLike={toggleLike}
+							globalFontSize={globalFontSize}
+							globalFontWeight={globalFontWeight}
+							globalFontColor={globalFontColor}
+							globalIsItalic={globalIsItalic}
+						/>
+					))
 				) : (
 					<div className="text-center py-12 text-gray-500">{showOnlyLiked ? "您还没有收藏任何字体" : "没有找到匹配的字体"}</div>
 				)}
