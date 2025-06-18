@@ -32,9 +32,11 @@ export default function Home() {
 	useEffect(() => {
 		const storedData = localStorage.getItem("fonts");
 		if (storedData) {
+			console.log("从localStorage中加载字体数据");
 			const parsedData: NextFontWithVariableWithLiked[] = JSON.parse(storedData);
 			setFonts(parsedData);
 		} else {
+			console.log("从myFonts中加载字体数据");
 			// 初始化为默认状态（全部未收藏）
 			const initialFonts = myFonts.map((font) => ({
 				...font,

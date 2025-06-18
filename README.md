@@ -4,3 +4,8 @@
 
 Share some fonts for reference. Please read the font license before using.
 
+- TODO:
+
+* 适配 Dark 模式
+* 添加下载功能
+* 优化加载速度
