@@ -113,72 +113,72 @@ export const Poppins = localFont({
 export const RobotoMono = localFont({
 	src: [
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-Bold.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-Bold.ttf",
 			weight: "700",
 			style: "normal",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-BoldItalic.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-BoldItalic.ttf",
 			weight: "700",
 			style: "italic",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-ExtraLight.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-ExtraLight.ttf",
 			weight: "200",
 			style: "normal",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-ExtraLightItalic.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-ExtraLightItalic.ttf",
 			weight: "200",
 			style: "italic",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-Italic.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-Italic.ttf",
 			weight: "400",
 			style: "italic",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-Light.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-Light.ttf",
 			weight: "300",
 			style: "normal",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-LightItalic.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-LightItalic.ttf",
 			weight: "300",
 			style: "italic",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-Regular.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-Regular.ttf",
 			weight: "400",
 			style: "normal",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-Medium.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-Medium.ttf",
 			weight: "500",
 			style: "normal",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-MediumItalic.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-MediumItalic.ttf",
 			weight: "500",
 			style: "italic",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-SemiBold.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-SemiBold.ttf",
 			weight: "600",
 			style: "normal",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-SemiBoldItalic.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-SemiBoldItalic.ttf",
 			weight: "600",
 			style: "italic",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-Thin.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-Thin.ttf",
 			weight: "100",
 			style: "normal",
 		},
 		{
-			path: "./fonts/RobotoMono/static/RobotoMono-ThinItalic.ttf",
+			path: "./fonts/RobotoMono/RobotoMono-ThinItalic.ttf",
 			weight: "100",
 			style: "italic",
 		},
