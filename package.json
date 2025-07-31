@@ -12,7 +12,8 @@
 		"dev": "next dev --turbopack",
 		"build": "rm -rf out && next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"generate-fonts": "node scripts/generateFonts.js"
 	},
 	"dependencies": {
 		"@ant-design/icons": "^6.0.0",
@@ -28,6 +29,8 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
+		"eslint": "^9.32.0",
+		"eslint-config-next": "^15.4.5",
 		"tailwindcss": "^4",
 		"typescript": "^5"
 	}
