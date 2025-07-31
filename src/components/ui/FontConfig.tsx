@@ -1,5 +1,6 @@
 import { ColorPicker, Row, Col, Slider, Switch, Card, Input, Button, Divider } from "antd";
 import { HeartFilled, HeartOutlined, ItalicOutlined, ReloadOutlined } from "@ant-design/icons";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Color } from "@/types/global";
 
 type FontConfigProps = {
@@ -18,7 +19,6 @@ type FontConfigProps = {
   globalCustomText: string;
   setGlobalCustomText: React.Dispatch<React.SetStateAction<string>>;
 };
-
 
 const PRESET_COLORS = [
   '#000000', '#333333', '#666666', '#999999',
@@ -42,6 +42,8 @@ export default function FontConfig({
   globalCustomText,
   setGlobalCustomText,
 }: FontConfigProps) {
+	const { t, language } = useLanguage();
+
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(e.target.value);
 	};
@@ -58,16 +60,14 @@ export default function FontConfig({
 		setGlobalCustomText('');
 	};
 
-
-
 	return (
 		<Card className="border-0 shadow-md bg-white/90 backdrop-blur-sm">
 			<div className="space-y-6">
-				{/* 搜索和筛选 */}
+				{/* Search and filter */}
 				<Row gutter={[16, 16]} align="middle">
-					<Col xs={24} sm={16} md={12}>
+					<Col xs={24} sm={16} lg={14} xl={12}>
 						<Input
-							placeholder="🔍 搜索字体名称..."
+							placeholder={t.search.placeholder}
 							allowClear
 							value={searchValue}
 							onChange={handleSearchChange}
@@ -77,7 +77,7 @@ export default function FontConfig({
 						/>
 					</Col>
 					
-					<Col xs={12} sm={8} md={6}>
+					<Col xs={12} sm={8} lg={5} xl={6}>
 						<Button 
 							type={showOnlyLiked ? "primary" : "default"} 
 							onClick={toggleShowLiked} 
@@ -90,11 +90,16 @@ export default function FontConfig({
 								borderColor: showOnlyLiked ? 'transparent' : undefined
 							}}
 						>
-							{showOnlyLiked ? "显示全部" : "仅收藏"}
+							<span className="hidden sm:inline">
+								{showOnlyLiked ? t.search.showAll : t.search.favorites}
+							</span>
+							<span className="sm:hidden">
+								{showOnlyLiked ? "全部" : "收藏"}
+							</span>
 						</Button>
 					</Col>
 
-					<Col xs={12} sm={8} md={6}>
+					<Col xs={12} sm={8} lg={5} xl={6}>
 						<Button 
 							onClick={resetSettings}
 							icon={<ReloadOutlined />}
@@ -102,23 +107,23 @@ export default function FontConfig({
 							block
 							className="rounded-lg shadow-sm"
 						>
-							重置
+							<span className="hidden sm:inline">{t.search.reset}</span>
+							<span className="sm:hidden">重置</span>
 						</Button>
 					</Col>
 				</Row>
 
 				<Divider className="!my-4" />
 
-				{/* 全局文本输入 */}
+				{/* Global text input */}
 				<div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100">
-					<h4 className="mb-3 text-gray-700 font-medium flex items-center">
-						<span className="mr-2">📝</span>
-						全局预览文本
+					<h4 className="mb-3 text-gray-700 font-medium flex items-center text-sm sm:text-base">
+						{t.controls.globalText}
 					</h4>
 					<Input.TextArea
 						value={globalCustomText}
 						onChange={(e) => setGlobalCustomText(e.target.value)}
-						placeholder="输入要在所有字体中预览的文本...留空使用默认示例"
+						placeholder={t.controls.globalTextPlaceholder}
 						rows={2}
 						className="rounded-lg border-blue-200 shadow-sm"
 					/>
@@ -126,87 +131,124 @@ export default function FontConfig({
 
 				<Divider className="!my-4" />
 
-				{/* 样式控制 */}
-				<div className="bg-gradient-to-r from-purple-50 to-pink-50 p-5 rounded-lg border border-purple-100">
-					<h4 className="mb-4 text-gray-700 font-medium flex items-center">
-						<span className="mr-2">⚙️</span>
-						全局样式设置
+				{/* Style controls - Improved responsive layout */}
+				<div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 sm:p-5 rounded-lg border border-purple-100 font-config-panel">
+					<h4 className="mb-4 text-gray-700 font-medium flex items-center text-sm sm:text-base">
+						{t.controls.globalSettings}
 					</h4>
-					<Row gutter={[24, 16]}>
-						<Col xs={24} sm={12} md={6}>
-							<div className="space-y-3 bg-white p-4 rounded-lg shadow-sm">
-								<div className="flex justify-between items-center">
-									<span className="font-medium text-gray-600">字体大小</span>
-									<span className="text-sm text-white bg-gradient-to-r from-blue-400 to-blue-600 px-3 py-1 rounded-full font-medium">{globalFontSize}px</span>
-								</div>
-								<Slider 
-									min={14} 
-									max={64} 
-									value={globalFontSize} 
-									onChange={setGlobalFontSize}
-									marks={{
-										14: '14',
-										24: '24',
-										36: '36',
-										48: '48'
-									}}
-								/>
+					
+					{/* Mobile: Single column, Tablet: 2 columns, Desktop: 4 columns */}
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+						{/* Font size */}
+						<div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+							<div className="flex justify-between items-center mb-2">
+								<span className="font-medium text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+									{t.controls.fontSize}
+								</span>
+								<span className="text-xs text-white bg-gradient-to-r from-blue-400 to-blue-600 px-2 py-1 rounded-full font-medium">
+									{globalFontSize}px
+								</span>
 							</div>
-						</Col>
+							<Slider 
+								min={14} 
+								max={64} 
+								value={globalFontSize} 
+								onChange={setGlobalFontSize}
+								marks={{
+									14: '14',
+									24: '24',
+									36: '36',
+									48: '48'
+								}}
+							/>
+						</div>
 
-						<Col xs={24} sm={12} md={6}>
-							<div className="space-y-3 bg-white p-4 rounded-lg shadow-sm">
-								<div className="flex justify-between items-center">
-									<span className="font-medium text-gray-600">字体粗细</span>
-									<span className="text-sm text-white bg-gradient-to-r from-purple-400 to-purple-600 px-3 py-1 rounded-full font-medium">{globalFontWeight}</span>
-								</div>
+						{/* Font weight */}
+						<div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+							<div className="flex justify-between items-center mb-2">
+								<span className="font-medium text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+									{t.controls.fontWeight}
+								</span>
+								<span className="text-xs text-white bg-gradient-to-r from-purple-400 to-purple-600 px-2 py-1 rounded-full font-medium">
+									{globalFontWeight}
+								</span>
+							</div>
+							<div className="px-2">
 								<Slider 
 									min={100} 
 									max={900} 
 									step={100} 
 									value={globalFontWeight} 
 									onChange={setGlobalFontWeight}
-									marks={{
+									marks={language === 'zh' ? {
 										100: '细',
 										400: '正常',
 										700: '粗',
 										900: '超粗'
+									} : {
+										100: 'Thin',
+										400: 'Reg',
+										700: 'Bold',
+										900: 'Extra'
 									}}
 								/>
 							</div>
-						</Col>
+						</div>
 
-						<Col xs={24} sm={12} md={6}>
-							<div className="space-y-3 bg-white p-4 rounded-lg shadow-sm">
-								<span className="font-medium text-gray-600 block">字体样式</span>
+						{/* Font color */}
+						<div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+							<div className="mb-3">
+								<span className="font-medium text-gray-600 text-xs sm:text-sm block whitespace-nowrap">
+									{t.controls.fontColor}
+								</span>
+							</div>
+							<div className="flex justify-center">
+								<ColorPicker 
+									value={globalFontColor} 
+									onChange={(color) => {
+										console.log('Global color onChange:', color);
+										const hexColor = color.toHexString();
+										console.log('Hex color:', hexColor);
+										setGlobalFontColor(hexColor);
+									}}
+									onChangeComplete={(color) => {
+										console.log('Global color onChangeComplete:', color);
+										const hexColor = color.toHexString();
+										console.log('Hex color complete:', hexColor);
+										setGlobalFontColor(hexColor);
+									}}
+									showText 
+									size="small"
+									presets={[
+										{
+											label: t.controls.commonColors,
+											colors: PRESET_COLORS,
+										},
+									]}
+									placement="bottomLeft"
+									style={{ zIndex: 9999 }}
+								/>
+							</div>
+						</div>
+
+						{/* Font style */}
+						<div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+							<div className="mb-3">
+								<span className="font-medium text-gray-600 text-xs sm:text-sm block whitespace-nowrap">
+									{t.controls.fontStyle}
+								</span>
+							</div>
+							<div className="flex justify-center">
 								<Switch
 									checked={globalIsItalic}
 									onChange={setGlobalIsItalic}
 									checkedChildren={<ItalicOutlined />}
-									unCheckedChildren="正常"
+									unCheckedChildren={<span className="text-xs">{language === 'zh' ? '正常' : 'Normal'}</span>}
 									size="default"
 								/>
 							</div>
-						</Col>
-
-						<Col xs={24} sm={12} md={6}>
-							<div className="space-y-3 bg-white p-4 rounded-lg shadow-sm">
-								<span className="font-medium text-gray-600 block">字体颜色</span>
-								<ColorPicker 
-									value={globalFontColor} 
-									onChangeComplete={(val) => setGlobalFontColor(val.toCssString())} 
-									showText 
-									size="middle"
-									presets={[
-										{
-											label: '常用颜色',
-											colors: PRESET_COLORS,
-										},
-									]}
-								/>
-							</div>
-						</Col>
-					</Row>
+						</div>
+					</div>
 				</div>
 			</div>
 		</Card>

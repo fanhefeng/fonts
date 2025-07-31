@@ -3,8 +3,11 @@
 import { myFonts } from "../../styles/fonts";
 import MyFont from "@/components/ui/MyFont";
 import FontConfig from "@/components/ui/FontConfig";
-import { Typography, Spin } from "antd";
+import { Typography, Spin, Button, Space } from "antd";
+import { BulbOutlined, BulbFilled, GlobalOutlined } from "@ant-design/icons";
 import { useFontLikes } from "@/hooks/useFontLikes";
+import { useTheme } from "@/contexts/ThemeContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useState, useCallback, useMemo } from "react";
 import type { Color } from "@/types/global";
 import "@ant-design/v5-patch-for-react-19";
@@ -12,21 +15,23 @@ import "@ant-design/v5-patch-for-react-19";
 const { Title } = Typography;
 
 export default function Home() {
-	// 使用新的收藏管理 hook
+	// Use context hooks
 	const { isLoaded, toggleLike, isLiked, getLikeCount } = useFontLikes();
+	const { isDark, toggleTheme } = useTheme();
+	const { language, setLanguage, t } = useLanguage();
 	
-	// 搜索和筛选状态
+	// Search and filter state
 	const [searchValue, setSearchValue] = useState("");
 	const [showOnlyLiked, setShowOnlyLiked] = useState(false);
 	
-	// 全局样式状态
+	// Global style state
 	const [globalFontSize, setGlobalFontSize] = useState<number>(24);
 	const [globalIsItalic, setGlobalIsItalic] = useState<boolean>(false);
 	const [globalFontColor, setGlobalFontColor] = useState<Color>("#000000");
 	const [globalFontWeight, setGlobalFontWeight] = useState<number>(400);
 	const [globalCustomText, setGlobalCustomText] = useState<string>("");
 
-	// 使用 useMemo 优化字体列表处理
+	// Process fonts with like status
 	const processedFonts = useMemo(() => {
 		return myFonts.map(font => ({
 			...font,
@@ -34,11 +39,11 @@ export default function Home() {
 		}));
 	}, [isLiked]);
 
-	// 筛选字体
+	// Filter fonts
 	const filteredFonts = useMemo(() => {
 		let result = processedFonts;
 
-		// 搜索过滤
+		// Search filter
 		if (searchValue) {
 			const searchLower = searchValue.toLowerCase();
 			result = result.filter((font) => {
@@ -47,7 +52,7 @@ export default function Home() {
 			});
 		}
 
-		// 收藏过滤
+		// Favorites filter
 		if (showOnlyLiked) {
 			result = result.filter((font) => font.isLiked);
 		}
@@ -55,35 +60,68 @@ export default function Home() {
 		return result;
 	}, [processedFonts, searchValue, showOnlyLiked]);
 
-	// 切换收藏显示
+	// Toggle favorites display
 	const toggleShowLiked = useCallback(() => {
 		setShowOnlyLiked(!showOnlyLiked);
 	}, [showOnlyLiked]);
 
-	// 如果数据还在加载中，显示加载状态
+	// Toggle language
+	const toggleLanguage = () => {
+		setLanguage(language === 'zh' ? 'en' : 'zh');
+	};
+
+	// Loading state
 	if (!isLoaded) {
 		return (
 			<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
 				<div className="text-center">
 					<Spin size="large" />
-					<p className="mt-4 text-gray-600">正在加载字体数据...</p>
+					<p className="mt-4 text-gray-600">{t.loading}</p>
 				</div>
 			</div>
 		);
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+		<div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 transition-colors duration-300">
 			{/* Header */}
 			<div className="border-b border-gray-100 bg-white/90 backdrop-blur-sm sticky top-0 z-10 shadow-sm">
 				<div className="container mx-auto px-6 py-6 max-w-7xl">
-					<div className="text-center">
-						<Title level={1} className="!mb-2 font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-							Fonts
-						</Title>
-						<p className="text-gray-500 text-sm max-w-md mx-auto">
-							仅供参考，谢绝商用！
-						</p>
+					<div className="flex items-center justify-between">
+						{/* Left side - Title */}
+						<div className="text-center flex-1">
+							<Title level={1} className="!mb-2 font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+								{t.header.title}
+							</Title>
+							<p className="text-gray-500 text-sm max-w-md mx-auto">
+								{t.header.subtitle}
+							</p>
+						</div>
+						
+						{/* Right side - Theme and Language controls */}
+						<div className="absolute right-6 top-6">
+							<Space>
+								<Button
+									type="text"
+									icon={isDark ? <BulbFilled /> : <BulbOutlined />}
+									onClick={toggleTheme}
+									title={isDark ? t.theme.light : t.theme.dark}
+									size="large"
+								/>
+								<Button
+									type="text"
+									icon={<GlobalOutlined />}
+									onClick={toggleLanguage}
+									title={language === 'zh' ? 'English' : '中文'}
+									size="large"
+									style={{ minWidth: '48px' }}
+								>
+									<span style={{ display: 'inline-block', minWidth: '20px', textAlign: 'center' }}>
+										{language === 'zh' ? 'EN' : '中'}
+									</span>
+								</Button>
+							</Space>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -113,8 +151,8 @@ export default function Home() {
 				{/* Stats Bar */}
 				{filteredFonts.length > 0 && (
 					<div className="mb-6 flex items-center justify-between text-sm text-gray-600 bg-white/60 backdrop-blur-sm rounded-lg px-4 py-2 border border-gray-100">
-						<span>显示 {filteredFonts.length} 个字体</span>
-						<span>已收藏 {getLikeCount()} 个</span>
+						<span>{t.stats.showing} {filteredFonts.length} {t.stats.fonts}</span>
+						<span>{t.stats.favorited} {getLikeCount()} {language === 'zh' ? '个' : ''}</span>
 					</div>
 				)}
 
@@ -137,13 +175,10 @@ export default function Home() {
 						<div className="text-center py-20">
 							<div className="text-gray-300 text-6xl mb-6">🔍</div>
 							<h3 className="text-xl font-medium text-gray-600 mb-3">
-								{showOnlyLiked ? "还没有收藏的字体" : "没有找到匹配的字体"}
+								{showOnlyLiked ? t.empty.noFavorites : t.empty.noResults}
 							</h3>
 							<p className="text-gray-400 max-w-md mx-auto">
-								{showOnlyLiked 
-									? "点击字体卡片上的心形图标来收藏您喜欢的字体" 
-									: "尝试调整搜索条件或浏览所有可用字体"
-								}
+								{showOnlyLiked ? t.empty.noFavoritesDesc : t.empty.noResultsDesc}
 							</p>
 						</div>
 					)}

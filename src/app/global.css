@@ -1,20 +1,62 @@
 @import "tailwindcss";
 
+/* Prevent horizontal overflow */
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	overflow-x: hidden;
+	max-width: 100vw;
+}
+
+/* Ensure all containers respect viewport width */
+.container, .max-w-7xl {
+	max-width: 100vw;
+	overflow-x: hidden;
+}
+
+/* Card and grid responsiveness */
+.ant-card {
+	min-width: 0 !important;
+	width: 100% !important;
+}
+
+.ant-card-body {
+	min-width: 0 !important;
+}
+
+/* Slider responsiveness */
+.ant-slider {
+	min-width: 0 !important;
+}
+
+/* Select responsiveness */
+.ant-select {
+	min-width: 80px !important;
+	max-width: 150px !important;
+}
+
 :root {
 	--background: #ffffff;
-	--foreground: #171717;
+	--foreground: #24292e;
 }
-/* --font-sans: var(--font-poppins);
-  --font-mono: var(--font-roboto-mono); */
+
+/* Dark mode colors - inspired by GitHub Dark, VS Code Dark, and Discord */
+.dark {
+	--background: #0d1117;
+	--foreground: #f0f6fc;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+	:root:not(.light) {
+		--background: #0d1117;
+		--foreground: #f0f6fc;
 	}
 }
 
@@ -23,113 +65,241 @@ body {
 	color: var(--foreground);
 	font-family: Arial, Helvetica, sans-serif;
 }
-/*
-@font-face {
-	font-family: "icomoon";
-	/~ src:  url('./icomoon.eot?3u91s4'); ~/
-	src: url("./assets/Iconmoon/icomoon.eot?3u91s4#iefix") format("embedded-opentype"), url("./assets/Iconmoon/icomoon.ttf?3u91s4") format("truetype"),
-		url("./assets/Iconmoon/icomoon.woff?3u91s4") format("woff"), url("./assets/Iconmoon/icomoon.svg?3u91s4#icomoon") format("svg");
+
+/* Dark mode gradient backgrounds - GitHub inspired */
+.dark .bg-gradient-to-br {
+	background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #21262d 100%) !important;
 }
 
-.icon-headphones:before {
-	content: "\e001";
+.dark [class*="bg-white/90"] {
+	background: rgba(33, 38, 45, 0.95) !important;
+	backdrop-filter: blur(12px);
 }
 
-.icon-connection:before {
-	content: "\e002";
+.dark [class*="bg-white/60"] {
+	background: rgba(33, 38, 45, 0.8) !important;
+	backdrop-filter: blur(8px);
 }
 
-.icon-bubbles:before {
-	content: "\e003";
+/* Border colors - subtle and clean */
+.dark .border-gray-100 {
+	border-color: rgba(48, 54, 61, 0.6) !important;
 }
 
-@font-face {
-	font-family: "christmas";
-	src: url("./assets/Christmas/YiQiShengDanTi.ttf") format("truetype");
+.dark .border-gray-200 {
+	border-color: rgba(48, 54, 61, 0.8) !important;
 }
 
-@font-face {
-	font-family: "music";
-	src: url("./assets/Music/ZhuLangYinYueFuHaoGePuTi.otf") format("opentype");
+/* Text colors with proper contrast */
+.dark .text-gray-500 {
+	color: #8b949e !important;
 }
 
-@font-face {
-	font-family: "pragmata";
-	src: url("./assets/Pragmata/Pragmata.ttf") format("truetype");
+.dark .text-gray-600 {
+	color: #c9d1d9 !important;
 }
 
-@font-face {
-	font-family: "Poppins-Regular";
-	src: url("./assets/Poppins/Poppins-Regular.ttf") format("truetype");
+.dark .text-gray-700 {
+	color: #f0f6fc !important;
 }
 
-@font-face {
-	font-family: "RobotoMono-Regular";
-	src: url("./assets/Roboto\ Mono/static/RobotoMono-Regular.ttf") format("truetype");
+.dark .text-slate-800 {
+	color: #f0f6fc !important;
 }
 
-@font-face {
-	font-family: "PingFang SC Ultra Light";
-	src: url("./assets/PingFang/PingFangSC/PingFangSC-UltraLight.ttf") format("truetype");
+/* Card styling - clean shadows */
+.dark .shadow-sm {
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4) !important;
 }
 
-@font-face {
-	font-family: "PingFang SC Thin";
-	src: url("./assets/PingFang/PingFangSC/PingFangSC-Thin.ttf") format("truetype"), url("./assets/PingFang/PingFangSC/PingFangSC-Thin.woff2");
+.dark .shadow-md {
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
 }
 
-@font-face {
-	font-family: "PingFang SC Light";
-	src: url("./assets/PingFang/PingFangSC/PingFangSC-Light.ttf") format("truetype"), url("./assets/PingFang/PingFangSC/PingFangSC-Light.woff2");
+/* Control panel backgrounds - Discord inspired */
+.dark [class*="bg-gradient-to-r"][class*="from-blue-50"] {
+	background: linear-gradient(90deg, rgba(88, 101, 242, 0.1) 0%, rgba(114, 137, 218, 0.1) 100%) !important;
+	border-color: rgba(88, 101, 242, 0.2) !important;
 }
 
-@font-face {
-	font-family: "PingFang SC Regular";
-	src: url("./assets/PingFang/PingFangSC/PingFangSC-Regular.ttf") format("truetype"),
-		url("./assets/PingFang/PingFangSC/PingFangSC-Regular.eot") format("embedded-opentype"),
-		url("./assets/PingFang/PingFangSC/PingFangSC-Regular.woff") format("woff"),
-		url("./assets/PingFang/PingFangSC/PingFangSC-Regular.woff2") format("woff2");
+.dark [class*="bg-gradient-to-r"][class*="from-purple-50"] {
+	background: linear-gradient(90deg, rgba(142, 68, 173, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%) !important;
+	border-color: rgba(142, 68, 173, 0.2) !important;
 }
 
-@font-face {
-	font-family: "PingFang SC Medium";
-	src: url("./assets/PingFang/PingFangSC/PingFangSC-Medium.ttf") format("truetype"),
-		url("./assets/PingFang/PingFangSC/PingFangSC-Medium.woff2") format("woff2");
+.dark .border-blue-100 {
+	border-color: rgba(88, 101, 242, 0.3) !important;
 }
 
-@font-face {
-	font-family: "PingFang SC Semi Bold";
-	src: url("./assets/PingFang/PingFangSC/PingFangSC-SemiBold.ttf") format("truetype"),
-		url("./assets/PingFang/PingFangSC/PingFangSC-SemiBold.woff2") format("woff2");
+.dark .border-purple-100 {
+	border-color: rgba(142, 68, 173, 0.3) !important;
 }
 
-@font-face {
-	font-family: "PingFang TC Ultra Light";
-	src: url("./assets/PingFang/PingFangTC/PingFangTC-UltraLight.ttf") format("truetype");
+/* Font preview area - VS Code inspired */
+.dark [class*="hover:bg-gray-50"]:hover {
+	background-color: rgba(56, 62, 70, 0.3) !important;
 }
 
-@font-face {
-	font-family: "PingFang TC Thin";
-	src: url("./assets/PingFang/PingFangTC/PingFangTC-Thin.ttf") format("truetype");
+.dark .bg-gray-50 {
+	background-color: rgba(33, 38, 45, 0.6) !important;
 }
 
-@font-face {
-	font-family: "PingFang TC Light";
-	src: url("./assets/PingFang/PingFangTC/PingFangTC-Light.ttf") format("truetype");
+/* White backgrounds in dark mode */
+.dark .bg-white {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
+	color: #f0f6fc !important;
 }
 
-@font-face {
-	font-family: "PingFang TC Regular";
-	src: url("./assets/PingFang/PingFangTC/PingFangTC-Regular.ttf") format("truetype");
+/* Color picker specific styling in dark mode */
+.dark .ant-color-picker {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
 }
 
-@font-face {
-	font-family: "PingFang TC Medium";
-	src: url("./assets/PingFang/PingFangTC/PingFangTC-Medium.ttf") format("truetype");
+.dark .ant-color-picker-trigger {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
 }
 
-@font-face {
-	font-family: "PingFang TC Semi Bold";
-	src: url("./assets/PingFang/PingFangTC/PingFangTC-SemiBold.ttf") format("truetype");
+.dark .ant-color-picker-color-block {
+	border-color: #30363d !important;
 }
-*/
+
+.dark .ant-color-picker-alpha-input {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
+	color: #f0f6fc !important;
+}
+
+.dark .ant-color-picker-hex-input {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
+	color: #f0f6fc !important;
+}
+
+.dark .ant-color-picker-panel {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
+	z-index: 9999 !important;
+}
+
+.dark .ant-color-picker-panel-inner {
+	background-color: #21262d !important;
+}
+
+/* Ensure color picker text is visible in dark mode */
+.dark .ant-color-picker .ant-color-picker-trigger-text {
+	color: #f0f6fc !important;
+}
+
+/* Color picker popup z-index fix */
+.ant-color-picker-panel {
+	z-index: 9999 !important;
+}
+
+/* Popover z-index fix */
+.ant-popover {
+	z-index: 9999 !important;
+}
+
+.dark .ant-popover {
+	z-index: 9999 !important;
+}
+
+.dark .ant-popover-inner {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
+}
+
+.dark .ant-popover-arrow {
+	border-color: #30363d !important;
+}
+
+.dark .ant-popover-arrow::before {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
+}
+
+.dark .ant-popover-arrow::after {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
+}
+
+/* Card z-index fix to prevent overlap */
+.ant-card {
+	position: relative;
+	z-index: 1;
+}
+
+/* Ensure settings panels don't interfere */
+.font-config-panel, .individual-config-panel {
+	position: relative;
+	z-index: 2;
+}
+
+/* Font preview background in dark mode */
+.dark [style*="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)"] {
+	background: linear-gradient(135deg, #161b22 0%, #21262d 100%) !important;
+	border-color: #30363d !important;
+}
+
+/* Alternative approach for font preview area */
+.dark .font-preview-area {
+	background: linear-gradient(135deg, #161b22 0%, #21262d 100%) !important;
+	border-color: #30363d !important;
+}
+
+/* Individual settings panel background in dark mode */
+.dark .bg-gray-50 {
+	background-color: rgba(33, 38, 45, 0.6) !important;
+}
+
+/* Improved text contrast */
+.dark .text-gray-300 {
+	color: #e6edf3 !important;
+}
+
+.dark .text-gray-400 {
+	color: #8b949e !important;
+}
+
+/* Card borders and backgrounds */
+.dark .border {
+	border-color: rgba(48, 54, 61, 0.4) !important;
+}
+
+/* Blue and purple accents - GitHub inspired */
+.dark .text-blue-600 {
+	color: #58a6ff !important;
+}
+
+.dark .bg-blue-50 {
+	background-color: rgba(88, 166, 255, 0.1) !important;
+}
+
+.dark .bg-blue-100 {
+	background-color: rgba(88, 166, 255, 0.2) !important;
+}
+
+/* Hover states */
+.dark .hover\:shadow-md:hover {
+	box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Button hover states */
+.dark button:hover {
+	background-color: rgba(56, 62, 70, 0.4) !important;
+}
+
+/* Input fields in dark mode */
+.dark input, .dark textarea {
+	background-color: #21262d !important;
+	border-color: #30363d !important;
+	color: #f0f6fc !important;
+}
+
+.dark input:focus, .dark textarea:focus {
+	border-color: #58a6ff !important;
+	box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1) !important;
+}

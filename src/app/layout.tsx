@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import type { Metadata } from "next";
+import { App } from "antd";
 import { 
   Christmas, 
   Iconmoon, 
@@ -10,16 +12,13 @@ import {
   Pragmata, 
   RobotoMono 
 } from "../../styles/fonts";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import "./global.css";
-
-export const metadata: Metadata = {
-  title: "字体展示库 - Font Showcase",
-  description: "发现和预览精美的字体集合，支持实时预览和个性化配置。",
-};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" suppressHydrationWarning>
       <body className={`
         ${Christmas.variable} 
         ${Iconmoon.variable} 
@@ -29,9 +28,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ${Poppins.variable} 
         ${Pragmata.variable} 
         ${RobotoMono.variable}
-        bg-gray-50 min-h-screen
-      `}>
-        {children}
+        transition-colors duration-300
+      `} suppressHydrationWarning>
+        <ThemeProvider>
+          <LanguageProvider>
+            <App>
+              {children}
+            </App>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
