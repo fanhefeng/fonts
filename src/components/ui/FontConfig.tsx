@@ -139,7 +139,7 @@ export default function FontConfig({
 					</h4>
 					
 					{/* Mobile: Single column, Tablet: 2 columns, Desktop: 4 columns */}
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+					<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-6">
 						{/* Font size */}
 						<div className={styles.controlItem}>
 							<div className="flex justify-between items-center mb-2">
