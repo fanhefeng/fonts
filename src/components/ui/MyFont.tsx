@@ -148,7 +148,6 @@ export default function MyFont({
 			wordWrap: "break-word" as const,
 			whiteSpace: "pre-wrap" as const,
 		};
-		console.log("Font style:", style);
 		return style;
 	};
 
@@ -181,8 +180,6 @@ export default function MyFont({
 			const finalStyle = fontVariants
 				? findAvailableStyle(fontVariants.styles, currentStyle ? 'italic' : 'normal')
 				: (currentStyle ? 'italic' : 'normal');
-			
-			console.log(`Downloading ${fontFamilyName} with weight: ${finalWeight}, style: ${finalStyle}`);
 			
 			await downloadFontFile(
 				font, 
@@ -381,15 +378,11 @@ export default function MyFont({
 											<ColorPicker
 												value={individualFontColor ?? globalFontColor}
 												onChange={(color) => {
-													console.log("Individual color onChange:", color);
 													const hexColor = color.toHexString();
-													console.log("Individual hex color:", hexColor);
 													setIndividualFontColor(hexColor);
 												}}
 												onChangeComplete={(color) => {
-													console.log("Individual color onChangeComplete:", color);
 													const hexColor = color.toHexString();
-													console.log("Individual hex color complete:", hexColor);
 													setIndividualFontColor(hexColor);
 												}}
 												showText

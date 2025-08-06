@@ -231,15 +231,11 @@ export default function FontConfig({
 								<ColorPicker 
 									value={globalFontColor} 
 									onChange={(color) => {
-										console.log('Global color onChange:', color);
 										const hexColor = color.toHexString();
-										console.log('Hex color:', hexColor);
 										setGlobalFontColor(hexColor);
 									}}
 									onChangeComplete={(color) => {
-										console.log('Global color onChangeComplete:', color);
 										const hexColor = color.toHexString();
-										console.log('Hex color complete:', hexColor);
 										setGlobalFontColor(hexColor);
 									}}
 									showText 

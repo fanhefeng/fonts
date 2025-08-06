@@ -19,7 +19,6 @@
 	"dependencies": {
 		"@ant-design/icons": "^6.0.0",
 		"@ant-design/v5-patch-for-react-19": "^1.0.3",
-		"@clack/prompts": "^0.11.0",
 		"antd": "^5.26.0",
 		"critters": "^0.0.23",
 		"next": "15.3.3",
@@ -31,6 +30,7 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
+		"@clack/prompts": "^0.11.0",
 		"eslint": "^9.32.0",
 		"eslint-config-next": "^15.4.5",
 		"tailwindcss": "^4",

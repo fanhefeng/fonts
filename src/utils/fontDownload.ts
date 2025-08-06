@@ -93,15 +93,12 @@ export const downloadFontFile = async (
     const fontFamilyName = font.style.fontFamily.split(',')[0].slice(1, -1);
     let fontPath = '';
     
-    console.log('Downloading font:', fontFamilyName, 'weight:', targetWeight, 'style:', targetStyle);
-
     // 优先使用字体变体信息来确定文件路径
     if (fontVariants) {
       const matchingVariant = findMatchingVariant(fontVariants, targetWeight, targetStyle);
       
       if (matchingVariant) {
         fontPath = generateFontPath(fontFamilyName, matchingVariant);
-        console.log('Using variant info:', matchingVariant);
       }
     }
 
@@ -180,18 +177,14 @@ export const downloadFontFile = async (
         fontPath = '/fonts/' + fontPath;
       }
     }
-
-    console.log('Final font path:', fontPath);
     
     // 获取字体文件
     const response = await fetch(fontPath);
     if (!response.ok) {
       // 如果指定权重/样式的文件未找到，尝试使用默认样式
       if (targetStyle === 'italic') {
-        console.log('Italic variant not found, trying normal style...');
         return await downloadFontFile(font, extension, targetWeight, 'normal', fontVariants);
       } else if (targetWeight !== 400) {
-        console.log('Specific weight not found, trying regular weight...');
         return await downloadFontFile(font, extension, 400, targetStyle, fontVariants);
       }
       throw new Error(`Failed to fetch font file: ${response.statusText}`);
