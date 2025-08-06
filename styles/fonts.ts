@@ -19,7 +19,7 @@ export const YiQiShengDanTi = localFont({
 	src: "../public/fonts/YiQiShengDanTi/YiQiShengDanTi-Regular.ttf",
 	variable: "--font-yiqishengdanti",
 	display: "swap",
-	preload: false, // 禁用预加载
+	preload: true, // 重新启用预加载，因为是重要的中文字体
 });
 
 // YiQiShengDanTi 字体变体信息
@@ -293,7 +293,7 @@ export const ZhuLangYinYueFuHaoGePuTi = localFont({
 	src: "../public/fonts/ZhuLangYinYueFuHaoGePuTi/ZhuLangYinYueFuHaoGePuTi-Regular.otf",
 	variable: "--font-zhulangyinyuefuhaogeputi",
 	display: "swap",
-	preload: false,
+	preload: true, // 重新启用预加载，因为是重要的音乐符号字体
 });
 
 // ZhuLangYinYueFuHaoGePuTi 字体变体信息
@@ -735,7 +735,7 @@ export const Pragmata = localFont({
 	src: "../public/fonts/Pragmata/Pragmata-Regular.ttf",
 	variable: "--font-pragmata",
 	display: "swap",
-	preload: false,
+	preload: true, // 启用预加载，常用编程字体
 });
 
 // Pragmata 字体变体信息
