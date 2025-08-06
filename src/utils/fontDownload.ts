@@ -1,5 +1,17 @@
 import { NextFontWithVariableWithLiked, FontVariantInfo } from '@/types/global';
 
+/**
+ * 获取基础路径，用于处理GitHub Pages部署
+ * @returns basePath
+ */
+const getBasePath = (): string => {
+  // 检测是否在GitHub Pages环境
+  if (typeof window !== 'undefined' && window.location.hostname.includes('github.io')) {
+    return '/fonts'; // GitHub Pages需要仓库名
+  }
+  return ''; // 本地开发或其他环境
+};
+
 // Extract font name from className
 export const getFontName = (className: string): string => {
   // Remove the font prefix and convert to readable name
@@ -78,7 +90,8 @@ export const findMatchingVariant = (
  * @returns 字体文件路径
  */
 export const generateFontPath = (fontFamilyName: string, variant: { weight: number; style: string; file: string }): string => {
-  return `/fonts/${fontFamilyName}/${variant.file}`;
+  const basePath = getBasePath();
+  return `${basePath}/fonts/${fontFamilyName}/${variant.file}`;
 };
 
 // Download a font file with dynamic font information
@@ -148,6 +161,7 @@ export const downloadFontFile = async (
 
     // 最后的兜底：使用传统的路径映射方式
     if (!fontPath) {
+      const basePath = getBasePath();
       const weightMapping: { [key: number]: string } = {
         100: 'Thin',
         200: 'UltraLight', 
@@ -164,17 +178,20 @@ export const downloadFontFile = async (
       const styleSuffix = targetStyle === 'italic' ? '-Italic' : '';
       
       // 生成标准化的文件路径
-      fontPath = `/fonts/${fontFamilyName}/${fontFamilyName}-${weightName}${styleSuffix}.${extension}`;
+      fontPath = `${basePath}/fonts/${fontFamilyName}/${fontFamilyName}-${weightName}${styleSuffix}.${extension}`;
     } else {
       // 转换相对路径为公共URL路径
+      const basePath = getBasePath();
       if (fontPath.startsWith('../public/fonts/')) {
-        fontPath = fontPath.replace('../public', '');
+        fontPath = basePath + fontPath.replace('../public', '');
       } else if (fontPath.startsWith('./fonts/')) {
-        fontPath = fontPath.replace('.', '');
+        fontPath = basePath + fontPath.replace('.', '');
       } else if (fontPath.startsWith('../')) {
-        fontPath = '/fonts' + fontPath.substring(2);
+        fontPath = basePath + '/fonts' + fontPath.substring(2);
       } else if (!fontPath.startsWith('/')) {
-        fontPath = '/fonts/' + fontPath;
+        fontPath = basePath + '/fonts/' + fontPath;
+      } else if (!fontPath.startsWith(basePath)) {
+        fontPath = basePath + fontPath;
       }
     }
     
