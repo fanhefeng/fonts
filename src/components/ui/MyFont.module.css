@@ -1,0 +1,98 @@
+/* 最小化的滑块样式修复 - 基于Ant Design原有样式 */
+
+/* 权重滑块容器 - 只添加必要的padding防止文字溢出 */
+.weightSliderContainer {
+  position: relative;
+  padding: 0 4px 20px 4px; /* 只添加必要的底部和左右padding */
+}
+
+/* 滑块包装器 */
+.sliderWrapper {
+  position: relative;
+}
+
+/* 修复标记文字溢出和重叠问题 - 最小化修改 */
+.sliderWrapper :global(.ant-slider-mark-text) {
+  font-size: 9px; /* 稍微缩小字体防止重叠 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 40px; /* 限制最大宽度防止溢出 */
+  text-align: center;
+}
+
+/* Dark mode support for slider marks */
+:global(.dark) .sliderWrapper :global(.ant-slider-mark-text) {
+  color: #d1d5db;
+}
+
+/* Individual config panel container */
+.individualConfigPanel {
+  background: #f9fafb;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Dark mode support for individual config panel */
+:global(.dark) .individualConfigPanel {
+  background: #1f1f1f;
+  border-color: #333;
+}
+
+/* Individual config item containers */
+.individualConfigItem {
+  background: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode support for individual config items */
+:global(.dark) .individualConfigItem {
+  background: #2d2d2d;
+  border: 1px solid #404040;
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
+}
+
+/* 简短标记样式 - 用于权重较多的字体 */
+.sliderWrapper.shortMarks :global(.ant-slider-mark-text) {
+  font-size: 8px;
+  max-width: 35px;
+}
+
+/* 完整标记样式 - 用于权重较少的字体 */
+.sliderWrapper.fullMarks :global(.ant-slider-mark-text) {
+  font-size: 9px;
+  max-width: 45px;
+}
+
+/* 小屏幕优化 - 进一步缩小字体 */
+@media (max-width: 768px) {
+  .sliderWrapper :global(.ant-slider-mark-text) {
+    font-size: 8px;
+    max-width: 35px;
+  }
+  
+  .sliderWrapper.shortMarks :global(.ant-slider-mark-text) {
+    font-size: 7px;
+    max-width: 30px;
+  }
+}
+
+/* 超小屏幕 - 最小字体 */
+@media (max-width: 640px) {
+  .weightSliderContainer {
+    padding: 0 2px 16px 2px;
+  }
+  
+  .sliderWrapper :global(.ant-slider-mark-text) {
+    font-size: 7px;
+    max-width: 28px;
+  }
+  
+  .sliderWrapper.shortMarks :global(.ant-slider-mark-text) {
+    font-size: 6px;
+    max-width: 25px;
+  }
+}

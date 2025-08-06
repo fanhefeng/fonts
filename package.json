@@ -1,6 +1,7 @@
 {
 	"name": "fonts",
 	"version": "1.0.0",
+	"type": "module",
 	"description": "Some fonts",
 	"main": "index.js",
 	"keywords": [
@@ -13,11 +14,12 @@
 		"build": "rm -rf out && next build",
 		"start": "next start",
 		"lint": "next lint",
-		"generate-fonts": "node scripts/generateFonts.js"
+		"font:add": "node scripts/font-manager.js"
 	},
 	"dependencies": {
 		"@ant-design/icons": "^6.0.0",
 		"@ant-design/v5-patch-for-react-19": "^1.0.3",
+		"@clack/prompts": "^0.11.0",
 		"antd": "^5.26.0",
 		"critters": "^0.0.23",
 		"next": "15.3.3",

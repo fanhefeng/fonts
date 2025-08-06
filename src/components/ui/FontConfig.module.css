@@ -1,0 +1,111 @@
+/* 全局字体配置样式优化 - 最小化修改 */
+
+/* 全局权重滑块样式优化 */
+.globalWeightSlider {
+  position: relative;
+  padding: 0 4px 20px 4px; /* 只添加必要的padding防止溢出 */
+}
+
+/* 全局权重滑块标记文字优化 */
+.globalWeightSlider :global(.ant-slider-mark-text) {
+  font-size: 8px; /* 缩小字体防止重叠 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 40px; /* 限制宽度防止溢出 */
+  text-align: center;
+}
+
+/* Dark mode support for global weight slider marks */
+:global(.dark) .globalWeightSlider :global(.ant-slider-mark-text) {
+  color: #d1d5db;
+}
+
+/* 全局字号滑块样式优化 */
+.globalFontSizeSlider {
+  position: relative;
+  padding: 0 4px 16px 4px; /* 字号滑块的文字较短，padding可以小一些 */
+}
+
+.globalFontSizeSlider :global(.ant-slider-mark-text) {
+  font-size: 10px; /* 字号标记可以稍大，因为都是数字 */
+  text-align: center;
+}
+
+/* Dark mode support for global font size slider marks */
+:global(.dark) .globalFontSizeSlider :global(.ant-slider-mark-text) {
+  color: #d1d5db;
+}
+
+/* 配置面板容器 */
+.fontConfigPanel {
+  position: relative;
+}
+
+/* 控制项容器 */
+.controlItem {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dark mode support */
+:global(.dark) .controlItem {
+  background: #1f1f1f;
+  border: 1px solid #333;
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+}
+
+/* 滑块容器通用样式 */
+.sliderContainer {
+  margin-top: 8px;
+}
+
+/* 居中容器 */
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 0;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+  .globalWeightSlider :global(.ant-slider-mark-text) {
+    font-size: 7px;
+    max-width: 35px;
+  }
+  
+  .globalFontSizeSlider :global(.ant-slider-mark-text) {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 640px) {
+  .controlItem {
+    padding: 10px 12px;
+    min-height: 80px;
+  }
+  
+  .globalWeightSlider {
+    padding: 0 2px 16px 2px;
+  }
+  
+  .globalWeightSlider :global(.ant-slider-mark-text) {
+    font-size: 6px;
+    max-width: 30px;
+  }
+  
+  .globalFontSizeSlider {
+    padding: 0 2px 14px 2px;
+  }
+  
+  .globalFontSizeSlider :global(.ant-slider-mark-text) {
+    font-size: 8px;
+  }
+}

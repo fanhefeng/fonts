@@ -2,6 +2,7 @@ import { ColorPicker, Row, Col, Slider, Switch, Card, Input, Button, Divider } f
 import { HeartFilled, HeartOutlined, ItalicOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Color } from "@/types/global";
+import styles from './FontConfig.module.css';
 
 type FontConfigProps = {
   searchValue: string;
@@ -117,7 +118,7 @@ export default function FontConfig({
 
 				{/* Global text input */}
 				<div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100">
-					<h4 className="mb-3 text-gray-700 font-medium flex items-center text-sm sm:text-base">
+					<h4 className="mb-3 text-gray-700 dark:text-gray-200 font-medium flex items-center text-sm sm:text-base">
 						{t.controls.globalText}
 					</h4>
 					<Input.TextArea
@@ -132,48 +133,50 @@ export default function FontConfig({
 				<Divider className="!my-4" />
 
 				{/* Style controls - Improved responsive layout */}
-				<div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 sm:p-5 rounded-lg border border-purple-100 font-config-panel">
-					<h4 className="mb-4 text-gray-700 font-medium flex items-center text-sm sm:text-base">
+				<div className={`bg-gradient-to-r from-purple-50 to-pink-50 p-4 sm:p-5 rounded-lg border border-purple-100 ${styles.fontConfigPanel}`}>
+					<h4 className="mb-4 text-gray-700 dark:text-gray-200 font-medium flex items-center text-sm sm:text-base">
 						{t.controls.globalSettings}
 					</h4>
 					
 					{/* Mobile: Single column, Tablet: 2 columns, Desktop: 4 columns */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
 						{/* Font size */}
-						<div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+						<div className={styles.controlItem}>
 							<div className="flex justify-between items-center mb-2">
-								<span className="font-medium text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+								<span className="font-medium text-gray-600 dark:text-gray-300 text-xs sm:text-sm whitespace-nowrap">
 									{t.controls.fontSize}
 								</span>
 								<span className="text-xs text-white bg-gradient-to-r from-blue-400 to-blue-600 px-2 py-1 rounded-full font-medium">
 									{globalFontSize}px
 								</span>
 							</div>
-							<Slider 
-								min={14} 
-								max={64} 
-								value={globalFontSize} 
-								onChange={setGlobalFontSize}
-								marks={{
-									14: '14',
-									24: '24',
-									36: '36',
-									48: '48'
-								}}
-							/>
+							<div className={`${styles.sliderContainer} ${styles.globalFontSizeSlider}`}>
+								<Slider 
+									min={14} 
+									max={64} 
+									value={globalFontSize} 
+									onChange={setGlobalFontSize}
+									marks={{
+										14: '14',
+										24: '24',
+										36: '36',
+										48: '48'
+									}}
+								/>
+							</div>
 						</div>
 
 						{/* Font weight */}
-						<div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+						<div className={styles.controlItem}>
 							<div className="flex justify-between items-center mb-2">
-								<span className="font-medium text-gray-600 text-xs sm:text-sm whitespace-nowrap">
+								<span className="font-medium text-gray-600 dark:text-gray-300 text-xs sm:text-sm whitespace-nowrap">
 									{t.controls.fontWeight}
 								</span>
 								<span className="text-xs text-white bg-gradient-to-r from-purple-400 to-purple-600 px-2 py-1 rounded-full font-medium">
 									{globalFontWeight}
 								</span>
 							</div>
-							<div className="px-2">
+							<div className={`${styles.sliderContainer} ${styles.globalWeightSlider}`}>
 								<Slider 
 									min={100} 
 									max={900} 
@@ -181,28 +184,50 @@ export default function FontConfig({
 									value={globalFontWeight} 
 									onChange={setGlobalFontWeight}
 									marks={language === 'zh' ? {
-										100: '细',
-										400: '正常',
-										700: '粗',
+										100: '极细',
+										200: '特细',
+										300: '细体',
+										400: '常规',
+										500: '中等',
+										600: '半粗',
+										700: '粗体',
+										800: '特粗',
 										900: '超粗'
 									} : {
 										100: 'Thin',
-										400: 'Reg',
+										200: 'XLight',     // 缩短 Extra Light
+										300: 'Light',
+										400: 'Reg',        // 缩短 Regular
+										500: 'Med',        // 缩短 Medium
+										600: 'SBold',      // 缩短 Semi Bold
 										700: 'Bold',
-										900: 'Extra'
+										800: 'XBold',      // 缩短 Extra Bold
+										900: 'Black'
+									}}
+									tooltip={{
+										formatter: (value) => {
+											const weightNames = language === 'zh' ? {
+												100: '极细', 200: '特细', 300: '细体', 400: '常规',
+												500: '中等', 600: '半粗', 700: '粗体', 800: '特粗', 900: '超粗'
+											} : {
+												100: 'Thin', 200: 'Extra Light', 300: 'Light', 400: 'Regular',
+												500: 'Medium', 600: 'Semi Bold', 700: 'Bold', 800: 'Extra Bold', 900: 'Black'
+											};
+											return weightNames[value as keyof typeof weightNames] || value?.toString();
+										}
 									}}
 								/>
 							</div>
 						</div>
 
 						{/* Font color */}
-						<div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+						<div className={styles.controlItem}>
 							<div className="mb-3">
-								<span className="font-medium text-gray-600 text-xs sm:text-sm block whitespace-nowrap">
+								<span className="font-medium text-gray-600 dark:text-gray-300 text-xs sm:text-sm block whitespace-nowrap">
 									{t.controls.fontColor}
 								</span>
 							</div>
-							<div className="flex justify-center">
+							<div className={styles.centerContainer}>
 								<ColorPicker 
 									value={globalFontColor} 
 									onChange={(color) => {
@@ -232,13 +257,13 @@ export default function FontConfig({
 						</div>
 
 						{/* Font style */}
-						<div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+						<div className={styles.controlItem}>
 							<div className="mb-3">
-								<span className="font-medium text-gray-600 text-xs sm:text-sm block whitespace-nowrap">
+								<span className="font-medium text-gray-600 dark:text-gray-300 text-xs sm:text-sm block whitespace-nowrap">
 									{t.controls.fontStyle}
 								</span>
 							</div>
-							<div className="flex justify-center">
+							<div className={styles.centerContainer}>
 								<Switch
 									checked={globalIsItalic}
 									onChange={setGlobalIsItalic}
