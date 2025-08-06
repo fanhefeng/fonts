@@ -1,4 +1,4 @@
-// next.config.ts
+// next.config.mjs
 const nextConfig = {
 	output: "export",
 	reactStrictMode: true,
