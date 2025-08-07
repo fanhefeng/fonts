@@ -634,6 +634,7 @@ export interface FontVariantInfo {
 	src: "../public/fonts/${familyName}/${standardName}",
 	variable: "--font-${familyName.toLowerCase()}",
 	display: "swap",
+	preload: true,
 });
 
 // ${exportName} 字体变体信息
@@ -665,6 +666,7 @@ export const ${exportName}Variants: FontVariantInfo = ${JSON.stringify(variantIn
 			configContent += `	],
 	variable: "--font-${familyName.toLowerCase()}",
 	display: "swap",
+	preload: true,
 });
 
 // ${exportName} 字体变体信息

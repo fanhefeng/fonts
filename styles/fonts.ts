@@ -19,7 +19,7 @@ export const YiQiShengDanTi = localFont({
 	src: "../public/fonts/YiQiShengDanTi/YiQiShengDanTi-Regular.ttf",
 	variable: "--font-yiqishengdanti",
 	display: "swap",
-	preload: true, // 重新启用预加载，因为是重要的中文字体
+	preload: true, // 启用预加载
 });
 
 // YiQiShengDanTi 字体变体信息
@@ -55,7 +55,7 @@ export const HanChanYuanTi = localFont({
 	],
 	variable: "--font-hanchanyuanti",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // HanChanYuanTi 字体变体信息
@@ -86,7 +86,7 @@ export const HanChanYuanTiRound = localFont({
 	src: "../public/fonts/HanChanYuanTiRound/HanChanYuanTiRound-Regular.otf",
 	variable: "--font-hanchanyuantiround",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // HanChanYuanTiRound 字体变体信息
@@ -111,7 +111,7 @@ export const HanChanYuanTiSans = localFont({
 	src: "../public/fonts/HanChanYuanTiSans/HanChanYuanTiSans-Regular.otf",
 	variable: "--font-hanchanyuantisans",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // HanChanYuanTiSans 字体变体信息
@@ -197,7 +197,7 @@ export const HarmonyOSSans = localFont({
 	],
 	variable: "--font-harmonyossans",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // HarmonyOSSans 字体变体信息
@@ -268,7 +268,7 @@ export const Icomoon = localFont({
 	],
 	variable: "--font-icomoon",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // Icomoon 字体变体信息
@@ -293,7 +293,7 @@ export const ZhuLangYinYueFuHaoGePuTi = localFont({
 	src: "../public/fonts/ZhuLangYinYueFuHaoGePuTi/ZhuLangYinYueFuHaoGePuTi-Regular.otf",
 	variable: "--font-zhulangyinyuefuhaogeputi",
 	display: "swap",
-	preload: true, // 重新启用预加载，因为是重要的音乐符号字体
+	preload: true, // 启用预加载
 });
 
 // ZhuLangYinYueFuHaoGePuTi 字体变体信息
@@ -384,7 +384,7 @@ export const PingFangSC = localFont({
 	],
 	variable: "--font-pingfangsc",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // PingFangSC 字体变体信息
@@ -470,7 +470,7 @@ export const PingFangTC = localFont({
 	],
 	variable: "--font-pingfangtc",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // PingFangTC 字体变体信息
@@ -616,7 +616,7 @@ export const Poppins = localFont({
 	],
 	variable: "--font-poppins",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // Poppins 字体变体信息
@@ -831,7 +831,7 @@ export const RobotoMono = localFont({
 	],
 	variable: "--font-robotomono",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // RobotoMono 字体变体信息
@@ -939,7 +939,7 @@ export const RobotoMonoVariableFontwght = localFont({
 	],
 	variable: "--font-robotomonovariablefontwght",
 	display: "swap",
-	preload: false,
+	preload: true,
 });
 
 // RobotoMonoVariableFontwght 字体变体信息
