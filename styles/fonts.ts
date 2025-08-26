@@ -22,24 +22,6 @@ export const YiQiShengDanTi = localFont({
 	preload: true, // 启用预加载
 });
 
-// YiQiShengDanTi 字体变体信息
-export const YiQiShengDanTiVariants: FontVariantInfo = {
-  "totalVariants": 1,
-  "weights": [
-    400
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "YiQiShengDanTi-Regular.ttf"
-    }
-  ]
-};
-
 export const HanChanYuanTi = localFont({
 	src: [
 		{
@@ -58,30 +40,6 @@ export const HanChanYuanTi = localFont({
 	preload: true,
 });
 
-// HanChanYuanTi 字体变体信息
-export const HanChanYuanTiVariants: FontVariantInfo = {
-  "totalVariants": 2,
-  "weights": [
-    400,
-    700
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "HanChanYuanTi-Regular.ttf"
-    },
-    {
-      "weight": 700,
-      "style": "normal",
-      "file": "HanChanYuanTi-Bold.ttf"
-    }
-  ]
-};
-
 export const HanChanYuanTiRound = localFont({
 	src: "../public/fonts/HanChanYuanTiRound/HanChanYuanTiRound-Regular.otf",
 	variable: "--font-hanchanyuantiround",
@@ -89,48 +47,12 @@ export const HanChanYuanTiRound = localFont({
 	preload: true,
 });
 
-// HanChanYuanTiRound 字体变体信息
-export const HanChanYuanTiRoundVariants: FontVariantInfo = {
-  "totalVariants": 1,
-  "weights": [
-    400
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "HanChanYuanTiRound-Regular.otf"
-    }
-  ]
-};
-
 export const HanChanYuanTiSans = localFont({
 	src: "../public/fonts/HanChanYuanTiSans/HanChanYuanTiSans-Regular.otf",
 	variable: "--font-hanchanyuantisans",
 	display: "swap",
 	preload: true,
 });
-
-// HanChanYuanTiSans 字体变体信息
-export const HanChanYuanTiSansVariants: FontVariantInfo = {
-  "totalVariants": 1,
-  "weights": [
-    400
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "HanChanYuanTiSans-Regular.otf"
-    }
-  ]
-};
 
 export const HarmonyOSSans = localFont({
 	src: [
@@ -200,54 +122,6 @@ export const HarmonyOSSans = localFont({
 	preload: true,
 });
 
-// HarmonyOSSans 字体变体信息
-export const HarmonyOSSansVariants: FontVariantInfo = {
-  "totalVariants": 6,
-  "weights": [
-    100,
-    300,
-    400,
-    500,
-    700,
-    900
-  ],
-  "styles": [
-    "italic"
-  ],
-  "variants": [
-    {
-      "weight": 100,
-      "style": "italic",
-      "file": "HarmonyOSSans-Thin-Italic.ttf"
-    },
-    {
-      "weight": 300,
-      "style": "italic",
-      "file": "HarmonyOSSans-Light-Italic.ttf"
-    },
-    {
-      "weight": 400,
-      "style": "italic",
-      "file": "HarmonyOSSans-Regular-Italic.ttf"
-    },
-    {
-      "weight": 500,
-      "style": "italic",
-      "file": "HarmonyOSSans-Medium-Italic.ttf"
-    },
-    {
-      "weight": 700,
-      "style": "italic",
-      "file": "HarmonyOSSans-Bold-Italic.ttf"
-    },
-    {
-      "weight": 900,
-      "style": "italic",
-      "file": "HarmonyOSSans-Black-Italic.ttf"
-    }
-  ]
-};
-
 export const Icomoon = localFont({
 	src: [
 		{
@@ -271,48 +145,12 @@ export const Icomoon = localFont({
 	preload: true,
 });
 
-// Icomoon 字体变体信息
-export const IcomoonVariants: FontVariantInfo = {
-  "totalVariants": 1,
-  "weights": [
-    400
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "Icomoon-Regular.eot"
-    }
-  ]
-};
-
 export const ZhuLangYinYueFuHaoGePuTi = localFont({
 	src: "../public/fonts/ZhuLangYinYueFuHaoGePuTi/ZhuLangYinYueFuHaoGePuTi-Regular.otf",
 	variable: "--font-zhulangyinyuefuhaogeputi",
 	display: "swap",
 	preload: true, // 启用预加载
 });
-
-// ZhuLangYinYueFuHaoGePuTi 字体变体信息
-export const ZhuLangYinYueFuHaoGePuTiVariants: FontVariantInfo = {
-  "totalVariants": 1,
-  "weights": [
-    400
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "ZhuLangYinYueFuHaoGePuTi-Regular.otf"
-    }
-  ]
-};
 
 export const PingFangSC = localFont({
 	src: [
@@ -387,54 +225,6 @@ export const PingFangSC = localFont({
 	preload: true,
 });
 
-// PingFangSC 字体变体信息
-export const PingFangSCVariants: FontVariantInfo = {
-  "totalVariants": 6,
-  "weights": [
-    100,
-    200,
-    300,
-    400,
-    500,
-    600
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 100,
-      "style": "normal",
-      "file": "PingFangSC-Thin.ttf"
-    },
-    {
-      "weight": 200,
-      "style": "normal",
-      "file": "PingFangSC-UltraLight.ttf"
-    },
-    {
-      "weight": 300,
-      "style": "normal",
-      "file": "PingFangSC-Light.ttf"
-    },
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "PingFangSC-Regular.eot"
-    },
-    {
-      "weight": 500,
-      "style": "normal",
-      "file": "PingFangSC-Medium.ttf"
-    },
-    {
-      "weight": 600,
-      "style": "normal",
-      "file": "PingFangSC-SemiBold.ttf"
-    }
-  ]
-};
-
 export const PingFangTC = localFont({
 	src: [
 		{
@@ -472,54 +262,6 @@ export const PingFangTC = localFont({
 	display: "swap",
 	preload: true,
 });
-
-// PingFangTC 字体变体信息
-export const PingFangTCVariants: FontVariantInfo = {
-  "totalVariants": 6,
-  "weights": [
-    100,
-    200,
-    300,
-    400,
-    500,
-    600
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 100,
-      "style": "normal",
-      "file": "PingFangTC-Thin.ttf"
-    },
-    {
-      "weight": 200,
-      "style": "normal",
-      "file": "PingFangTC-UltraLight.ttf"
-    },
-    {
-      "weight": 300,
-      "style": "normal",
-      "file": "PingFangTC-Light.ttf"
-    },
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "PingFangTC-Regular.ttf"
-    },
-    {
-      "weight": 500,
-      "style": "normal",
-      "file": "PingFangTC-Medium.ttf"
-    },
-    {
-      "weight": 600,
-      "style": "normal",
-      "file": "PingFangTC-SemiBold.ttf"
-    }
-  ]
-};
 
 export const Poppins = localFont({
 	src: [
@@ -619,7 +361,365 @@ export const Poppins = localFont({
 	preload: true,
 });
 
-// Poppins 字体变体信息
+export const Pragmata = localFont({
+	src: "../public/fonts/Pragmata/Pragmata-Regular.ttf",
+	variable: "--font-pragmata",
+	display: "swap",
+	preload: true, // 启用预加载，常用编程字体
+});
+
+export const RobotoMono = localFont({
+	src: [
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Thin-Italic.ttf",
+			weight: "100",
+			style: "italic",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Thin.ttf",
+			weight: "100",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-UltraLight-Italic.ttf",
+			weight: "200",
+			style: "italic",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-UltraLight.ttf",
+			weight: "200",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Light-Italic.ttf",
+			weight: "300",
+			style: "italic",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Light.ttf",
+			weight: "300",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Regular-Italic.ttf",
+			weight: "400",
+			style: "italic",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Regular.ttf",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Medium-Italic.ttf",
+			weight: "500",
+			style: "italic",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Medium.ttf",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-SemiBold-Italic.ttf",
+			weight: "600",
+			style: "italic",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-SemiBold.ttf",
+			weight: "600",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Bold-Italic.ttf",
+			weight: "700",
+			style: "italic",
+		},
+		{
+			path: "../public/fonts/RobotoMono/RobotoMono-Bold.ttf",
+			weight: "700",
+			style: "normal",
+		},
+	],
+	variable: "--font-robotomono",
+	display: "swap",
+	preload: true,
+});
+
+export const RobotoMonoVariableFontwght = localFont({
+	src: [
+		{
+			path: "../public/fonts/RobotoMonoVariableFontwght/RobotoMonoVariableFontwght-Regular-Italic.ttf",
+			weight: "400",
+			style: "italic",
+		},
+		{
+			path: "../public/fonts/RobotoMonoVariableFontwght/RobotoMonoVariableFontwght-Regular.ttf",
+			weight: "400",
+			style: "normal",
+		},
+	],
+	variable: "--font-robotomonovariablefontwght",
+	display: "swap",
+	preload: true,
+});
+
+export const DouYinSansBold = localFont({
+	src: "../public/fonts/DouYinSansBold/DouYinSansBold-Bold.otf",
+	variable: "--font-douyinsansbold",
+	display: "swap",
+	preload: true,
+});
+
+export const YiQiShengDanTiVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    400
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "YiQiShengDanTi-Regular.ttf"
+    }
+  ]
+};
+
+export const HanChanYuanTiVariants: FontVariantInfo = {
+  "totalVariants": 2,
+  "weights": [
+    400,
+    700
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "HanChanYuanTi-Regular.ttf"
+    },
+    {
+      "weight": 700,
+      "style": "normal",
+      "file": "HanChanYuanTi-Bold.ttf"
+    }
+  ]
+};
+
+export const HanChanYuanTiRoundVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    400
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "HanChanYuanTiRound-Regular.otf"
+    }
+  ]
+};
+
+export const HanChanYuanTiSansVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    400
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "HanChanYuanTiSans-Regular.otf"
+    }
+  ]
+};
+
+export const HarmonyOSSansVariants: FontVariantInfo = {
+  "totalVariants": 6,
+  "weights": [
+    100,
+    300,
+    400,
+    500,
+    700,
+    900
+  ],
+  "styles": [
+    "italic"
+  ],
+  "variants": [
+    {
+      "weight": 100,
+      "style": "italic",
+      "file": "HarmonyOSSans-Thin-Italic.ttf"
+    },
+    {
+      "weight": 300,
+      "style": "italic",
+      "file": "HarmonyOSSans-Light-Italic.ttf"
+    },
+    {
+      "weight": 400,
+      "style": "italic",
+      "file": "HarmonyOSSans-Regular-Italic.ttf"
+    },
+    {
+      "weight": 500,
+      "style": "italic",
+      "file": "HarmonyOSSans-Medium-Italic.ttf"
+    },
+    {
+      "weight": 700,
+      "style": "italic",
+      "file": "HarmonyOSSans-Bold-Italic.ttf"
+    },
+    {
+      "weight": 900,
+      "style": "italic",
+      "file": "HarmonyOSSans-Black-Italic.ttf"
+    }
+  ]
+};
+
+export const IcomoonVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    400
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "Icomoon-Regular.eot"
+    }
+  ]
+};
+
+export const ZhuLangYinYueFuHaoGePuTiVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    400
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "ZhuLangYinYueFuHaoGePuTi-Regular.otf"
+    }
+  ]
+};
+
+export const PingFangSCVariants: FontVariantInfo = {
+  "totalVariants": 6,
+  "weights": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 100,
+      "style": "normal",
+      "file": "PingFangSC-Thin.ttf"
+    },
+    {
+      "weight": 200,
+      "style": "normal",
+      "file": "PingFangSC-UltraLight.ttf"
+    },
+    {
+      "weight": 300,
+      "style": "normal",
+      "file": "PingFangSC-Light.ttf"
+    },
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "PingFangSC-Regular.eot"
+    },
+    {
+      "weight": 500,
+      "style": "normal",
+      "file": "PingFangSC-Medium.ttf"
+    },
+    {
+      "weight": 600,
+      "style": "normal",
+      "file": "PingFangSC-SemiBold.ttf"
+    }
+  ]
+};
+
+export const PingFangTCVariants: FontVariantInfo = {
+  "totalVariants": 6,
+  "weights": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 100,
+      "style": "normal",
+      "file": "PingFangTC-Thin.ttf"
+    },
+    {
+      "weight": 200,
+      "style": "normal",
+      "file": "PingFangTC-UltraLight.ttf"
+    },
+    {
+      "weight": 300,
+      "style": "normal",
+      "file": "PingFangTC-Light.ttf"
+    },
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "PingFangTC-Regular.ttf"
+    },
+    {
+      "weight": 500,
+      "style": "normal",
+      "file": "PingFangTC-Medium.ttf"
+    },
+    {
+      "weight": 600,
+      "style": "normal",
+      "file": "PingFangTC-SemiBold.ttf"
+    }
+  ]
+};
+
 export const PoppinsVariants: FontVariantInfo = {
   "totalVariants": 18,
   "weights": [
@@ -731,14 +831,6 @@ export const PoppinsVariants: FontVariantInfo = {
   ]
 };
 
-export const Pragmata = localFont({
-	src: "../public/fonts/Pragmata/Pragmata-Regular.ttf",
-	variable: "--font-pragmata",
-	display: "swap",
-	preload: true, // 启用预加载，常用编程字体
-});
-
-// Pragmata 字体变体信息
 export const PragmataVariants: FontVariantInfo = {
   "totalVariants": 1,
   "weights": [
@@ -756,85 +848,6 @@ export const PragmataVariants: FontVariantInfo = {
   ]
 };
 
-export const RobotoMono = localFont({
-	src: [
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Thin-Italic.ttf",
-			weight: "100",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Thin.ttf",
-			weight: "100",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-UltraLight-Italic.ttf",
-			weight: "200",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-UltraLight.ttf",
-			weight: "200",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Light-Italic.ttf",
-			weight: "300",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Light.ttf",
-			weight: "300",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Regular-Italic.ttf",
-			weight: "400",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Medium-Italic.ttf",
-			weight: "500",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Medium.ttf",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-SemiBold-Italic.ttf",
-			weight: "600",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-SemiBold.ttf",
-			weight: "600",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Bold-Italic.ttf",
-			weight: "700",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Bold.ttf",
-			weight: "700",
-			style: "normal",
-		},
-	],
-	variable: "--font-robotomono",
-	display: "swap",
-	preload: true,
-});
-
-// RobotoMono 字体变体信息
 export const RobotoMonoVariants: FontVariantInfo = {
   "totalVariants": 14,
   "weights": [
@@ -924,25 +937,6 @@ export const RobotoMonoVariants: FontVariantInfo = {
   ]
 };
 
-export const RobotoMonoVariableFontwght = localFont({
-	src: [
-		{
-			path: "../public/fonts/RobotoMonoVariableFontwght/RobotoMonoVariableFontwght-Regular-Italic.ttf",
-			weight: "400",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMonoVariableFontwght/RobotoMonoVariableFontwght-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-	],
-	variable: "--font-robotomonovariablefontwght",
-	display: "swap",
-	preload: true,
-});
-
-// RobotoMonoVariableFontwght 字体变体信息
 export const RobotoMonoVariableFontwghtVariants: FontVariantInfo = {
   "totalVariants": 2,
   "weights": [
@@ -966,7 +960,51 @@ export const RobotoMonoVariableFontwghtVariants: FontVariantInfo = {
   ]
 };
 
+export const DouYinSansBoldVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    700
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 700,
+      "style": "normal",
+      "file": "DouYinSansBold-Bold.otf"
+    }
+  ]
+};
+
+export const Cubic = localFont({
+	src: "../public/fonts/Cubic/Cubic-Regular.ttf",
+	variable: "--font-cubic",
+	display: "swap",
+	preload: true,
+});
+
+// Cubic 字体变体信息
+export const CubicVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    400
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "Cubic-Regular.ttf"
+    }
+  ]
+};
+
 export const myFonts: NextFontWithVariable[] = [
+	Cubic,
+	DouYinSansBold,
 	HanChanYuanTi,
 	HanChanYuanTiRound,
 	HanChanYuanTiSans,
@@ -997,4 +1035,6 @@ export const fontVariantsMap: { [key: string]: FontVariantInfo } = {
 	Pragmata: PragmataVariants,
 	RobotoMono: RobotoMonoVariants,
 	RobotoMonoVariableFontwght: RobotoMonoVariableFontwghtVariants,
+	DouYinSansBold: DouYinSansBoldVariants,
+	Cubic: CubicVariants,
 };
