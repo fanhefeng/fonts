@@ -4,17 +4,19 @@ import { HeartFilled, HeartOutlined, SettingOutlined, ItalicOutlined, DownloadOu
 import { useLanguage } from "@/contexts/LanguageContext";
 import { downloadFontFile } from "@/utils/fontDownload";
 import { fontVariantsMap } from "../../../styles/fonts";
-import { 
-	findClosestWeight, 
-	findAvailableStyle, 
-	getAvailableWeightMarks, 
+
+import {
+	findClosestWeight,
+	findAvailableStyle,
+	getAvailableWeightMarks,
 	supportsItalic,
 	supportsNormal,
 	getOnlyAvailableStyle,
-	createWeightSliderConfig 
+	createWeightSliderConfig,
 } from "@/utils/fontVariants";
 import type { Color, NextFontWithVariableWithLiked, FontVariantInfo } from "@/types/global";
-import styles from './MyFont.module.css';
+import styles from "./MyFont.module.css";
+
 
 type MyFontProps = {
 	font: NextFontWithVariableWithLiked;
@@ -54,9 +56,151 @@ export default function MyFont({
 	const [individualFontColor, setIndividualFontColor] = useState<Color | null>(null);
 	const [individualIsItalic, setIndividualIsItalic] = useState<boolean | null>(null);
 
+	// Font loading state - 单向状态机
+	const [fontLoadingStatus, setFontLoadingStatus] = useState<"loading" | "loaded" | "failed" | "not-started">("not-started");
+	const [allVariantsLoaded, setAllVariantsLoaded] = useState(false);
+
 	// Adjusted values based on font variants
 	const [adjustedGlobalWeight, setAdjustedGlobalWeight] = useState<number>(globalFontWeight);
 	const [adjustedGlobalStyle, setAdjustedGlobalStyle] = useState<boolean>(globalIsItalic);
+
+	// 字体加载管理 - 使用Font Loading API
+	useEffect(() => {
+		let isMounted = true;
+		let loadingPromises: Promise<FontFace>[] = [];
+
+		const loadFontVariants = async () => {
+			if (!fontVariants || !fontVariants.variants || fontVariants.variants.length === 0) {
+				console.log(`📝 字体 ${fontFamilyName} 没有变体信息，直接标记为已加载`);
+				setAllVariantsLoaded(true);
+				setFontLoadingStatus("loaded");
+				return;
+			}
+
+			console.log(`🚀 开始加载字体: ${fontFamilyName} (${fontVariants.variants.length} 个变体)`);
+			setFontLoadingStatus("loading");
+
+			try {
+				// 使用Font Loading API主动加载字体
+				loadingPromises = fontVariants.variants.map(async (variant) => {
+					const fontWeight = variant.weight.toString();
+					const fontStyle = variant.style;
+					
+					// 构造字体描述符
+					const fontDescriptor = `${fontStyle === "italic" ? "italic " : ""}${fontWeight} 16px "${fontFamilyName}"`;
+					
+					console.log(`📥 加载字体变体: ${fontFamilyName} ${fontWeight} ${fontStyle}`);
+					
+					// 使用document.fonts.load()主动加载字体
+					if (document.fonts && document.fonts.load) {
+						try {
+							const loadedFonts = await document.fonts.load(fontDescriptor);
+							console.log(`✅ 字体变体加载完成: ${fontFamilyName} ${fontWeight} ${fontStyle} (${loadedFonts.length} 个字体)`);
+							return loadedFonts[0] as FontFace; // 返回第一个加载的字体
+						} catch (error) {
+							console.warn(`⚠️ 字体变体加载失败: ${fontFamilyName} ${fontWeight} ${fontStyle}`, error);
+							throw error;
+						}
+					} else {
+						// 如果不支持Font Loading API，使用传统方法
+						return new Promise<FontFace>((resolve, reject) => {
+							const testElement = document.createElement('div');
+							testElement.style.fontFamily = `"${fontFamilyName}", serif`;
+							testElement.style.fontWeight = fontWeight;
+							testElement.style.fontStyle = fontStyle;
+							testElement.style.fontSize = '16px';
+							testElement.style.position = 'absolute';
+							testElement.style.left = '-9999px';
+							testElement.style.opacity = '0';
+							testElement.textContent = 'Font loading test';
+							
+							document.body.appendChild(testElement);
+							
+							// 检查字体是否加载
+							let attempts = 0;
+							const maxAttempts = 100; // 10秒超时
+							
+							const checkFont = () => {
+								attempts++;
+								const computed = window.getComputedStyle(testElement);
+								const actualFamily = computed.fontFamily;
+								
+								if (actualFamily.includes(fontFamilyName) || attempts >= maxAttempts) {
+									document.body.removeChild(testElement);
+									if (attempts >= maxAttempts) {
+										reject(new Error(`字体加载超时: ${fontFamilyName} ${fontWeight} ${fontStyle}`));
+									} else {
+										// 创建一个模拟的FontFace对象用于兼容性
+										const mockFontFace = {
+											family: fontFamilyName,
+											weight: fontWeight,
+											style: fontStyle
+										} as FontFace;
+										resolve(mockFontFace);
+									}
+								} else {
+									setTimeout(checkFont, 100);
+								}
+							};
+							
+							setTimeout(checkFont, 100);
+						});
+					}
+				});
+
+				// 等待所有字体变体加载完成
+				const results = await Promise.allSettled(loadingPromises);
+				
+				const successCount = results.filter(result => result.status === 'fulfilled').length;
+				const failedCount = results.filter(result => result.status === 'rejected').length;
+				
+				console.log(`📊 字体 ${fontFamilyName} 加载结果: 成功 ${successCount}/${fontVariants.variants.length}, 失败 ${failedCount}`);
+				
+				if (isMounted) {
+					if (successCount === fontVariants.variants.length) {
+						// 所有变体都加载成功
+						setAllVariantsLoaded(true);
+						setFontLoadingStatus("loaded");
+						console.log(`🎉 字体 ${fontFamilyName} 所有变体加载完成！`);
+					} else if (successCount > 0) {
+						// 部分变体加载成功
+						setAllVariantsLoaded(true);
+						setFontLoadingStatus("loaded");
+						console.log(`⚠️ 字体 ${fontFamilyName} 部分变体加载完成 (${successCount}/${fontVariants.variants.length})`);
+					} else {
+						// 所有变体都加载失败
+						setAllVariantsLoaded(false);
+						setFontLoadingStatus("failed");
+						console.error(`❌ 字体 ${fontFamilyName} 所有变体加载失败`);
+					}
+				}
+				
+			} catch (error) {
+				console.error(`❌ 字体 ${fontFamilyName} 字体加载过程出错:`, error);
+				if (isMounted) {
+					setAllVariantsLoaded(false);
+					setFontLoadingStatus("failed");
+				}
+			}
+		};
+
+		// 页面加载完成后立即开始加载字体
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', loadFontVariants);
+		} else {
+			// 页面已经加载完成，立即开始
+			setTimeout(loadFontVariants, 100);
+		}
+
+		return () => {
+			isMounted = false;
+			document.removeEventListener('DOMContentLoaded', loadFontVariants);
+			// 取消正在进行的字体加载
+			loadingPromises.forEach(() => {
+				// Promise无法直接取消，但我们可以忽略结果
+			});
+		};
+	}, [fontFamilyName, fontVariants]);
 
 	// Effect to adjust global settings when they change
 	useEffect(() => {
@@ -68,11 +212,11 @@ export default function MyFont({
 			// If this font only supports one style, force that style
 			const onlyStyle = getOnlyAvailableStyle(fontVariants);
 			if (onlyStyle) {
-				setAdjustedGlobalStyle(onlyStyle === 'italic');
+				setAdjustedGlobalStyle(onlyStyle === "italic");
 			} else {
 				// Auto-adjust global italic style if not supported
-				const availableStyle = findAvailableStyle(fontVariants.styles, globalIsItalic ? 'italic' : 'normal');
-				setAdjustedGlobalStyle(availableStyle === 'italic');
+				const availableStyle = findAvailableStyle(fontVariants.styles, globalIsItalic ? "italic" : "normal");
+				setAdjustedGlobalStyle(availableStyle === "italic");
 			}
 		} else {
 			// If no variant info, use global values as-is
@@ -82,7 +226,7 @@ export default function MyFont({
 	}, [globalFontWeight, globalIsItalic, fontVariants]);
 
 	// Get weight configuration for this font
-	const weightConfig = fontVariants 
+	const weightConfig = fontVariants
 		? createWeightSliderConfig(fontVariants.weights, individualFontWeight ?? adjustedGlobalWeight, language)
 		: getAvailableWeightMarks(undefined, language);
 
@@ -123,23 +267,22 @@ export default function MyFont({
 		return sample?.content || TEXT_SAMPLES[0].content;
 	};
 
-	// Font style object
+	// Font style object with dynamic font switching
 	const getFontStyle = () => {
 		const finalWeight = individualFontWeight ?? adjustedGlobalWeight;
 		const finalStyle = individualIsItalic ?? adjustedGlobalStyle;
-		
-		// Ensure the final weight is available for this font
-		const adjustedWeight = fontVariants 
-			? findClosestWeight(fontVariants.weights, finalWeight)
-			: finalWeight;
 
-		// Ensure the final style is available for this font  
-		const adjustedStyle = fontVariants
-			? findAvailableStyle(fontVariants.styles, finalStyle ? 'italic' : 'normal') === 'italic'
-			: finalStyle;
+		// Ensure the final weight is available for this font
+		const adjustedWeight = fontVariants ? findClosestWeight(fontVariants.weights, finalWeight) : finalWeight;
+
+		// Ensure the final style is available for this font
+		const adjustedStyle = fontVariants ? findAvailableStyle(fontVariants.styles, finalStyle ? "italic" : "normal") === "italic" : finalStyle;
+
+		// 根据字体加载状态决定使用的字体
+		const fontFamily = allVariantsLoaded ? `${font.style.fontFamily}, var(--font-chinese-fallback)` : "var(--font-chinese-fallback)";
 
 		const style = {
-			fontFamily: font.style.fontFamily,
+			fontFamily,
 			color: (individualFontColor ?? globalFontColor).toString(),
 			fontSize: `${individualFontSize ?? globalFontSize}px`,
 			fontWeight: adjustedWeight,
@@ -147,6 +290,8 @@ export default function MyFont({
 			lineHeight: 1.6,
 			wordWrap: "break-word" as const,
 			whiteSpace: "pre-wrap" as const,
+			// 添加过渡效果使字体切换更平滑
+			transition: "font-family 0.3s ease-in-out",
 		};
 		return style;
 	};
@@ -172,26 +317,20 @@ export default function MyFont({
 			// Use individual settings if available, otherwise use adjusted global settings
 			const currentWeight = individualFontWeight ?? adjustedGlobalWeight;
 			const currentStyle = individualIsItalic ?? adjustedGlobalStyle;
-			
+
 			// Ensure we use available weight and style for this font
-			const finalWeight = fontVariants 
-				? findClosestWeight(fontVariants.weights, currentWeight)
-				: currentWeight;
+			const finalWeight = fontVariants ? findClosestWeight(fontVariants.weights, currentWeight) : currentWeight;
 			const finalStyle = fontVariants
-				? findAvailableStyle(fontVariants.styles, currentStyle ? 'italic' : 'normal')
-				: (currentStyle ? 'italic' : 'normal');
-			
-			await downloadFontFile(
-				font, 
-				"ttf", 
-				finalWeight, 
-				finalStyle as 'normal' | 'italic',
-				fontVariants
-			);
-			
+				? findAvailableStyle(fontVariants.styles, currentStyle ? "italic" : "normal")
+				: currentStyle
+				? "italic"
+				: "normal";
+
+			await downloadFontFile(font, "ttf", finalWeight, finalStyle as "normal" | "italic", fontVariants);
+
 			message.success(
-				language === "zh" 
-					? `${fontFamilyName} 字体下载成功！(${finalWeight} ${finalStyle === 'italic' ? '斜体' : '正常'})` 
+				language === "zh"
+					? `${fontFamilyName} 字体下载成功！(${finalWeight} ${finalStyle === "italic" ? "斜体" : "正常"})`
 					: `${fontFamilyName} font downloaded successfully! (${finalWeight} ${finalStyle})`
 			);
 		} catch (error) {
@@ -244,6 +383,24 @@ export default function MyFont({
 					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 						<div className="flex items-center space-x-2 min-w-0">
 							<h3 className="text-base sm:text-lg font-medium text-gray-700 mb-0 truncate">{fontFamilyName}</h3>
+
+							{/* 字体加载状态指示器 - 准确显示加载状态 */}
+							{fontLoadingStatus === "loading" && (
+								<span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full whitespace-nowrap">
+									⏳ {language === "zh" ? "加载中" : "Loading"}
+								</span>
+							)}
+							{fontLoadingStatus === "loaded" && (
+								<span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full whitespace-nowrap">
+									✅ {language === "zh" ? "已加载" : "Loaded"}
+								</span>
+							)}
+							{fontLoadingStatus === "failed" && (
+								<span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full whitespace-nowrap">
+									❌ {language === "zh" ? "加载失败" : "Failed"}
+								</span>
+							)}
+
 							{hasIndividualSettings && (
 								<span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full whitespace-nowrap">
 									{language === "zh" ? "个别设置" : "Custom"}
@@ -330,7 +487,11 @@ export default function MyFont({
 											</span>
 										</div>
 										<div className={`px-1 sm:px-2 ${styles.weightSliderContainer}`}>
-											<div className={`${styles.sliderWrapper} ${'useShortMarks' in weightConfig && weightConfig.useShortMarks ? styles.shortMarks : styles.fullMarks}`}>
+											<div
+												className={`${styles.sliderWrapper} ${
+													"useShortMarks" in weightConfig && weightConfig.useShortMarks ? styles.shortMarks : styles.fullMarks
+												}`}
+											>
 												<Slider
 													min={weightConfig.min}
 													max={weightConfig.max}
@@ -338,33 +499,45 @@ export default function MyFont({
 													value={individualFontWeight ?? adjustedGlobalWeight}
 													onChange={(value) => {
 														// If we have font variants, ensure the selected weight is available
-														const adjustedValue = fontVariants 
-															? findClosestWeight(fontVariants.weights, value)
-															: value;
+														const adjustedValue = fontVariants ? findClosestWeight(fontVariants.weights, value) : value;
 														setIndividualFontWeight(adjustedValue);
 													}}
 													marks={weightConfig.marks}
 													tooltip={{
 														formatter: (value) => {
-															const weightNames = language === 'zh' ? {
-																100: '极细', 200: '特细', 300: '细', 400: '正常',
-																500: '中等', 600: '中粗', 700: '粗', 800: '特粗', 900: '超粗'
-															} : {
-																100: 'Thin', 200: 'ExtraLight', 300: 'Light', 400: 'Regular',
-																500: 'Medium', 600: 'SemiBold', 700: 'Bold', 800: 'ExtraBold', 900: 'Black'
-															};
+															const weightNames =
+																language === "zh"
+																	? {
+																			100: "极细",
+																			200: "特细",
+																			300: "细",
+																			400: "正常",
+																			500: "中等",
+																			600: "中粗",
+																			700: "粗",
+																			800: "特粗",
+																			900: "超粗",
+																	  }
+																	: {
+																			100: "Thin",
+																			200: "ExtraLight",
+																			300: "Light",
+																			400: "Regular",
+																			500: "Medium",
+																			600: "SemiBold",
+																			700: "Bold",
+																			800: "ExtraBold",
+																			900: "Black",
+																	  };
 															return weightNames[value as keyof typeof weightNames] || value?.toString();
-														}
+														},
 													}}
 												/>
 											</div>
 										</div>
 										{fontVariants && (
 											<div className="mt-1 text-xs text-blue-600 hidden sm:block">
-												{language === 'zh' 
-													? `可用权重: ${fontVariants.weights.join(', ')}`
-													: `Available weights: ${fontVariants.weights.join(', ')}`
-												}
+												{language === "zh" ? `可用权重: ${fontVariants.weights.join(", ")}` : `Available weights: ${fontVariants.weights.join(", ")}`}
 											</div>
 										)}
 									</div>
@@ -426,9 +599,7 @@ export default function MyFont({
 														return; // Do nothing if only one style is available
 													}
 													// Only allow the change if the font supports the target style
-													const finalValue = checked ? 
-														(italicSupported ? true : false) : 
-														(normalSupported ? false : true);
+													const finalValue = checked ? (italicSupported ? true : false) : normalSupported ? false : true;
 													setIndividualIsItalic(finalValue);
 												}}
 												disabled={onlyAvailableStyle !== null || (!italicSupported && !normalSupported)}
@@ -439,28 +610,23 @@ export default function MyFont({
 										{fontVariants && (
 											<div className="mt-1 text-xs text-center">
 												{onlyAvailableStyle ? (
-													<span className={onlyAvailableStyle === 'italic' ? "text-blue-600" : "text-green-600"}>
-														{language === 'zh' ? 
-															(onlyAvailableStyle === 'italic' ? '仅斜体' : '仅正常') : 
-															(onlyAvailableStyle === 'italic' ? 'Italic only' : 'Normal only')
-														}
+													<span className={onlyAvailableStyle === "italic" ? "text-blue-600" : "text-green-600"}>
+														{language === "zh"
+															? onlyAvailableStyle === "italic"
+																? "仅斜体"
+																: "仅正常"
+															: onlyAvailableStyle === "italic"
+															? "Italic only"
+															: "Normal only"}
 													</span>
 												) : italicSupported && normalSupported ? (
-													<span className="text-green-600 hidden sm:inline">
-														{language === 'zh' ? '正常+斜体' : 'Both styles'}
-													</span>
+													<span className="text-green-600 hidden sm:inline">{language === "zh" ? "正常+斜体" : "Both styles"}</span>
 												) : italicSupported ? (
-													<span className="text-green-600 hidden sm:inline">
-														{language === 'zh' ? '支持斜体' : 'Italic supported'}
-													</span>
+													<span className="text-green-600 hidden sm:inline">{language === "zh" ? "支持斜体" : "Italic supported"}</span>
 												) : normalSupported ? (
-													<span className="text-green-600 hidden sm:inline">
-														{language === 'zh' ? '支持正常' : 'Normal supported'}  
-													</span>
+													<span className="text-green-600 hidden sm:inline">{language === "zh" ? "支持正常" : "Normal supported"}</span>
 												) : (
-													<span className="text-gray-400 hidden sm:inline">
-														{language === 'zh' ? '样式不可用' : 'Style unavailable'}
-													</span>
+													<span className="text-gray-400 hidden sm:inline">{language === "zh" ? "样式不可用" : "Style unavailable"}</span>
 												)}
 											</div>
 										)}
@@ -497,7 +663,7 @@ export default function MyFont({
 							overflowWrap: "break-word",
 						}}
 						className={`font-preview-area transition-all duration-300 hover:shadow-md hover:border-blue-200 w-full flex-shrink-0 ${
-							showIndividualConfig ? 'mt-2' : ''
+							showIndividualConfig ? "mt-2" : ""
 						}`}
 					>
 						{getCurrentSampleText()}

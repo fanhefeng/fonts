@@ -19,7 +19,7 @@ export const YiQiShengDanTi = localFont({
 	src: "../public/fonts/YiQiShengDanTi/YiQiShengDanTi-Regular.ttf",
 	variable: "--font-yiqishengdanti",
 	display: "swap",
-	preload: true, // 启用预加载
+	preload: false, // 非阻塞加载
 });
 
 export const HanChanYuanTi = localFont({
@@ -37,21 +37,21 @@ export const HanChanYuanTi = localFont({
 	],
 	variable: "--font-hanchanyuanti",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const HanChanYuanTiRound = localFont({
 	src: "../public/fonts/HanChanYuanTiRound/HanChanYuanTiRound-Regular.otf",
 	variable: "--font-hanchanyuantiround",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const HanChanYuanTiSans = localFont({
 	src: "../public/fonts/HanChanYuanTiSans/HanChanYuanTiSans-Regular.otf",
 	variable: "--font-hanchanyuantisans",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const HarmonyOSSans = localFont({
@@ -119,7 +119,7 @@ export const HarmonyOSSans = localFont({
 	],
 	variable: "--font-harmonyossans",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const Icomoon = localFont({
@@ -142,14 +142,14 @@ export const Icomoon = localFont({
 	],
 	variable: "--font-icomoon",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const ZhuLangYinYueFuHaoGePuTi = localFont({
 	src: "../public/fonts/ZhuLangYinYueFuHaoGePuTi/ZhuLangYinYueFuHaoGePuTi-Regular.otf",
 	variable: "--font-zhulangyinyuefuhaogeputi",
 	display: "swap",
-	preload: true, // 启用预加载
+	preload: false, // 非阻塞加载
 });
 
 export const PingFangSC = localFont({
@@ -222,7 +222,7 @@ export const PingFangSC = localFont({
 	],
 	variable: "--font-pingfangsc",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const PingFangTC = localFont({
@@ -260,7 +260,7 @@ export const PingFangTC = localFont({
 	],
 	variable: "--font-pingfangtc",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const Poppins = localFont({
@@ -358,14 +358,14 @@ export const Poppins = localFont({
 	],
 	variable: "--font-poppins",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const Pragmata = localFont({
 	src: "../public/fonts/Pragmata/Pragmata-Regular.ttf",
 	variable: "--font-pragmata",
 	display: "swap",
-	preload: true, // 启用预加载，常用编程字体
+	preload: false, // 非阻塞加载
 });
 
 export const RobotoMono = localFont({
@@ -443,7 +443,7 @@ export const RobotoMono = localFont({
 	],
 	variable: "--font-robotomono",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const RobotoMonoVariableFontwght = localFont({
@@ -461,14 +461,21 @@ export const RobotoMonoVariableFontwght = localFont({
 	],
 	variable: "--font-robotomonovariablefontwght",
 	display: "swap",
-	preload: true,
+	preload: false,
 });
 
 export const DouYinSansBold = localFont({
 	src: "../public/fonts/DouYinSansBold/DouYinSansBold-Bold.otf",
 	variable: "--font-douyinsansbold",
 	display: "swap",
-	preload: true,
+	preload: false,
+});
+
+export const Cubic = localFont({
+	src: "../public/fonts/Cubic/Cubic-Regular.ttf",
+	variable: "--font-cubic",
+	display: "swap",
+	preload: false,
 });
 
 export const YiQiShengDanTiVariants: FontVariantInfo = {
@@ -977,14 +984,6 @@ export const DouYinSansBoldVariants: FontVariantInfo = {
   ]
 };
 
-export const Cubic = localFont({
-	src: "../public/fonts/Cubic/Cubic-Regular.ttf",
-	variable: "--font-cubic",
-	display: "swap",
-	preload: true,
-});
-
-// Cubic 字体变体信息
 export const CubicVariants: FontVariantInfo = {
   "totalVariants": 1,
   "weights": [
@@ -998,6 +997,59 @@ export const CubicVariants: FontVariantInfo = {
       "weight": 400,
       "style": "normal",
       "file": "Cubic-Regular.ttf"
+    }
+  ]
+};
+
+export const WenYueHouXianDaiTi = localFont({
+	src: [
+		{
+			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-UltraLight.otf",
+			weight: "200",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Light.otf",
+			weight: "300",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Regular.otf",
+			weight: "400",
+			style: "normal",
+		},
+	],
+	variable: "--font-wenyuehouxiandaiti",
+	display: "swap",
+	preload: false, // 非阻塞加载优化
+});
+
+// WenYueHouXianDaiTi 字体变体信息
+export const WenYueHouXianDaiTiVariants: FontVariantInfo = {
+  "totalVariants": 3,
+  "weights": [
+    200,
+    300,
+    400
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 200,
+      "style": "normal",
+      "file": "WenYueHouXianDaiTi-UltraLight.otf"
+    },
+    {
+      "weight": 300,
+      "style": "normal",
+      "file": "WenYueHouXianDaiTi-Light.otf"
+    },
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "WenYueHouXianDaiTi-Regular.otf"
     }
   ]
 };
@@ -1016,6 +1068,7 @@ export const myFonts: NextFontWithVariable[] = [
 	Pragmata,
 	RobotoMono,
 	RobotoMonoVariableFontwght,
+	WenYueHouXianDaiTi,
 	YiQiShengDanTi,
 	ZhuLangYinYueFuHaoGePuTi,
 ];
@@ -1037,4 +1090,5 @@ export const fontVariantsMap: { [key: string]: FontVariantInfo } = {
 	RobotoMonoVariableFontwght: RobotoMonoVariableFontwghtVariants,
 	DouYinSansBold: DouYinSansBoldVariants,
 	Cubic: CubicVariants,
+	WenYueHouXianDaiTi: WenYueHouXianDaiTiVariants,
 };

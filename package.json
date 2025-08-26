@@ -14,7 +14,8 @@
 		"build": "rm -rf out && next build",
 		"start": "next start",
 		"lint": "next lint",
-		"font:add": "node scripts/font-manager.js"
+		"font:add": "node scripts/font-manager.js",
+		"font:scan": "node scripts/font-manager.js scan"
 	},
 	"dependencies": {
 		"@ant-design/icons": "^6.0.0",
@@ -26,11 +27,11 @@
 		"react-dom": "^19.0.0"
 	},
 	"devDependencies": {
+		"@clack/prompts": "^0.11.0",
 		"@tailwindcss/postcss": "^4",
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
-		"@clack/prompts": "^0.11.0",
 		"eslint": "^9.32.0",
 		"eslint-config-next": "^15.4.5",
 		"tailwindcss": "^4",
