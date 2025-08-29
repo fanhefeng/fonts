@@ -1,6 +1,6 @@
 "use client";
 
-import { myFonts } from "../../styles/fonts";
+import { myFonts, DouYinSansBold} from "../../styles/fonts";
 import MyFont from "@/components/ui/MyFont";
 import FontConfig from "@/components/ui/FontConfig";
 import { Typography, Spin, Button, Space } from "antd";
@@ -27,16 +27,20 @@ export default function Home() {
 	// Global style state
 	const [globalFontSize, setGlobalFontSize] = useState<number>(24);
 	const [globalIsItalic, setGlobalIsItalic] = useState<boolean>(false);
-	const [globalFontColor, setGlobalFontColor] = useState<Color>("#000000");
+	const [globalFontColor, setGlobalFontColor] = useState<Color>("#3498db");
 	const [globalFontWeight, setGlobalFontWeight] = useState<number>(400);
 	const [globalCustomText, setGlobalCustomText] = useState<string>("");
 
 	// Process fonts with like status
 	const processedFonts = useMemo(() => {
-		return myFonts.map((font) => ({
-			...font,
-			isLiked: isLiked(font.className),
-		}));
+		return myFonts.map((font) => {
+			// 提取字体名称作为稳定的标识符
+			const fontName = font.style.fontFamily.split(",")[0].slice(1, -1);
+			return {
+				...font,
+				isLiked: isLiked(fontName),
+			};
+		});
 	}, [isLiked]);
 
 	// Filter fonts
@@ -72,32 +76,48 @@ export default function Home() {
 	// Loading state
 	if (!isLoaded) {
 		return (
-			<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+			<div 
+				className="min-h-screen flex items-center justify-center" 
+				style={{ backgroundColor: isDark ? "#141414" : "#f5f5f5" }}
+			>
 				<div className="text-center">
 					<Spin size="large" />
-					<p className="mt-4 text-gray-600">{t.loading}</p>
+					<p 
+						className="mt-4" 
+						style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)" }}
+					>
+						{t.loading}
+					</p>
 				</div>
 			</div>
 		);
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 transition-colors duration-300">
+		<div 
+			className="min-h-screen transition-colors duration-300" 
+			style={{ backgroundColor: isDark ? "#141414" : "#f5f5f5" }}
+		>
 			{/* Header */}
-			<div className="border-b border-gray-100 bg-white/90 backdrop-blur-sm sticky top-0 z-10 shadow-sm">
-				<div className="container mx-auto px-6 py-6 max-w-7xl">
+			<div 
+				className="border-b sticky top-0 z-10 shadow-sm backdrop-blur-sm" 
+				style={{ 
+					borderColor: isDark ? "#434343" : "#d9d9d9", 
+					backgroundColor: isDark ? "#1f1f1f" : "#ffffff" 
+				}}
+			>
+				<div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 max-w-7xl">
 					<div className="flex items-center justify-between">
 						{/* Left side - Title */}
-						<div className="text-center flex-1">
-							<Title level={1} className="!mb-2 font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+						<div className="flex-1">
+							<Title level={1} className={`!mb-0 font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${DouYinSansBold.className}`}>
 								{t.header.title}
 							</Title>
-							<p className="text-gray-500 text-sm max-w-md mx-auto">{t.header.subtitle}</p>
 						</div>
 
 						{/* Right side - Theme and Language controls */}
-						<div className="absolute right-6 top-6">
-							<Space>
+						<div className="absolute right-4 sm:right-6 top-4 sm:top-6">
+							<Space size="small">
 								<Button
 									type="text"
 									icon={isDark ? <BulbFilled /> : <BulbOutlined />}
@@ -122,9 +142,9 @@ export default function Home() {
 			</div>
 
 			{/* Main Content */}
-			<div className="container mx-auto px-6 py-8 max-w-7xl">
+			<div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-7xl">
 				{/* Global Controls */}
-				<div className="mb-8">
+				<div className="mb-6 sm:mb-8">
 					<FontConfig
 						searchValue={searchValue}
 						setSearchValue={setSearchValue}
@@ -145,9 +165,16 @@ export default function Home() {
 
 				{/* Stats Bar */}
 				{filteredFonts.length > 0 && (
-					<div className="mb-6 flex items-center justify-between text-sm text-gray-600 bg-white/60 backdrop-blur-sm rounded-lg px-4 py-2 border border-gray-100">
+					<div 
+						className="mb-4 sm:mb-6 flex items-center justify-between text-sm rounded-lg px-3 sm:px-4 py-2 border" 
+						style={{ 
+							color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)", 
+							backgroundColor: isDark ? "#1f1f1f" : "#ffffff", 
+							borderColor: isDark ? "#434343" : "#d9d9d9" 
+						}}
+					>
 						<span>
-							{t.stats.showing} {filteredFonts.length} {t.stats.fonts}
+							{t.stats.showing} {filteredFonts.length}
 						</span>
 						<span>
 							{t.stats.favorited} {getLikeCount()} {language === "zh" ? "个" : ""}
@@ -156,7 +183,7 @@ export default function Home() {
 				)}
 
 				{/* Font Display Area */}
-				<div className="grid gap-6">
+				<div className="grid gap-4 sm:gap-6">
 					{filteredFonts.length > 0 ? (
 						filteredFonts.map((font) => (
 							<MyFont
@@ -171,10 +198,25 @@ export default function Home() {
 							/>
 						))
 					) : (
-						<div className="text-center py-20">
-							<div className="text-gray-300 text-6xl mb-6">🔍</div>
-							<h3 className="text-xl font-medium text-gray-600 mb-3">{showOnlyLiked ? t.empty.noFavorites : t.empty.noResults}</h3>
-							<p className="text-gray-400 max-w-md mx-auto">{showOnlyLiked ? t.empty.noFavoritesDesc : t.empty.noResultsDesc}</p>
+						<div className="text-center py-16 sm:py-20">
+							<div 
+								className="text-5xl sm:text-6xl mb-4 sm:mb-6" 
+								style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}
+							>
+								🔍
+							</div>
+							<h3 
+								className="text-lg sm:text-xl font-medium mb-2 sm:mb-3" 
+								style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)" }}
+							>
+								{showOnlyLiked ? t.empty.noFavorites : t.empty.noResults}
+							</h3>
+							<p 
+								className="max-w-md mx-auto px-4" 
+								style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}
+							>
+								{showOnlyLiked ? t.empty.noFavoritesDesc : t.empty.noResultsDesc}
+							</p>
 						</div>
 					)}
 				</div>

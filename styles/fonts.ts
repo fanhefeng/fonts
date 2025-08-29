@@ -478,6 +478,29 @@ export const Cubic = localFont({
 	preload: false,
 });
 
+export const WenYueHouXianDaiTi = localFont({
+	src: [
+		{
+			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-UltraLight.otf",
+			weight: "200",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Light.otf",
+			weight: "300",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Regular.otf",
+			weight: "400",
+			style: "normal",
+		},
+	],
+	variable: "--font-wenyuehouxiandaiti",
+	display: "swap",
+	preload: false, // 非阻塞加载优化
+});
+
 export const YiQiShengDanTiVariants: FontVariantInfo = {
   "totalVariants": 1,
   "weights": [
@@ -1001,30 +1024,6 @@ export const CubicVariants: FontVariantInfo = {
   ]
 };
 
-export const WenYueHouXianDaiTi = localFont({
-	src: [
-		{
-			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-UltraLight.otf",
-			weight: "200",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Light.otf",
-			weight: "300",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Regular.otf",
-			weight: "400",
-			style: "normal",
-		},
-	],
-	variable: "--font-wenyuehouxiandaiti",
-	display: "swap",
-	preload: false, // 非阻塞加载优化
-});
-
-// WenYueHouXianDaiTi 字体变体信息
 export const WenYueHouXianDaiTiVariants: FontVariantInfo = {
   "totalVariants": 3,
   "weights": [
@@ -1054,7 +1053,72 @@ export const WenYueHouXianDaiTiVariants: FontVariantInfo = {
   ]
 };
 
+export const AlibabaSans = localFont({
+	src: [
+		{
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Regular.woff2",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Medium.woff2",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Bold.woff2",
+			weight: "700",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Black.woff2",
+			weight: "900",
+			style: "normal",
+		},
+	],
+	variable: "--font-alibabasans",
+	display: "swap",
+	preload: false, // 非阻塞加载优化
+});
+
+// AlibabaSans 字体变体信息
+export const AlibabaSansVariants: FontVariantInfo = {
+  "totalVariants": 4,
+  "weights": [
+    400,
+    500,
+    700,
+    900
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "AlibabaSans-Regular.woff2"
+    },
+    {
+      "weight": 500,
+      "style": "normal",
+      "file": "AlibabaSans-Medium.woff2"
+    },
+    {
+      "weight": 700,
+      "style": "normal",
+      "file": "AlibabaSans-Bold.woff2"
+    },
+    {
+      "weight": 900,
+      "style": "normal",
+      "file": "AlibabaSans-Black.woff2"
+    }
+  ]
+};
+
 export const myFonts: NextFontWithVariable[] = [
+	AlibabaSans,
 	Cubic,
 	DouYinSansBold,
 	HanChanYuanTi,
@@ -1091,4 +1155,5 @@ export const fontVariantsMap: { [key: string]: FontVariantInfo } = {
 	DouYinSansBold: DouYinSansBoldVariants,
 	Cubic: CubicVariants,
 	WenYueHouXianDaiTi: WenYueHouXianDaiTiVariants,
+	AlibabaSans: AlibabaSansVariants,
 };

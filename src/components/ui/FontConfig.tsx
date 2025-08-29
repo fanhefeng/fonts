@@ -1,6 +1,7 @@
 import { ColorPicker, Row, Col, Slider, Switch, Card, Input, Button, Divider } from "antd";
 import { HeartFilled, HeartOutlined, ItalicOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Color } from "@/types/global";
 import styles from './FontConfig.module.css';
 
@@ -22,8 +23,8 @@ type FontConfigProps = {
 };
 
 const PRESET_COLORS = [
-  '#000000', '#333333', '#666666', '#999999',
-  '#e74c3c', '#3498db', '#2ecc71', '#f39c12',
+  '#3498db', '#000000', '#333333', '#666666', '#999999',
+  '#e74c3c', '#2ecc71', '#f39c12',
   '#9b59b6', '#1abc9c', '#34495e', '#7f8c8d'
 ];
 
@@ -44,6 +45,7 @@ export default function FontConfig({
   setGlobalCustomText,
 }: FontConfigProps) {
 	const { t, language } = useLanguage();
+	const { isDark } = useTheme();
 
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(e.target.value);
@@ -56,14 +58,14 @@ export default function FontConfig({
 	const resetSettings = () => {
 		setGlobalFontSize(24);
 		setGlobalFontWeight(400);
-		setGlobalFontColor('#000000');
+		setGlobalFontColor('#3498db');
 		setGlobalIsItalic(false);
 		setGlobalCustomText('');
 	};
 
 	return (
 		<Card className="border-0 shadow-md bg-white/90 backdrop-blur-sm">
-			<div className="space-y-6">
+			<div className="space-y-4 sm:space-y-6">
 				{/* Search and filter */}
 				<Row gutter={[16, 16]} align="middle">
 					<Col xs={24} sm={16} lg={14} xl={12}>
@@ -74,7 +76,7 @@ export default function FontConfig({
 							onChange={handleSearchChange}
 							onClear={handleClearSearch}
 							size="large"
-							className="rounded-lg border-gray-200 shadow-sm"
+							className="font-search-input"
 						/>
 					</Col>
 					
@@ -85,11 +87,7 @@ export default function FontConfig({
 							icon={showOnlyLiked ? <HeartFilled /> : <HeartOutlined />}
 							size="large"
 							block
-							className="rounded-lg shadow-sm"
-							style={{ 
-								background: showOnlyLiked ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : undefined,
-								borderColor: showOnlyLiked ? 'transparent' : undefined
-							}}
+							className={`font-control-button ${showOnlyLiked ? 'active' : ''}`}
 						>
 							<span className="hidden sm:inline">
 								{showOnlyLiked ? t.search.showAll : t.search.favorites}
@@ -106,7 +104,7 @@ export default function FontConfig({
 							icon={<ReloadOutlined />}
 							size="large"
 							block
-							className="rounded-lg shadow-sm"
+							className="font-control-button"
 						>
 							<span className="hidden sm:inline">{t.search.reset}</span>
 							<span className="sm:hidden">重置</span>
@@ -114,36 +112,45 @@ export default function FontConfig({
 					</Col>
 				</Row>
 
-				<Divider className="!my-4" />
+				<Divider className="!my-3 sm:!my-4" />
 
 				{/* Global text input */}
-				<div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100">
-					<h4 className="mb-3 text-gray-700 dark:text-gray-200 font-medium flex items-center text-sm sm:text-base">
+				<div className="font-global-text-section">
+					<h4 
+						className="mb-3 sm:mb-4 font-medium flex items-center text-sm sm:text-base" 
+						style={{ color: isDark ? "#ffffff" : "rgba(0, 0, 0, 0.88)" }}
+					>
 						{t.controls.globalText}
 					</h4>
 					<Input.TextArea
 						value={globalCustomText}
 						onChange={(e) => setGlobalCustomText(e.target.value)}
 						placeholder={t.controls.globalTextPlaceholder}
-						rows={2}
-						className="rounded-lg border-blue-200 shadow-sm"
+						rows={3}
+						className="font-global-textarea"
 					/>
 				</div>
 
-				<Divider className="!my-4" />
+				<Divider className="!my-3 sm:!my-4" />
 
 				{/* Style controls - Improved responsive layout */}
-				<div className={`bg-gradient-to-r from-purple-50 to-pink-50 p-4 sm:p-5 rounded-lg border border-purple-100 ${styles.fontConfigPanel}`}>
-					<h4 className="mb-4 text-gray-700 dark:text-gray-200 font-medium flex items-center text-sm sm:text-base">
+				<div className={`font-global-controls-section ${styles.fontConfigPanel}`}>
+					<h4 
+						className="mb-3 sm:mb-4 font-medium flex items-center text-sm sm:text-base" 
+						style={{ color: isDark ? "#ffffff" : "rgba(0, 0, 0, 0.88)" }}
+					>
 						{t.controls.globalSettings}
 					</h4>
 					
 					{/* Mobile: Single column, Tablet: 2 columns, Desktop: 4 columns */}
-					<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-6">
+					<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
 						{/* Font size */}
 						<div className={styles.controlItem}>
 							<div className="flex justify-between items-center mb-2">
-								<span className="font-medium text-gray-600 dark:text-gray-300 text-xs sm:text-sm whitespace-nowrap">
+								<span 
+									className="font-medium text-xs sm:text-sm whitespace-nowrap" 
+									style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+								>
 									{t.controls.fontSize}
 								</span>
 								<span className="text-xs text-white bg-gradient-to-r from-blue-400 to-blue-600 px-2 py-1 rounded-full font-medium">
@@ -152,15 +159,17 @@ export default function FontConfig({
 							</div>
 							<div className={`${styles.sliderContainer} ${styles.globalFontSizeSlider}`}>
 								<Slider 
-									min={14} 
-									max={64} 
+									min={12} 
+									max={72} 
 									value={globalFontSize} 
 									onChange={setGlobalFontSize}
 									marks={{
-										14: '14',
+										12: '12',
 										24: '24',
 										36: '36',
-										48: '48'
+										48: '48',
+										60: '60',
+										72: '72',
 									}}
 								/>
 							</div>
@@ -169,7 +178,10 @@ export default function FontConfig({
 						{/* Font weight */}
 						<div className={styles.controlItem}>
 							<div className="flex justify-between items-center mb-2">
-								<span className="font-medium text-gray-600 dark:text-gray-300 text-xs sm:text-sm whitespace-nowrap">
+								<span 
+									className="font-medium text-xs sm:text-sm whitespace-nowrap" 
+									style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+								>
 									{t.controls.fontWeight}
 								</span>
 								<span className="text-xs text-white bg-gradient-to-r from-purple-400 to-purple-600 px-2 py-1 rounded-full font-medium">
@@ -223,7 +235,10 @@ export default function FontConfig({
 						{/* Font color */}
 						<div className={styles.controlItem}>
 							<div className="mb-3">
-								<span className="font-medium text-gray-600 dark:text-gray-300 text-xs sm:text-sm block whitespace-nowrap">
+								<span 
+									className="font-medium text-xs sm:text-sm block whitespace-nowrap" 
+									style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+								>
 									{t.controls.fontColor}
 								</span>
 							</div>
@@ -255,7 +270,10 @@ export default function FontConfig({
 						{/* Font style */}
 						<div className={styles.controlItem}>
 							<div className="mb-3">
-								<span className="font-medium text-gray-600 dark:text-gray-300 text-xs sm:text-sm block whitespace-nowrap">
+								<span 
+									className="font-medium text-xs sm:text-sm block whitespace-nowrap" 
+									style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+								>
 									{t.controls.fontStyle}
 								</span>
 							</div>

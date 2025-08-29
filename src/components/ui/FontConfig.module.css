@@ -44,25 +44,38 @@
 
 /* 控制项容器 */
 .controlItem {
-  background: white;
-  padding: 12px 16px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--element-bg);
+  padding: 16px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
   min-height: 100px;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.controlItem:hover {
+  border-color: var(--border-color-hover);
+  box-shadow: 0 2px 0 rgba(22, 119, 255, 0.06);
 }
 
 /* Dark mode support */
 :global(.dark) .controlItem {
-  background: #1f1f1f;
-  border: 1px solid #333;
-  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+  background: rgba(31, 31, 31, 0.6);
+  border-color: #404040;
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.04);
+}
+
+:global(.dark) .controlItem:hover {
+  background: rgba(31, 31, 31, 0.9);
+  border-color: rgba(24, 144, 255, 0.3);
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.06);
 }
 
 /* 滑块容器通用样式 */
 .sliderContainer {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 /* 居中容器 */
@@ -70,8 +83,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 40px;
-  padding: 8px 0;
+  min-height: 36px;
+  padding: 6px 0;
 }
 
 /* 响应式优化 */
@@ -88,8 +101,16 @@
 
 @media (max-width: 640px) {
   .controlItem {
-    padding: 10px 12px;
-    min-height: 80px;
+    padding: 12px 16px;
+    min-height: 85px;
+  }
+  
+  .controlItem:hover {
+    background: rgba(248, 250, 252, 0.8);
+  }
+  
+  :global(.dark) .controlItem:hover {
+    background: rgba(31, 31, 31, 0.8);
   }
   
   .globalWeightSlider {
@@ -107,5 +128,10 @@
   
   .globalFontSizeSlider :global(.ant-slider-mark-text) {
     font-size: 8px;
+  }
+  
+  .centerContainer {
+    min-height: 32px;
+    padding: 4px 0;
   }
 }

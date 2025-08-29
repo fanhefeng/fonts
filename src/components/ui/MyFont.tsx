@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Card, Button, Select, Slider, Switch, Space, App, ColorPicker } from "antd";
 import { HeartFilled, HeartOutlined, SettingOutlined, ItalicOutlined, DownloadOutlined } from "@ant-design/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { downloadFontFile } from "@/utils/fontDownload";
 import { fontVariantsMap } from "../../../styles/fonts";
 
@@ -17,10 +18,9 @@ import {
 import type { Color, NextFontWithVariableWithLiked, FontVariantInfo } from "@/types/global";
 import styles from "./MyFont.module.css";
 
-
 type MyFontProps = {
 	font: NextFontWithVariableWithLiked;
-	onToggleLike: (className: string) => void;
+	onToggleLike: (fontName: string) => void;
 	globalFontSize: number;
 	globalFontWeight: number;
 	globalFontColor: Color;
@@ -39,6 +39,7 @@ export default function MyFont({
 }: MyFontProps) {
 	const { t, language } = useLanguage();
 	const { message } = App.useApp();
+	const { isDark } = useTheme();
 
 	// Get font name and variant info
 	const fontFamilyName = font.style.fontFamily.split(",")[0].slice(1, -1);
@@ -85,12 +86,12 @@ export default function MyFont({
 				loadingPromises = fontVariants.variants.map(async (variant) => {
 					const fontWeight = variant.weight.toString();
 					const fontStyle = variant.style;
-					
+
 					// 构造字体描述符
 					const fontDescriptor = `${fontStyle === "italic" ? "italic " : ""}${fontWeight} 16px "${fontFamilyName}"`;
-					
+
 					console.log(`📥 加载字体变体: ${fontFamilyName} ${fontWeight} ${fontStyle}`);
-					
+
 					// 使用document.fonts.load()主动加载字体
 					if (document.fonts && document.fonts.load) {
 						try {
@@ -104,27 +105,27 @@ export default function MyFont({
 					} else {
 						// 如果不支持Font Loading API，使用传统方法
 						return new Promise<FontFace>((resolve, reject) => {
-							const testElement = document.createElement('div');
+							const testElement = document.createElement("div");
 							testElement.style.fontFamily = `"${fontFamilyName}", serif`;
 							testElement.style.fontWeight = fontWeight;
 							testElement.style.fontStyle = fontStyle;
-							testElement.style.fontSize = '16px';
-							testElement.style.position = 'absolute';
-							testElement.style.left = '-9999px';
-							testElement.style.opacity = '0';
-							testElement.textContent = 'Font loading test';
-							
+							testElement.style.fontSize = "16px";
+							testElement.style.position = "absolute";
+							testElement.style.left = "-9999px";
+							testElement.style.opacity = "0";
+							testElement.textContent = "Font loading test";
+
 							document.body.appendChild(testElement);
-							
+
 							// 检查字体是否加载
 							let attempts = 0;
 							const maxAttempts = 100; // 10秒超时
-							
+
 							const checkFont = () => {
 								attempts++;
 								const computed = window.getComputedStyle(testElement);
 								const actualFamily = computed.fontFamily;
-								
+
 								if (actualFamily.includes(fontFamilyName) || attempts >= maxAttempts) {
 									document.body.removeChild(testElement);
 									if (attempts >= maxAttempts) {
@@ -134,7 +135,7 @@ export default function MyFont({
 										const mockFontFace = {
 											family: fontFamilyName,
 											weight: fontWeight,
-											style: fontStyle
+											style: fontStyle,
 										} as FontFace;
 										resolve(mockFontFace);
 									}
@@ -142,7 +143,7 @@ export default function MyFont({
 									setTimeout(checkFont, 100);
 								}
 							};
-							
+
 							setTimeout(checkFont, 100);
 						});
 					}
@@ -150,12 +151,12 @@ export default function MyFont({
 
 				// 等待所有字体变体加载完成
 				const results = await Promise.allSettled(loadingPromises);
-				
-				const successCount = results.filter(result => result.status === 'fulfilled').length;
-				const failedCount = results.filter(result => result.status === 'rejected').length;
-				
+
+				const successCount = results.filter((result) => result.status === "fulfilled").length;
+				const failedCount = results.filter((result) => result.status === "rejected").length;
+
 				console.log(`📊 字体 ${fontFamilyName} 加载结果: 成功 ${successCount}/${fontVariants.variants.length}, 失败 ${failedCount}`);
-				
+
 				if (isMounted) {
 					if (successCount === fontVariants.variants.length) {
 						// 所有变体都加载成功
@@ -174,7 +175,6 @@ export default function MyFont({
 						console.error(`❌ 字体 ${fontFamilyName} 所有变体加载失败`);
 					}
 				}
-				
 			} catch (error) {
 				console.error(`❌ 字体 ${fontFamilyName} 字体加载过程出错:`, error);
 				if (isMounted) {
@@ -185,8 +185,8 @@ export default function MyFont({
 		};
 
 		// 页面加载完成后立即开始加载字体
-		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', loadFontVariants);
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", loadFontVariants);
 		} else {
 			// 页面已经加载完成，立即开始
 			setTimeout(loadFontVariants, 100);
@@ -194,7 +194,7 @@ export default function MyFont({
 
 		return () => {
 			isMounted = false;
-			document.removeEventListener('DOMContentLoaded', loadFontVariants);
+			document.removeEventListener("DOMContentLoaded", loadFontVariants);
 			// 取消正在进行的字体加载
 			loadingPromises.forEach(() => {
 				// Promise无法直接取消，但我们可以忽略结果
@@ -341,6 +341,34 @@ export default function MyFont({
 		}
 	};
 
+	// Memoize tooltip formatter to prevent infinite re-renders
+	const tooltipFormatter = useCallback((value: number) => {
+		const weightNames = language === "zh"
+			? {
+				100: "极细",
+				200: "特细", 
+				300: "细",
+				400: "正常",
+				500: "中等",
+				600: "中粗",
+				700: "粗",
+				800: "特粗",
+				900: "超粗",
+			}
+			: {
+				100: "Thin",
+				200: "ExtraLight",
+				300: "Light", 
+				400: "Regular",
+				500: "Medium",
+				600: "SemiBold",
+				700: "Bold",
+				800: "ExtraBold",
+				900: "Black",
+			};
+		return weightNames[value as keyof typeof weightNames] || value?.toString();
+	}, [language]);
+
 	const cardExtra = (
 		<Space>
 			<Button
@@ -363,7 +391,7 @@ export default function MyFont({
 			<Button
 				type="text"
 				icon={font.isLiked ? <HeartFilled style={{ color: "#ff4d4f" }} /> : <HeartOutlined />}
-				onClick={() => onToggleLike(font.className)}
+				onClick={() => onToggleLike(fontFamilyName)}
 				aria-label={font.isLiked ? t.font.unfavorite : t.font.favorite}
 				size="large"
 			/>
@@ -376,46 +404,87 @@ export default function MyFont({
 				hoverable
 				extra={cardExtra}
 				className="border-0 shadow-sm hover:shadow-md transition-all duration-200 w-full"
-				styles={{ body: { padding: "16px 20px", minWidth: 0 } }}
+				styles={{ body: { padding: "18px 24px", minWidth: 0 } }}
 			>
-				<div className="space-y-3 sm:space-y-4">
+				<div className="space-y-4 sm:space-y-5">
 					{/* Font name and control buttons */}
-					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
 						<div className="flex items-center space-x-2 min-w-0">
-							<h3 className="text-base sm:text-lg font-medium text-gray-700 mb-0 truncate">{fontFamilyName}</h3>
+							<h3 className="text-base sm:text-lg font-medium mb-0 truncate" style={{ color: isDark ? "#ffffff" : "rgba(0, 0, 0, 0.88)" }}>
+								{fontFamilyName}
+							</h3>
 
 							{/* 字体加载状态指示器 - 准确显示加载状态 */}
 							{fontLoadingStatus === "loading" && (
-								<span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full whitespace-nowrap">
+								<span
+									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+									style={{
+										backgroundColor: isDark ? "rgba(103, 153, 254, 0.12)" : "rgba(24, 144, 255, 0.12)",
+										color: isDark ? "#6799FE" : "#1677ff",
+									}}
+								>
 									⏳ {language === "zh" ? "加载中" : "Loading"}
 								</span>
 							)}
 							{fontLoadingStatus === "loaded" && (
-								<span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full whitespace-nowrap">
+								<span
+									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+									style={{
+										backgroundColor: isDark ? "rgba(82, 196, 26, 0.12)" : "rgba(82, 196, 26, 0.12)",
+										color: isDark ? "#52c41a" : "#52c41a",
+									}}
+								>
 									✅ {language === "zh" ? "已加载" : "Loaded"}
 								</span>
 							)}
 							{fontLoadingStatus === "failed" && (
-								<span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full whitespace-nowrap">
+								<span
+									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+									style={{
+										backgroundColor: isDark ? "rgba(255, 77, 79, 0.12)" : "rgba(255, 77, 79, 0.12)",
+										color: isDark ? "#ff4d4f" : "#ff4d4f",
+									}}
+								>
 									❌ {language === "zh" ? "加载失败" : "Failed"}
 								</span>
 							)}
 
 							{hasIndividualSettings && (
-								<span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full whitespace-nowrap">
+								<span
+									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+									style={{
+										backgroundColor: isDark ? "rgba(103, 153, 254, 0.12)" : "rgba(24, 144, 255, 0.12)",
+										color: isDark ? "#6799FE" : "#1677ff",
+									}}
+								>
 									{language === "zh" ? "个别设置" : "Custom"}
 								</span>
 							)}
 							{fontVariants && (
-								<span className="text-xs bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-200 px-2 py-1 rounded-full whitespace-nowrap">
+								<span
+									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+									style={{
+										backgroundColor: isDark ? "#292929" : "#f5f5f5",
+										color: isDark ? "#8E9094" : "rgba(0, 0, 0, 0.65)",
+										border: isDark ? "1px solid #404040" : "1px solid #d9d9d9",
+									}}
+								>
 									{fontVariants.totalVariants} {language === "zh" ? "变体" : "variants"}
 								</span>
 							)}
 						</div>
-						<div className="flex items-center justify-end gap-2 flex-wrap">
+						<div className="flex items-center justify-end gap-3 flex-wrap">
 							{!globalCustomText.trim() && (
-								<>
-									<span className="text-xs sm:text-sm text-gray-500 hidden md:inline whitespace-nowrap">{t.font.textSamples}</span>
+								<div
+									className="flex items-center gap-2 sm:gap-3 px-3 py-2 rounded-md border"
+									style={{
+										backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
+										borderColor: isDark ? "#434343" : "#d9d9d9",
+									}}
+								>
+									<span className="text-xs sm:text-sm whitespace-nowrap font-medium" style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}>
+										{t.font.textSamples}
+									</span>
 									<Select
 										value={selectedSample}
 										onChange={setSelectedSample}
@@ -427,12 +496,23 @@ export default function MyFont({
 											{ label: t.font.custom, value: "custom" },
 										]}
 										size="small"
-										style={{ minWidth: 80, maxWidth: 120 }}
+										className="font-preview-select"
+										style={{ minWidth: 90, maxWidth: 140 }}
 									/>
-								</>
+								</div>
 							)}
 							{globalCustomText.trim() && (
-								<span className="text-xs sm:text-sm text-blue-600 bg-blue-50 px-2 py-1 rounded whitespace-nowrap">{t.font.globalTextUsed}</span>
+								<div
+									className="px-3 py-2 rounded-md border"
+									style={{
+										backgroundColor: isDark ? "rgba(24, 144, 255, 0.08)" : "rgba(24, 144, 255, 0.08)",
+										borderColor: isDark ? "rgba(24, 144, 255, 0.2)" : "rgba(24, 144, 255, 0.2)",
+									}}
+								>
+									<span className="text-xs sm:text-sm whitespace-nowrap font-medium" style={{ color: isDark ? "#1890ff" : "#1677ff" }}>
+										{t.font.globalTextUsed}
+									</span>
+								</div>
 							)}
 						</div>
 					</div>
@@ -445,8 +525,10 @@ export default function MyFont({
 					>
 						{showIndividualConfig && (
 							<div className={`${styles.individualConfigPanel} individual-config-panel`}>
-								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-									<h4 className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 mb-0">{t.font.individualSettings}</h4>
+								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+									<h4 className="text-sm sm:text-base font-medium mb-0" style={{ color: isDark ? "#ffffff" : "rgba(0, 0, 0, 0.88)" }}>
+										{t.font.individualSettings}
+									</h4>
 									<div className="min-w-16 h-6 flex items-center justify-end">
 										<Button
 											size="small"
@@ -466,23 +548,45 @@ export default function MyFont({
 								</div>
 
 								{/* 移动端: 垂直堆叠, 桌面端: 网格布局 */}
-								<div className="flex flex-col sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
+								<div className="flex flex-col sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
 									{/* Font size */}
 									<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
 										<div className="flex justify-between items-center mb-2">
-											<span className="text-xs font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">{t.controls.fontSize}</span>
-											<span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded whitespace-nowrap">
+											<span
+												className="font-medium text-xs sm:text-sm whitespace-nowrap"
+												style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+											>
+												{t.controls.fontSize}
+											</span>
+											<span
+												className="text-xs text-white px-2 py-1 rounded-full font-medium"
+												style={{
+													backgroundColor: isDark ? "rgba(103, 153, 254, 0.8)" : "rgba(24, 144, 255, 0.8)",
+												}}
+											>
 												{individualFontSize ?? globalFontSize}px
 											</span>
 										</div>
-										<Slider min={14} max={64} value={individualFontSize ?? globalFontSize} onChange={(value) => setIndividualFontSize(value)} />
+										<div className={styles.sliderContainer}>
+											<Slider min={14} max={64} value={individualFontSize ?? globalFontSize} onChange={(value) => setIndividualFontSize(value)} />
+										</div>
 									</div>
 
 									{/* Font weight */}
 									<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
 										<div className="flex justify-between items-center mb-2">
-											<span className="text-xs font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">{t.controls.fontWeight}</span>
-											<span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded whitespace-nowrap">
+											<span
+												className="font-medium text-xs sm:text-sm whitespace-nowrap"
+												style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+											>
+												{t.controls.fontWeight}
+											</span>
+											<span
+												className="text-xs text-white px-2 py-1 rounded-full font-medium"
+												style={{
+													backgroundColor: isDark ? "rgba(114, 46, 209, 0.8)" : "rgba(114, 46, 209, 0.8)",
+												}}
+											>
 												{individualFontWeight ?? adjustedGlobalWeight}
 											</span>
 										</div>
@@ -492,51 +596,27 @@ export default function MyFont({
 													"useShortMarks" in weightConfig && weightConfig.useShortMarks ? styles.shortMarks : styles.fullMarks
 												}`}
 											>
-												<Slider
-													min={weightConfig.min}
-													max={weightConfig.max}
-													step={weightConfig.step}
-													value={individualFontWeight ?? adjustedGlobalWeight}
-													onChange={(value) => {
-														// If we have font variants, ensure the selected weight is available
-														const adjustedValue = fontVariants ? findClosestWeight(fontVariants.weights, value) : value;
-														setIndividualFontWeight(adjustedValue);
-													}}
-													marks={weightConfig.marks}
-													tooltip={{
-														formatter: (value) => {
-															const weightNames =
-																language === "zh"
-																	? {
-																			100: "极细",
-																			200: "特细",
-																			300: "细",
-																			400: "正常",
-																			500: "中等",
-																			600: "中粗",
-																			700: "粗",
-																			800: "特粗",
-																			900: "超粗",
-																	  }
-																	: {
-																			100: "Thin",
-																			200: "ExtraLight",
-																			300: "Light",
-																			400: "Regular",
-																			500: "Medium",
-																			600: "SemiBold",
-																			700: "Bold",
-																			800: "ExtraBold",
-																			900: "Black",
-																	  };
-															return weightNames[value as keyof typeof weightNames] || value?.toString();
-														},
-													}}
-												/>
+												{weightConfig.max > weightConfig.min && (
+													<Slider
+														min={weightConfig.min}
+														max={weightConfig.max}
+														step={weightConfig.step}
+														value={individualFontWeight ?? adjustedGlobalWeight}
+														onChange={(value) => {
+															// If we have font variants, ensure the selected weight is available
+															const adjustedValue = fontVariants ? findClosestWeight(fontVariants.weights, value) : value;
+															setIndividualFontWeight(adjustedValue);
+														}}
+														marks={weightConfig.marks}
+														tooltip={{
+															formatter: (value?: number) => value ? tooltipFormatter(value) : '',
+														}}
+													/>
+												)}
 											</div>
 										</div>
 										{fontVariants && (
-											<div className="mt-1 text-xs text-blue-600 hidden sm:block">
+											<div className="mt-1 text-xs hidden sm:block" style={{ color: isDark ? "#1890ff" : "#1677ff" }}>
 												{language === "zh" ? `可用权重: ${fontVariants.weights.join(", ")}` : `Available weights: ${fontVariants.weights.join(", ")}`}
 											</div>
 										)}
@@ -545,9 +625,14 @@ export default function MyFont({
 									{/* Font color */}
 									<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
 										<div className="mb-2 sm:mb-3">
-											<span className="text-xs font-medium text-gray-600 dark:text-gray-300 block whitespace-nowrap">{t.controls.fontColor}</span>
+											<span
+												className="font-medium text-xs sm:text-sm block whitespace-nowrap"
+												style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+											>
+												{t.controls.fontColor}
+											</span>
 										</div>
-										<div className="flex justify-center">
+										<div className={styles.centerContainer}>
 											<ColorPicker
 												value={individualFontColor ?? globalFontColor}
 												onChange={(color) => {
@@ -564,12 +649,12 @@ export default function MyFont({
 													{
 														label: t.controls.commonColors,
 														colors: [
+															"#3498db",
 															"#000000",
 															"#333333",
 															"#666666",
 															"#999999",
 															"#e74c3c",
-															"#3498db",
 															"#2ecc71",
 															"#f39c12",
 															"#9b59b6",
@@ -588,9 +673,14 @@ export default function MyFont({
 									{/* Italic style */}
 									<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
 										<div className="mb-2 sm:mb-3">
-											<span className="text-xs font-medium text-gray-600 dark:text-gray-300 block whitespace-nowrap">{t.controls.fontStyle}</span>
+											<span
+												className="font-medium text-xs sm:text-sm block whitespace-nowrap"
+												style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+											>
+												{t.controls.fontStyle}
+											</span>
 										</div>
-										<div className="flex justify-center">
+										<div className={styles.centerContainer}>
 											<Switch
 												checked={individualIsItalic ?? adjustedGlobalStyle}
 												onChange={(checked) => {
@@ -610,7 +700,7 @@ export default function MyFont({
 										{fontVariants && (
 											<div className="mt-1 text-xs text-center">
 												{onlyAvailableStyle ? (
-													<span className={onlyAvailableStyle === "italic" ? "text-blue-600" : "text-green-600"}>
+													<span style={{ color: onlyAvailableStyle === "italic" ? (isDark ? "#1890ff" : "#1677ff") : "#52c41a" }}>
 														{language === "zh"
 															? onlyAvailableStyle === "italic"
 																? "仅斜体"
@@ -620,13 +710,21 @@ export default function MyFont({
 															: "Normal only"}
 													</span>
 												) : italicSupported && normalSupported ? (
-													<span className="text-green-600 hidden sm:inline">{language === "zh" ? "正常+斜体" : "Both styles"}</span>
+													<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
+														{language === "zh" ? "正常+斜体" : "Both styles"}
+													</span>
 												) : italicSupported ? (
-													<span className="text-green-600 hidden sm:inline">{language === "zh" ? "支持斜体" : "Italic supported"}</span>
+													<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
+														{language === "zh" ? "支持斜体" : "Italic supported"}
+													</span>
 												) : normalSupported ? (
-													<span className="text-green-600 hidden sm:inline">{language === "zh" ? "支持正常" : "Normal supported"}</span>
+													<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
+														{language === "zh" ? "支持正常" : "Normal supported"}
+													</span>
 												) : (
-													<span className="text-gray-400 hidden sm:inline">{language === "zh" ? "样式不可用" : "Style unavailable"}</span>
+													<span className="hidden sm:inline" style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}>
+														{language === "zh" ? "样式不可用" : "Style unavailable"}
+													</span>
 												)}
 											</div>
 										)}
@@ -643,7 +741,7 @@ export default function MyFont({
 								value={customText}
 								onChange={(e) => setCustomText(e.target.value)}
 								placeholder={t.font.customPlaceholder}
-								className="w-full p-2 sm:p-3 border border-gray-200 rounded-lg resize-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-colors text-sm"
+								className="font-preview-textarea w-full resize-none focus:outline-none"
 								rows={2}
 							/>
 						</div>
@@ -654,17 +752,15 @@ export default function MyFont({
 						style={{
 							...getFontStyle(),
 							minHeight: showIndividualConfig ? "80px" : "100px", // 设置面板展开时减小最小高度
-							padding: showIndividualConfig ? "12px" : "16px", // 设置面板展开时减小内边距
-							background: "linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)",
-							borderRadius: "12px",
-							border: "2px solid #e2e8f0",
-							boxShadow: "inset 0 2px 4px rgba(0,0,0,0.04)",
+							padding: showIndividualConfig ? "16px 20px" : "20px 24px", // 设置面板展开时减小内边距
+							backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
+							borderRadius: "6px",
+							border: isDark ? "1px solid #434343" : "1px solid #d9d9d9",
+							boxShadow: "0 2px 0 rgba(0, 0, 0, 0.02)",
 							wordBreak: "break-word",
 							overflowWrap: "break-word",
 						}}
-						className={`font-preview-area transition-all duration-300 hover:shadow-md hover:border-blue-200 w-full flex-shrink-0 ${
-							showIndividualConfig ? "mt-2" : ""
-						}`}
+						className={`font-preview-area transition-all duration-300 w-full flex-shrink-0 ${showIndividualConfig ? "mt-2 sm:mt-3" : ""}`}
 					>
 						{getCurrentSampleText()}
 					</div>

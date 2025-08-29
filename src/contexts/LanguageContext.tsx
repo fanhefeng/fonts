@@ -44,7 +44,6 @@ interface Translations {
   };
   stats: {
     showing: string;
-    fonts: string;
     favorited: string;
   };
   empty: {
@@ -63,19 +62,19 @@ interface Translations {
 const translations: Record<Language, Translations> = {
   zh: {
     header: {
-      title: 'Fonts',
+      title: '字体库',
       subtitle: '仅供分享，谢绝商用！'
     },
     search: {
-      placeholder: '🔍 搜索字体名称...',
-      favorites: '仅收藏',
-      showAll: '显示全部',
+      placeholder: '搜索字体名称...',
+      favorites: '收藏',
+      showAll: '全部',
       reset: '重置'
     },
     controls: {
-      globalText: '📝 全局预览文本',
+      globalText: '全局预览文本',
       globalTextPlaceholder: '输入要在所有字体中预览的文本...留空使用默认示例',
-      globalSettings: '⚙️ 全局样式设置',
+      globalSettings: '全局样式设置',
       fontSize: '字体大小',
       fontWeight: '字体粗细',
       fontStyle: '字体样式',
@@ -103,7 +102,6 @@ const translations: Record<Language, Translations> = {
     },
     stats: {
       showing: '显示',
-      fonts: '个字体',
       favorited: '已收藏'
     },
     empty: {
@@ -124,15 +122,15 @@ const translations: Record<Language, Translations> = {
       subtitle: 'For sharing only, commercial use prohibited!'
     },
     search: {
-      placeholder: '🔍 Search font names...',
-      favorites: 'Favorites Only',
-      showAll: 'Show All',
+      placeholder: 'Search font names...',
+      favorites: 'Favorites',
+      showAll: 'All',
       reset: 'Reset'
     },
     controls: {
-      globalText: '📝 Global Preview Text',
+      globalText: 'Global Preview Text',
       globalTextPlaceholder: 'Enter text to preview in all fonts... leave empty for default samples',
-      globalSettings: '⚙️ Global Style Settings',
+      globalSettings: 'Global Style Settings',
       fontSize: 'Font Size',
       fontWeight: 'Font Weight',
       fontStyle: 'Font Style',
@@ -160,7 +158,6 @@ const translations: Record<Language, Translations> = {
     },
     stats: {
       showing: 'Showing',
-      fonts: 'fonts',
       favorited: 'favorited'
     },
     empty: {
