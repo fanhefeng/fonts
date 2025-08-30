@@ -12,7 +12,7 @@
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "rm -rf out && next build",
-		"start": "next start",
+		"start": "npx serve@latest out",
 		"lint": "next lint",
 		"font:add": "node scripts/font-manager.js",
 		"font:scan": "node scripts/font-manager.js scan"

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, Button, Select, Slider, Switch, Space, App, ColorPicker } from "antd";
 import { HeartFilled, HeartOutlined, SettingOutlined, ItalicOutlined, DownloadOutlined } from "@ant-design/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
