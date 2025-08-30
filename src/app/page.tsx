@@ -1,6 +1,6 @@
 "use client";
 
-import { myFonts, DouYinSansBold} from "../../styles/fonts";
+import { myFonts, DouYinSansBold } from "../../styles/fonts";
 import MyFont from "@/components/ui/MyFont";
 import FontConfig from "@/components/ui/FontConfig";
 import { Typography, Spin, Button, Space } from "antd";
@@ -76,16 +76,10 @@ export default function Home() {
 	// Loading state
 	if (!isLoaded) {
 		return (
-			<div 
-				className="min-h-screen flex items-center justify-center" 
-				style={{ backgroundColor: isDark ? "#141414" : "#f5f5f5" }}
-			>
+			<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: isDark ? "#141414" : "#f5f5f5" }}>
 				<div className="text-center">
 					<Spin size="large" />
-					<p 
-						className="mt-4" 
-						style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)" }}
-					>
+					<p className="mt-4" style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)" }}>
 						{t.loading}
 					</p>
 				</div>
@@ -94,23 +88,23 @@ export default function Home() {
 	}
 
 	return (
-		<div 
-			className="min-h-screen transition-colors duration-300" 
-			style={{ backgroundColor: isDark ? "#141414" : "#f5f5f5" }}
-		>
+		<div className="min-h-screen transition-colors duration-300" style={{ backgroundColor: isDark ? "#141414" : "#f5f5f5" }}>
 			{/* Header */}
-			<div 
-				className="border-b sticky top-0 z-10 shadow-sm backdrop-blur-sm" 
-				style={{ 
-					borderColor: isDark ? "#434343" : "#d9d9d9", 
-					backgroundColor: isDark ? "#1f1f1f" : "#ffffff" 
+			<div
+				className="border-b sticky top-0 z-10 shadow-sm backdrop-blur-sm"
+				style={{
+					borderColor: isDark ? "#434343" : "#d9d9d9",
+					backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
 				}}
 			>
 				<div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 max-w-7xl">
 					<div className="flex items-center justify-between">
 						{/* Left side - Title */}
 						<div className="flex-1">
-							<Title level={1} className={`!mb-0 font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${DouYinSansBold.className}`}>
+							<Title
+								level={1}
+								className={`!mb-0 font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${DouYinSansBold.className}`}
+							>
 								{t.header.title}
 							</Title>
 						</div>
@@ -165,19 +159,23 @@ export default function Home() {
 
 				{/* Stats Bar */}
 				{filteredFonts.length > 0 && (
-					<div 
-						className="mb-4 sm:mb-6 flex items-center justify-between text-sm rounded-lg px-3 sm:px-4 py-2 border" 
-						style={{ 
-							color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)", 
-							backgroundColor: isDark ? "#1f1f1f" : "#ffffff", 
-							borderColor: isDark ? "#434343" : "#d9d9d9" 
+					<div
+						className="mb-4 sm:mb-6 flex items-center justify-between text-sm rounded-lg px-3 sm:px-4 py-2 border"
+						style={{
+							color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)",
+							backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
+							borderColor: isDark ? "#434343" : "#d9d9d9",
 						}}
 					>
 						<span>
-							{t.stats.showing} {filteredFonts.length}
+							{t.stats.showing}{filteredFonts.length}
+							{language === "en" && (filteredFonts.length > 1 ? " fonts" : " font")}
+							{language === "zh" && "个字体"}
 						</span>
 						<span>
-							{t.stats.favorited} {getLikeCount()} {language === "zh" ? "个" : ""}
+							{getLikeCount()}
+							{language === "zh" && "个"}
+							{t.stats.favorited}
 						</span>
 					</div>
 				)}
@@ -199,22 +197,13 @@ export default function Home() {
 						))
 					) : (
 						<div className="text-center py-16 sm:py-20">
-							<div 
-								className="text-5xl sm:text-6xl mb-4 sm:mb-6" 
-								style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}
-							>
+							<div className="text-5xl sm:text-6xl mb-4 sm:mb-6" style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}>
 								🔍
 							</div>
-							<h3 
-								className="text-lg sm:text-xl font-medium mb-2 sm:mb-3" 
-								style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)" }}
-							>
+							<h3 className="text-lg sm:text-xl font-medium mb-2 sm:mb-3" style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)" }}>
 								{showOnlyLiked ? t.empty.noFavorites : t.empty.noResults}
 							</h3>
-							<p 
-								className="max-w-md mx-auto px-4" 
-								style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}
-							>
+							<p className="max-w-md mx-auto px-4" style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}>
 								{showOnlyLiked ? t.empty.noFavoritesDesc : t.empty.noResultsDesc}
 							</p>
 						</div>

@@ -159,18 +159,10 @@ export default function FontConfig({
 							</div>
 							<div className={`${styles.sliderContainer} ${styles.globalFontSizeSlider}`}>
 								<Slider 
-									min={12} 
-									max={72} 
+									min={14} 
+									max={64} 
 									value={globalFontSize} 
 									onChange={setGlobalFontSize}
-									marks={{
-										12: '12',
-										24: '24',
-										36: '36',
-										48: '48',
-										60: '60',
-										72: '72',
-									}}
 								/>
 							</div>
 						</div>
