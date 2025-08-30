@@ -15,7 +15,9 @@
 		"start": "npx serve@latest out",
 		"lint": "next lint",
 		"font:add": "node scripts/font-manager.js",
-		"font:scan": "node scripts/font-manager.js scan"
+		"font:scan": "node scripts/font-manager.js scan",
+		"font:delete": "node scripts/font-manager.js delete",
+		"font:fix": "node scripts/font-manager.js fix"
 	},
 	"dependencies": {
 		"@ant-design/icons": "^6.0.0",

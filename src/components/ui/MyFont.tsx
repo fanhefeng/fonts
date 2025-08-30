@@ -408,6 +408,10 @@ export default function MyFont({
 			extra={cardExtra}
 			className="border-0 shadow-sm hover:shadow-md transition-all duration-200 w-full"
 			styles={{ body: { padding: "18px 24px", minWidth: 0, width: "100%" } }}
+			style={{
+				backgroundColor: isDark ? 'rgba(31, 31, 31, 0.9)' : 'rgba(255, 255, 255, 0.95)',
+				borderColor: isDark ? '#434343' : '#d9d9d9'
+			}}
 		>
 			<div className="space-y-4 sm:space-y-5">
 				{/* Font name and control buttons */}

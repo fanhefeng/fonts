@@ -64,7 +64,13 @@ export default function FontConfig({
 	};
 
 	return (
-		<Card className="border-0 shadow-md bg-white/90 backdrop-blur-sm w-full">
+		<Card 
+			className="border-0 shadow-md backdrop-blur-sm w-full" 
+			style={{
+				backgroundColor: isDark ? 'rgba(31, 31, 31, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+				borderColor: isDark ? '#434343' : '#d9d9d9'
+			}}
+		>
 			<div className="space-y-4 sm:space-y-6 w-full">
 				{/* Search and filter */}
 				<Row gutter={[16, 16]} align="middle">

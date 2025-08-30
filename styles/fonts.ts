@@ -16,487 +16,509 @@ export interface FontVariantInfo {
 }
 
 export const YiQiShengDanTi = localFont({
-	src: "../public/fonts/YiQiShengDanTi/YiQiShengDanTi-Regular.ttf",
-	variable: "--font-yiqishengdanti",
-	display: "swap",
-	preload: false, // 非阻塞加载
+  src: "../public/fonts/YiQiShengDanTi/YiQiShengDanTi-Regular.ttf",
+  variable: "--font-yiqishengdanti",
+  display: "swap",
+  preload: false, // 非阻塞加载
 });
 
 export const HanChanYuanTi = localFont({
-	src: [
-		{
-			path: "../public/fonts/HanChanYuanTi/HanChanYuanTi-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/HanChanYuanTi/HanChanYuanTi-Bold.ttf",
-			weight: "700",
-			style: "normal",
-		},
-	],
-	variable: "--font-hanchanyuanti",
-	display: "swap",
-	preload: false,
+  src: [
+    {
+      path: "../public/fonts/HanChanYuanTi/HanChanYuanTi-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/HanChanYuanTi/HanChanYuanTi-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-hanchanyuanti",
+  display: "swap",
+  preload: false,
 });
 
 export const HanChanYuanTiRound = localFont({
-	src: "../public/fonts/HanChanYuanTiRound/HanChanYuanTiRound-Regular.otf",
-	variable: "--font-hanchanyuantiround",
-	display: "swap",
-	preload: false,
+  src: "../public/fonts/HanChanYuanTiRound/HanChanYuanTiRound-Regular.otf",
+  variable: "--font-hanchanyuantiround",
+  display: "swap",
+  preload: false,
 });
 
 export const HanChanYuanTiSans = localFont({
-	src: "../public/fonts/HanChanYuanTiSans/HanChanYuanTiSans-Regular.otf",
-	variable: "--font-hanchanyuantisans",
-	display: "swap",
-	preload: false,
-});
-
-export const HarmonyOSSans = localFont({
-	src: [
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Thin-Italic.ttf",
-			weight: "100",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Thin-Italic.ttf",
-			weight: "100",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Light-Italic.ttf",
-			weight: "300",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Light-Italic.ttf",
-			weight: "300",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Regular-Italic.ttf",
-			weight: "400",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Regular-Italic.ttf",
-			weight: "400",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Medium-Italic.ttf",
-			weight: "500",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Medium-Italic.ttf",
-			weight: "500",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Bold-Italic.ttf",
-			weight: "700",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Bold-Italic.ttf",
-			weight: "700",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Black-Italic.ttf",
-			weight: "900",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Black-Italic.ttf",
-			weight: "900",
-			style: "italic",
-		},
-	],
-	variable: "--font-harmonyossans",
-	display: "swap",
-	preload: false,
-});
-
-export const Icomoon = localFont({
-	src: [
-		{
-			path: "../public/fonts/Icomoon/Icomoon-Regular.eot",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Icomoon/Icomoon-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Icomoon/Icomoon-Regular.woff",
-			weight: "400",
-			style: "normal",
-		},
-	],
-	variable: "--font-icomoon",
-	display: "swap",
-	preload: false,
+  src: "../public/fonts/HanChanYuanTiSans/HanChanYuanTiSans-Regular.otf",
+  variable: "--font-hanchanyuantisans",
+  display: "swap",
+  preload: false,
 });
 
 export const ZhuLangYinYueFuHaoGePuTi = localFont({
-	src: "../public/fonts/ZhuLangYinYueFuHaoGePuTi/ZhuLangYinYueFuHaoGePuTi-Regular.otf",
-	variable: "--font-zhulangyinyuefuhaogeputi",
-	display: "swap",
-	preload: false, // 非阻塞加载
-});
-
-export const PingFangSC = localFont({
-	src: [
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Thin.ttf",
-			weight: "100",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Thin.woff2",
-			weight: "100",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-UltraLight.ttf",
-			weight: "200",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Light.ttf",
-			weight: "300",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Light.woff2",
-			weight: "300",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Regular.eot",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Regular.woff",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Regular.woff2",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Medium.ttf",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-Medium.woff2",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-SemiBold.ttf",
-			weight: "600",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangSC/PingFangSC-SemiBold.woff2",
-			weight: "600",
-			style: "normal",
-		},
-	],
-	variable: "--font-pingfangsc",
-	display: "swap",
-	preload: false,
+  src: "../public/fonts/ZhuLangYinYueFuHaoGePuTi/ZhuLangYinYueFuHaoGePuTi-Regular.otf",
+  variable: "--font-zhulangyinyuefuhaogeputi",
+  display: "swap",
+  preload: false, // 非阻塞加载
 });
 
 export const PingFangTC = localFont({
-	src: [
-		{
-			path: "../public/fonts/PingFangTC/PingFangTC-Thin.ttf",
-			weight: "100",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangTC/PingFangTC-UltraLight.ttf",
-			weight: "200",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangTC/PingFangTC-Light.ttf",
-			weight: "300",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangTC/PingFangTC-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangTC/PingFangTC-Medium.ttf",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/PingFangTC/PingFangTC-SemiBold.ttf",
-			weight: "600",
-			style: "normal",
-		},
-	],
-	variable: "--font-pingfangtc",
-	display: "swap",
-	preload: false,
+  src: [
+    {
+      path: "../public/fonts/PingFangTC/PingFangTC-Thin.ttf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/PingFangTC/PingFangTC-UltraLight.ttf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/PingFangTC/PingFangTC-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/PingFangTC/PingFangTC-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/PingFangTC/PingFangTC-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/PingFangTC/PingFangTC-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+  variable: "--font-pingfangtc",
+  display: "swap",
+  preload: false,
 });
 
 export const Poppins = localFont({
-	src: [
-		{
-			path: "../public/fonts/Poppins/Poppins-Thin-Italic.ttf",
-			weight: "100",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Thin.ttf",
-			weight: "100",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-UltraLight-Italic.ttf",
-			weight: "200",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-UltraLight.ttf",
-			weight: "200",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Light-Italic.ttf",
-			weight: "300",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Light.ttf",
-			weight: "300",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Regular-Italic.ttf",
-			weight: "400",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Medium-Italic.ttf",
-			weight: "500",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Medium.ttf",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-SemiBold-Italic.ttf",
-			weight: "600",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-SemiBold.ttf",
-			weight: "600",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Bold-Italic.ttf",
-			weight: "700",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Bold.ttf",
-			weight: "700",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-ExtraBold-Italic.ttf",
-			weight: "800",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-ExtraBold.ttf",
-			weight: "800",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Black-Italic.ttf",
-			weight: "900",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/Poppins/Poppins-Black.ttf",
-			weight: "900",
-			style: "normal",
-		},
-	],
-	variable: "--font-poppins",
-	display: "swap",
-	preload: false,
+  src: [
+    {
+      path: "../public/fonts/Poppins/Poppins-Thin-Italic.ttf",
+      weight: "100",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Thin.ttf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-UltraLight-Italic.ttf",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-UltraLight.ttf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Light-Italic.ttf",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Regular-Italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Medium-Italic.ttf",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-SemiBold-Italic.ttf",
+      weight: "600",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Bold-Italic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-ExtraBold-Italic.ttf",
+      weight: "800",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Black-Italic.ttf",
+      weight: "900",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Black.ttf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-poppins",
+  display: "swap",
+  preload: false,
 });
 
 export const Pragmata = localFont({
-	src: "../public/fonts/Pragmata/Pragmata-Regular.ttf",
-	variable: "--font-pragmata",
-	display: "swap",
-	preload: false, // 非阻塞加载
+  src: "../public/fonts/Pragmata/Pragmata-Regular.ttf",
+  variable: "--font-pragmata",
+  display: "swap",
+  preload: false, // 非阻塞加载
 });
 
 export const RobotoMono = localFont({
-	src: [
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Thin-Italic.ttf",
-			weight: "100",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Thin.ttf",
-			weight: "100",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-UltraLight-Italic.ttf",
-			weight: "200",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-UltraLight.ttf",
-			weight: "200",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Light-Italic.ttf",
-			weight: "300",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Light.ttf",
-			weight: "300",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Regular-Italic.ttf",
-			weight: "400",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Medium-Italic.ttf",
-			weight: "500",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Medium.ttf",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-SemiBold-Italic.ttf",
-			weight: "600",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-SemiBold.ttf",
-			weight: "600",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Bold-Italic.ttf",
-			weight: "700",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMono/RobotoMono-Bold.ttf",
-			weight: "700",
-			style: "normal",
-		},
-	],
-	variable: "--font-robotomono",
-	display: "swap",
-	preload: false,
-});
-
-export const RobotoMonoVariableFontwght = localFont({
-	src: [
-		{
-			path: "../public/fonts/RobotoMonoVariableFontwght/RobotoMonoVariableFontwght-Regular-Italic.ttf",
-			weight: "400",
-			style: "italic",
-		},
-		{
-			path: "../public/fonts/RobotoMonoVariableFontwght/RobotoMonoVariableFontwght-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-	],
-	variable: "--font-robotomonovariablefontwght",
-	display: "swap",
-	preload: false,
-});
-
-export const DouYinSans = localFont({
-	src: "../public/fonts/DouYinSans/DouYinSans-Bold.otf",
-	variable: "--font-douyinsans",
-	display: "swap",
-	preload: false,
+  src: [
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Thin-Italic.ttf",
+      weight: "100",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Thin.ttf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-UltraLight-Italic.ttf",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-UltraLight.ttf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Light-Italic.ttf",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Regular-Italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Medium-Italic.ttf",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-SemiBold-Italic.ttf",
+      weight: "600",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Bold-Italic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/RobotoMono/RobotoMono-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-robotomono",
+  display: "swap",
+  preload: false,
 });
 
 export const Cubic = localFont({
-	src: "../public/fonts/Cubic/Cubic-Regular.ttf",
-	variable: "--font-cubic",
-	display: "swap",
-	preload: false,
+  src: "../public/fonts/Cubic/Cubic-Regular.ttf",
+  variable: "--font-cubic",
+  display: "swap",
+  preload: false,
 });
 
 export const WenYueHouXianDaiTi = localFont({
+  src: [
+    {
+      path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-UltraLight.otf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Light.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-wenyuehouxiandaiti",
+  display: "swap",
+  preload: false, // 非阻塞加载优化
+});
+
+export const FiraCode = localFont({
+  src: [
+    {
+      path: "../public/fonts/FiraCode/FiraCode-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/FiraCode/FiraCode-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/FiraCode/FiraCode-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/FiraCode/FiraCode-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/FiraCode/FiraCode-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-firacode",
+  display: "swap",
+  preload: false, // 非阻塞加载优化
+});
+
+export const FiraCodeVF = localFont({
+  src: "../public/fonts/FiraCodeVF/FiraCodeVF-Regular.woff2",
+  variable: "--font-firacodevf",
+  display: "swap",
+  preload: false, // 非阻塞加载优化
+});
+
+export const JetBrainsMono = localFont({
+  src: [
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Thin-Italic.woff2",
+      weight: "100",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Thin.woff2",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-UltraLight-Italic.woff2",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-UltraLight.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Light-Italic.woff2",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Regular-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Medium-Italic.woff2",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-SemiBold-Italic.woff2",
+      weight: "600",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Bold-Italic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-ExtraBold-Italic.woff2",
+      weight: "800",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/JetBrainsMono/JetBrainsMono-ExtraBold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+  variable: "--font-jetbrainsmono",
+  display: "swap",
+  preload: false, // 非阻塞加载优化
+});
+
+export const DouyinSans = localFont({
+  src: "../public/fonts/DouyinSans/DouyinSans-Bold.ttf",
+  variable: "--font-douyinsans",
+  display: "swap",
+  preload: false, // 非阻塞加载优化
+});
+
+export const HarmonyOSSans = localFont({
+  src: [
+    {
+      path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Thin.ttf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/HarmonyOSSans/HarmonyOSSans-Black.ttf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-harmonyossans",
+  display: "swap",
+  preload: false, // 非阻塞加载优化
+});
+
+export const AlibabaSans = localFont({
 	src: [
 		{
-			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-UltraLight.otf",
-			weight: "200",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Light.otf",
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Light.woff2",
 			weight: "300",
 			style: "normal",
 		},
 		{
-			path: "../public/fonts/WenYueHouXianDaiTi/WenYueHouXianDaiTi-Regular.otf",
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Regular.woff2",
 			weight: "400",
 			style: "normal",
 		},
+		{
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Medium.woff2",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Bold.woff2",
+			weight: "700",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/AlibabaSans/AlibabaSans-ExtraBold.woff2",
+			weight: "800",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/AlibabaSans/AlibabaSans-Black.woff2",
+			weight: "900",
+			style: "normal",
+		},
 	],
-	variable: "--font-wenyuehouxiandaiti",
+	variable: "--font-alibabasans",
 	display: "swap",
 	preload: false, // 非阻塞加载优化
 });
@@ -575,70 +597,6 @@ export const HanChanYuanTiSansVariants: FontVariantInfo = {
   ]
 };
 
-export const HarmonyOSSansVariants: FontVariantInfo = {
-  "totalVariants": 6,
-  "weights": [
-    100,
-    300,
-    400,
-    500,
-    700,
-    900
-  ],
-  "styles": [
-    "italic"
-  ],
-  "variants": [
-    {
-      "weight": 100,
-      "style": "italic",
-      "file": "HarmonyOSSans-Thin-Italic.ttf"
-    },
-    {
-      "weight": 300,
-      "style": "italic",
-      "file": "HarmonyOSSans-Light-Italic.ttf"
-    },
-    {
-      "weight": 400,
-      "style": "italic",
-      "file": "HarmonyOSSans-Regular-Italic.ttf"
-    },
-    {
-      "weight": 500,
-      "style": "italic",
-      "file": "HarmonyOSSans-Medium-Italic.ttf"
-    },
-    {
-      "weight": 700,
-      "style": "italic",
-      "file": "HarmonyOSSans-Bold-Italic.ttf"
-    },
-    {
-      "weight": 900,
-      "style": "italic",
-      "file": "HarmonyOSSans-Black-Italic.ttf"
-    }
-  ]
-};
-
-export const IcomoonVariants: FontVariantInfo = {
-  "totalVariants": 1,
-  "weights": [
-    400
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "Icomoon-Regular.eot"
-    }
-  ]
-};
-
 export const ZhuLangYinYueFuHaoGePuTiVariants: FontVariantInfo = {
   "totalVariants": 1,
   "weights": [
@@ -652,53 +610,6 @@ export const ZhuLangYinYueFuHaoGePuTiVariants: FontVariantInfo = {
       "weight": 400,
       "style": "normal",
       "file": "ZhuLangYinYueFuHaoGePuTi-Regular.otf"
-    }
-  ]
-};
-
-export const PingFangSCVariants: FontVariantInfo = {
-  "totalVariants": 6,
-  "weights": [
-    100,
-    200,
-    300,
-    400,
-    500,
-    600
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 100,
-      "style": "normal",
-      "file": "PingFangSC-Thin.ttf"
-    },
-    {
-      "weight": 200,
-      "style": "normal",
-      "file": "PingFangSC-UltraLight.ttf"
-    },
-    {
-      "weight": 300,
-      "style": "normal",
-      "file": "PingFangSC-Light.ttf"
-    },
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "PingFangSC-Regular.eot"
-    },
-    {
-      "weight": 500,
-      "style": "normal",
-      "file": "PingFangSC-Medium.ttf"
-    },
-    {
-      "weight": 600,
-      "style": "normal",
-      "file": "PingFangSC-SemiBold.ttf"
     }
   ]
 };
@@ -967,46 +878,6 @@ export const RobotoMonoVariants: FontVariantInfo = {
   ]
 };
 
-export const RobotoMonoVariableFontwghtVariants: FontVariantInfo = {
-  "totalVariants": 2,
-  "weights": [
-    400
-  ],
-  "styles": [
-    "italic",
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 400,
-      "style": "italic",
-      "file": "RobotoMonoVariableFontwght-Regular-Italic.ttf"
-    },
-    {
-      "weight": 400,
-      "style": "normal",
-      "file": "RobotoMonoVariableFontwght-Regular.ttf"
-    }
-  ]
-};
-
-export const DouYinSansVariants: FontVariantInfo = {
-  "totalVariants": 1,
-  "weights": [
-    700
-  ],
-  "styles": [
-    "normal"
-  ],
-  "variants": [
-    {
-      "weight": 700,
-      "style": "normal",
-      "file": "DouYinSans-Bold.otf"
-    }
-  ]
-};
-
 export const CubicVariants: FontVariantInfo = {
   "totalVariants": 1,
   "weights": [
@@ -1053,38 +924,186 @@ export const WenYueHouXianDaiTiVariants: FontVariantInfo = {
   ]
 };
 
-export const AlibabaSans = localFont({
-	src: [
-		{
-			path: "../public/fonts/AlibabaSans/AlibabaSans-Regular.woff2",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/AlibabaSans/AlibabaSans-Medium.woff2",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/AlibabaSans/AlibabaSans-Bold.woff2",
-			weight: "700",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/AlibabaSans/AlibabaSans-Black.woff2",
-			weight: "900",
-			style: "normal",
-		},
-	],
-	variable: "--font-alibabasans",
-	display: "swap",
-	preload: false, // 非阻塞加载优化
-});
-
-// AlibabaSans 字体变体信息
-export const AlibabaSansVariants: FontVariantInfo = {
-  "totalVariants": 4,
+export const FiraCodeVariants: FontVariantInfo = {
+  "totalVariants": 5,
   "weights": [
+    300,
+    400,
+    500,
+    600,
+    700
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 300,
+      "style": "normal",
+      "file": "FiraCode-Light.woff2"
+    },
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "FiraCode-Regular.woff2"
+    },
+    {
+      "weight": 500,
+      "style": "normal",
+      "file": "FiraCode-Medium.woff2"
+    },
+    {
+      "weight": 600,
+      "style": "normal",
+      "file": "FiraCode-SemiBold.woff2"
+    },
+    {
+      "weight": 700,
+      "style": "normal",
+      "file": "FiraCode-Bold.woff2"
+    }
+  ]
+};
+
+export const FiraCodeVFVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    400
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "FiraCodeVF-Regular.woff2"
+    }
+  ]
+};
+
+export const JetBrainsMonoVariants: FontVariantInfo = {
+  "totalVariants": 16,
+  "weights": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+  ],
+  "styles": [
+    "italic",
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 100,
+      "style": "italic",
+      "file": "JetBrainsMono-Thin-Italic.woff2"
+    },
+    {
+      "weight": 100,
+      "style": "normal",
+      "file": "JetBrainsMono-Thin.woff2"
+    },
+    {
+      "weight": 200,
+      "style": "italic",
+      "file": "JetBrainsMono-UltraLight-Italic.woff2"
+    },
+    {
+      "weight": 200,
+      "style": "normal",
+      "file": "JetBrainsMono-UltraLight.woff2"
+    },
+    {
+      "weight": 300,
+      "style": "italic",
+      "file": "JetBrainsMono-Light-Italic.woff2"
+    },
+    {
+      "weight": 300,
+      "style": "normal",
+      "file": "JetBrainsMono-Light.woff2"
+    },
+    {
+      "weight": 400,
+      "style": "italic",
+      "file": "JetBrainsMono-Regular-Italic.woff2"
+    },
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "JetBrainsMono-Regular.woff2"
+    },
+    {
+      "weight": 500,
+      "style": "italic",
+      "file": "JetBrainsMono-Medium-Italic.woff2"
+    },
+    {
+      "weight": 500,
+      "style": "normal",
+      "file": "JetBrainsMono-Medium.woff2"
+    },
+    {
+      "weight": 600,
+      "style": "italic",
+      "file": "JetBrainsMono-SemiBold-Italic.woff2"
+    },
+    {
+      "weight": 600,
+      "style": "normal",
+      "file": "JetBrainsMono-SemiBold.woff2"
+    },
+    {
+      "weight": 700,
+      "style": "italic",
+      "file": "JetBrainsMono-Bold-Italic.woff2"
+    },
+    {
+      "weight": 700,
+      "style": "normal",
+      "file": "JetBrainsMono-Bold.woff2"
+    },
+    {
+      "weight": 800,
+      "style": "italic",
+      "file": "JetBrainsMono-ExtraBold-Italic.woff2"
+    },
+    {
+      "weight": 800,
+      "style": "normal",
+      "file": "JetBrainsMono-ExtraBold.woff2"
+    }
+  ]
+};
+
+export const DouyinSansVariants: FontVariantInfo = {
+  "totalVariants": 1,
+  "weights": [
+    700
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 700,
+      "style": "normal",
+      "file": "DouyinSans-Bold.ttf"
+    }
+  ]
+};
+
+export const HarmonyOSSansVariants: FontVariantInfo = {
+  "totalVariants": 6,
+  "weights": [
+    100,
+    300,
     400,
     500,
     700,
@@ -1094,6 +1113,58 @@ export const AlibabaSansVariants: FontVariantInfo = {
     "normal"
   ],
   "variants": [
+    {
+      "weight": 100,
+      "style": "normal",
+      "file": "HarmonyOSSans-Thin.ttf"
+    },
+    {
+      "weight": 300,
+      "style": "normal",
+      "file": "HarmonyOSSans-Light.ttf"
+    },
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "HarmonyOSSans-Regular.ttf"
+    },
+    {
+      "weight": 500,
+      "style": "normal",
+      "file": "HarmonyOSSans-Medium.ttf"
+    },
+    {
+      "weight": 700,
+      "style": "normal",
+      "file": "HarmonyOSSans-Bold.ttf"
+    },
+    {
+      "weight": 900,
+      "style": "normal",
+      "file": "HarmonyOSSans-Black.ttf"
+    }
+  ]
+};
+
+export const AlibabaSansVariants: FontVariantInfo = {
+  "totalVariants": 6,
+  "weights": [
+    300,
+    400,
+    500,
+    700,
+    800,
+    900
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 300,
+      "style": "normal",
+      "file": "AlibabaSans-Light.woff2"
+    },
     {
       "weight": 400,
       "style": "normal",
@@ -1110,6 +1181,11 @@ export const AlibabaSansVariants: FontVariantInfo = {
       "file": "AlibabaSans-Bold.woff2"
     },
     {
+      "weight": 800,
+      "style": "normal",
+      "file": "AlibabaSans-ExtraBold.woff2"
+    },
+    {
       "weight": 900,
       "style": "normal",
       "file": "AlibabaSans-Black.woff2"
@@ -1117,21 +1193,97 @@ export const AlibabaSansVariants: FontVariantInfo = {
   ]
 };
 
+export const PingFangSC = localFont({
+	src: [
+		{
+			path: "../public/fonts/PingFangSC/PingFangSC-Thin.woff2",
+			weight: "100",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/PingFangSC/PingFangSC-Light.woff2",
+			weight: "300",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/PingFangSC/PingFangSC-Regular.woff2",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/PingFangSC/PingFangSC-Medium.woff2",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "../public/fonts/PingFangSC/PingFangSC-SemiBold.woff2",
+			weight: "600",
+			style: "normal",
+		},
+	],
+	variable: "--font-pingfangsc",
+	display: "swap",
+	preload: false, // 非阻塞加载优化
+});
+
+// PingFangSC 字体变体信息
+export const PingFangSCVariants: FontVariantInfo = {
+  "totalVariants": 5,
+  "weights": [
+    100,
+    300,
+    400,
+    500,
+    600
+  ],
+  "styles": [
+    "normal"
+  ],
+  "variants": [
+    {
+      "weight": 100,
+      "style": "normal",
+      "file": "PingFangSC-Thin.woff2"
+    },
+    {
+      "weight": 300,
+      "style": "normal",
+      "file": "PingFangSC-Light.woff2"
+    },
+    {
+      "weight": 400,
+      "style": "normal",
+      "file": "PingFangSC-Regular.woff2"
+    },
+    {
+      "weight": 500,
+      "style": "normal",
+      "file": "PingFangSC-Medium.woff2"
+    },
+    {
+      "weight": 600,
+      "style": "normal",
+      "file": "PingFangSC-SemiBold.woff2"
+    }
+  ]
+};
+
 export const myFonts: NextFontWithVariable[] = [
 	AlibabaSans,
 	Cubic,
-	DouYinSans,
+	DouyinSans,
+	FiraCode,
+	FiraCodeVF,
 	HanChanYuanTi,
 	HanChanYuanTiRound,
 	HanChanYuanTiSans,
 	HarmonyOSSans,
-	Icomoon,
+	JetBrainsMono,
 	PingFangSC,
 	PingFangTC,
 	Poppins,
 	Pragmata,
 	RobotoMono,
-	RobotoMonoVariableFontwght,
 	WenYueHouXianDaiTi,
 	YiQiShengDanTi,
 	ZhuLangYinYueFuHaoGePuTi,
@@ -1143,17 +1295,18 @@ export const fontVariantsMap: { [key: string]: FontVariantInfo } = {
 	HanChanYuanTi: HanChanYuanTiVariants,
 	HanChanYuanTiRound: HanChanYuanTiRoundVariants,
 	HanChanYuanTiSans: HanChanYuanTiSansVariants,
-	HarmonyOSSans: HarmonyOSSansVariants,
-	Icomoon: IcomoonVariants,
 	ZhuLangYinYueFuHaoGePuTi: ZhuLangYinYueFuHaoGePuTiVariants,
-	PingFangSC: PingFangSCVariants,
 	PingFangTC: PingFangTCVariants,
 	Poppins: PoppinsVariants,
 	Pragmata: PragmataVariants,
 	RobotoMono: RobotoMonoVariants,
-	RobotoMonoVariableFontwght: RobotoMonoVariableFontwghtVariants,
-	DouYinSans: DouYinSansVariants,
 	Cubic: CubicVariants,
 	WenYueHouXianDaiTi: WenYueHouXianDaiTiVariants,
+	FiraCode: FiraCodeVariants,
+	FiraCodeVF: FiraCodeVFVariants,
+	JetBrainsMono: JetBrainsMonoVariants,
+	DouyinSans: DouyinSansVariants,
+	HarmonyOSSans: HarmonyOSSansVariants,
 	AlibabaSans: AlibabaSansVariants,
+	PingFangSC: PingFangSCVariants,
 };

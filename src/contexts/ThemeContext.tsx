@@ -42,7 +42,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('font-showcase-theme', currentTheme);
     // Update document class for CSS
-    document.documentElement.classList.toggle('dark', currentTheme === 'dark');
+    document.documentElement.classList.remove('dark', 'light');
+    document.documentElement.classList.add(currentTheme);
   }, [currentTheme]);
 
   const toggleTheme = () => {
@@ -63,33 +64,39 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         theme={{
           algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
           token: {
-            colorPrimary: isDark ? '#6799FE' : '#4470FE',
-            borderRadius: 8,
-            colorBgContainer: isDark ? '#292929' : '#FFFFFF',
-            colorBgElevated: isDark ? '#292929' : '#FFFFFF',
-            colorBgLayout: isDark ? '#0F0F0F' : '#FFFFFF',
-            colorBorder: isDark ? '#404040' : '#e5e7eb',
-            colorText: isDark ? '#f0f6fc' : '#24292e',
-            colorTextPlaceholder: isDark ? '#8E9094' : '#A2A3A5',
+            colorPrimary: isDark ? '#1890ff' : '#1677ff',
+            borderRadius: 6,
+            colorBgContainer: isDark ? '#1f1f1f' : '#ffffff',
+            colorBgElevated: isDark ? '#1f1f1f' : '#ffffff',
+            colorBgLayout: isDark ? '#141414' : '#f5f5f5',
+            colorBorder: isDark ? '#434343' : '#d9d9d9',
+            colorText: isDark ? '#ffffff' : 'rgba(0, 0, 0, 0.88)',
+            colorTextPlaceholder: isDark ? '#8c8c8c' : 'rgba(0, 0, 0, 0.45)',
           },
           components: {
             Button: {
-              defaultBg: isDark ? '#283042' : '#EDF3FE',
-              defaultColor: isDark ? '#6799FE' : '#4470FE',
-              defaultBorderColor: isDark ? '#283042' : '#EDF3FE',
-              defaultHoverBg: isDark ? '#364663' : '#dce7fd',
-              defaultHoverColor: isDark ? '#7ba3ff' : '#3d66fe',
-              defaultHoverBorderColor: isDark ? '#364663' : '#dce7fd',
+              defaultBg: isDark ? '#1f1f1f' : '#f5f5f5',
+              defaultColor: isDark ? '#1890ff' : '#1677ff',
+              defaultBorderColor: isDark ? '#434343' : '#d9d9d9',
+              defaultHoverBg: isDark ? '#262626' : '#e6f4ff',
+              defaultHoverColor: isDark ? '#40a9ff' : '#0958d9',
+              defaultHoverBorderColor: isDark ? '#595959' : '#40a9ff',
             },
             Input: {
-              colorBgContainer: isDark ? '#292929' : '#FFFFFF',
-              colorBorder: isDark ? '#404040' : '#e5e7eb',
-              colorText: isDark ? '#f0f6fc' : '#24292e',
-              colorTextPlaceholder: isDark ? '#8E9094' : '#A2A3A5',
+              colorBgContainer: isDark ? '#1f1f1f' : '#ffffff',
+              colorBorder: isDark ? '#434343' : '#d9d9d9',
+              colorText: isDark ? '#ffffff' : 'rgba(0, 0, 0, 0.88)',
+              colorTextPlaceholder: isDark ? '#8c8c8c' : 'rgba(0, 0, 0, 0.45)',
             },
             Card: {
-              colorBgContainer: isDark ? '#292929' : '#FFFFFF',
-              colorBorderSecondary: isDark ? '#404040' : '#e5e7eb',
+              colorBgContainer: isDark ? '#1f1f1f' : '#ffffff',
+              colorBorderSecondary: isDark ? '#434343' : '#d9d9d9',
+            },
+            Select: {
+              colorBgContainer: isDark ? '#1f1f1f' : '#ffffff',
+              colorBorder: isDark ? '#434343' : '#d9d9d9',
+              colorText: isDark ? '#ffffff' : 'rgba(0, 0, 0, 0.88)',
+              colorTextPlaceholder: isDark ? '#8c8c8c' : 'rgba(0, 0, 0, 0.45)',
             },
           },
         }}

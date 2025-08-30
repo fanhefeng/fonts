@@ -1,6 +1,6 @@
 "use client";
 
-import { myFonts, DouYinSans } from "../../styles/fonts";
+import { myFonts, DouyinSans } from "../../styles/fonts";
 import MyFont from "@/components/ui/MyFont";
 import FontConfig from "@/components/ui/FontConfig";
 import { Typography, Spin, Button, Space } from "antd";
@@ -103,7 +103,7 @@ export default function Home() {
 						<div className="flex-1">
 							<Title
 								level={1}
-								className={`!mb-0 font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${DouYinSans.className}`}
+								className={`!mb-0 font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${DouyinSans.className}`}
 							>
 								{t.header.title}
 							</Title>
