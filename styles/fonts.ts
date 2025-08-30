@@ -464,9 +464,9 @@ export const RobotoMonoVariableFontwght = localFont({
 	preload: false,
 });
 
-export const DouYinSansBold = localFont({
-	src: "../public/fonts/DouYinSansBold/DouYinSansBold-Bold.otf",
-	variable: "--font-douyinsansbold",
+export const DouYinSans = localFont({
+	src: "../public/fonts/DouYinSans/DouYinSans-Bold.otf",
+	variable: "--font-douyinsans",
 	display: "swap",
 	preload: false,
 });
@@ -990,7 +990,7 @@ export const RobotoMonoVariableFontwghtVariants: FontVariantInfo = {
   ]
 };
 
-export const DouYinSansBoldVariants: FontVariantInfo = {
+export const DouYinSansVariants: FontVariantInfo = {
   "totalVariants": 1,
   "weights": [
     700
@@ -1002,7 +1002,7 @@ export const DouYinSansBoldVariants: FontVariantInfo = {
     {
       "weight": 700,
       "style": "normal",
-      "file": "DouYinSansBold-Bold.otf"
+      "file": "DouYinSans-Bold.otf"
     }
   ]
 };
@@ -1120,7 +1120,7 @@ export const AlibabaSansVariants: FontVariantInfo = {
 export const myFonts: NextFontWithVariable[] = [
 	AlibabaSans,
 	Cubic,
-	DouYinSansBold,
+	DouYinSans,
 	HanChanYuanTi,
 	HanChanYuanTiRound,
 	HanChanYuanTiSans,
@@ -1152,7 +1152,7 @@ export const fontVariantsMap: { [key: string]: FontVariantInfo } = {
 	Pragmata: PragmataVariants,
 	RobotoMono: RobotoMonoVariants,
 	RobotoMonoVariableFontwght: RobotoMonoVariableFontwghtVariants,
-	DouYinSansBold: DouYinSansBoldVariants,
+	DouYinSans: DouYinSansVariants,
 	Cubic: CubicVariants,
 	WenYueHouXianDaiTi: WenYueHouXianDaiTiVariants,
 	AlibabaSans: AlibabaSansVariants,
