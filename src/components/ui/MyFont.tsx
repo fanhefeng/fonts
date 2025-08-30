@@ -342,32 +342,36 @@ export default function MyFont({
 	};
 
 	// Memoize tooltip formatter to prevent infinite re-renders
-	const tooltipFormatter = useCallback((value: number) => {
-		const weightNames = language === "zh"
-			? {
-				100: "极细",
-				200: "特细", 
-				300: "细",
-				400: "正常",
-				500: "中等",
-				600: "中粗",
-				700: "粗",
-				800: "特粗",
-				900: "超粗",
-			}
-			: {
-				100: "Thin",
-				200: "ExtraLight",
-				300: "Light", 
-				400: "Regular",
-				500: "Medium",
-				600: "SemiBold",
-				700: "Bold",
-				800: "ExtraBold",
-				900: "Black",
-			};
-		return weightNames[value as keyof typeof weightNames] || value?.toString();
-	}, [language]);
+	const tooltipFormatter = useCallback(
+		(value: number) => {
+			const weightNames =
+				language === "zh"
+					? {
+							100: "极细",
+							200: "特细",
+							300: "细",
+							400: "正常",
+							500: "中等",
+							600: "中粗",
+							700: "粗",
+							800: "特粗",
+							900: "超粗",
+					  }
+					: {
+							100: "Thin",
+							200: "ExtraLight",
+							300: "Light",
+							400: "Regular",
+							500: "Medium",
+							600: "SemiBold",
+							700: "Bold",
+							800: "ExtraBold",
+							900: "Black",
+					  };
+			return weightNames[value as keyof typeof weightNames] || value?.toString();
+		},
+		[language]
+	);
 
 	const cardExtra = (
 		<Space>
@@ -399,373 +403,362 @@ export default function MyFont({
 	);
 
 	return (
-		<div className={`${font.className} ${font.variable} w-full`}>
-			<Card
-				hoverable
-				extra={cardExtra}
-				className="border-0 shadow-sm hover:shadow-md transition-all duration-200 w-full"
-				styles={{ body: { padding: "18px 24px", minWidth: 0 } }}
-			>
-				<div className="space-y-4 sm:space-y-5">
-					{/* Font name and control buttons */}
-					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-						<div className="flex items-center space-x-2 min-w-0">
-							<h3 className="text-base sm:text-lg font-medium mb-0 truncate" style={{ color: isDark ? "#ffffff" : "rgba(0, 0, 0, 0.88)" }}>
-								{fontFamilyName}
-							</h3>
+		<Card
+			hoverable
+			extra={cardExtra}
+			className="border-0 shadow-sm hover:shadow-md transition-all duration-200 w-full"
+			styles={{ body: { padding: "18px 24px", minWidth: 0, width: "100%" } }}
+		>
+			<div className="space-y-4 sm:space-y-5">
+				{/* Font name and control buttons */}
+				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+					<div className="flex items-center space-x-2 min-w-0">
+						<h3 className="text-base sm:text-lg font-medium mb-0 truncate" style={{ color: isDark ? "#ffffff" : "rgba(0, 0, 0, 0.88)" }}>
+							{fontFamilyName}
+						</h3>
 
-							{/* 字体加载状态指示器 - 准确显示加载状态 */}
-							{fontLoadingStatus === "loading" && (
-								<span
-									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
-									style={{
-										backgroundColor: isDark ? "rgba(103, 153, 254, 0.12)" : "rgba(24, 144, 255, 0.12)",
-										color: isDark ? "#6799FE" : "#1677ff",
-									}}
-								>
-									⏳ {language === "zh" ? "加载中" : "Loading"}
-								</span>
-							)}
-							{fontLoadingStatus === "loaded" && (
-								<span
-									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
-									style={{
-										backgroundColor: isDark ? "rgba(82, 196, 26, 0.12)" : "rgba(82, 196, 26, 0.12)",
-										color: isDark ? "#52c41a" : "#52c41a",
-									}}
-								>
-									✅ {language === "zh" ? "已加载" : "Loaded"}
-								</span>
-							)}
-							{fontLoadingStatus === "failed" && (
-								<span
-									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
-									style={{
-										backgroundColor: isDark ? "rgba(255, 77, 79, 0.12)" : "rgba(255, 77, 79, 0.12)",
-										color: isDark ? "#ff4d4f" : "#ff4d4f",
-									}}
-								>
-									❌ {language === "zh" ? "加载失败" : "Failed"}
-								</span>
-							)}
+						{/* 字体加载状态指示器 - 准确显示加载状态 */}
+						{fontLoadingStatus === "loading" && (
+							<span
+								className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+								style={{
+									backgroundColor: isDark ? "rgba(103, 153, 254, 0.12)" : "rgba(24, 144, 255, 0.12)",
+									color: isDark ? "#6799FE" : "#1677ff",
+								}}
+							>
+								⏳ {language === "zh" ? "加载中" : "Loading"}
+							</span>
+						)}
+						{fontLoadingStatus === "loaded" && (
+							<span
+								className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+								style={{
+									backgroundColor: isDark ? "rgba(82, 196, 26, 0.12)" : "rgba(82, 196, 26, 0.12)",
+									color: isDark ? "#52c41a" : "#52c41a",
+								}}
+							>
+								✅ {language === "zh" ? "已加载" : "Loaded"}
+							</span>
+						)}
+						{fontLoadingStatus === "failed" && (
+							<span
+								className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+								style={{
+									backgroundColor: isDark ? "rgba(255, 77, 79, 0.12)" : "rgba(255, 77, 79, 0.12)",
+									color: isDark ? "#ff4d4f" : "#ff4d4f",
+								}}
+							>
+								❌ {language === "zh" ? "加载失败" : "Failed"}
+							</span>
+						)}
 
-							{hasIndividualSettings && (
-								<span
-									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
-									style={{
-										backgroundColor: isDark ? "rgba(103, 153, 254, 0.12)" : "rgba(24, 144, 255, 0.12)",
-										color: isDark ? "#6799FE" : "#1677ff",
-									}}
-								>
-									{language === "zh" ? "个别设置" : "Custom"}
-								</span>
-							)}
-							{fontVariants && (
-								<span
-									className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
-									style={{
-										backgroundColor: isDark ? "#292929" : "#f5f5f5",
-										color: isDark ? "#8E9094" : "rgba(0, 0, 0, 0.65)",
-										border: isDark ? "1px solid #404040" : "1px solid #d9d9d9",
-									}}
-								>
-									{fontVariants.totalVariants} {language === "zh" ? "变体" : "variants"}
-								</span>
-							)}
-						</div>
-						<div className="flex items-center justify-end gap-3 flex-wrap">
-							{!globalCustomText.trim() && (
-								<div
-									className="flex items-center gap-2 sm:gap-3 px-3 py-2 rounded-md border"
-									style={{
-										backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
-										borderColor: isDark ? "#434343" : "#d9d9d9",
-									}}
-								>
-									<span className="text-xs sm:text-sm whitespace-nowrap font-medium" style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}>
-										{t.font.textSamples}
-									</span>
-									<Select
-										value={selectedSample}
-										onChange={setSelectedSample}
-										options={[
-											...TEXT_SAMPLES.map((sample) => ({
-												label: sample.label,
-												value: sample.key,
-											})),
-											{ label: t.font.custom, value: "custom" },
-										]}
-										size="small"
-										className="font-preview-select"
-										style={{ minWidth: 90, maxWidth: 140 }}
-									/>
-								</div>
-							)}
-							{globalCustomText.trim() && (
-								<div
-									className="px-3 py-2 rounded-md border"
-									style={{
-										backgroundColor: isDark ? "rgba(24, 144, 255, 0.08)" : "rgba(24, 144, 255, 0.08)",
-										borderColor: isDark ? "rgba(24, 144, 255, 0.2)" : "rgba(24, 144, 255, 0.2)",
-									}}
-								>
-									<span className="text-xs sm:text-sm whitespace-nowrap font-medium" style={{ color: isDark ? "#1890ff" : "#1677ff" }}>
-										{t.font.globalTextUsed}
-									</span>
-								</div>
-							)}
-						</div>
+						{hasIndividualSettings && (
+							<span
+								className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+								style={{
+									backgroundColor: isDark ? "rgba(103, 153, 254, 0.12)" : "rgba(24, 144, 255, 0.12)",
+									color: isDark ? "#6799FE" : "#1677ff",
+								}}
+							>
+								{language === "zh" ? "个别设置" : "Custom"}
+							</span>
+						)}
+						{fontVariants && (
+							<span
+								className="text-xs px-2 py-1 rounded-full whitespace-nowrap"
+								style={{
+									backgroundColor: isDark ? "#292929" : "#f5f5f5",
+									color: isDark ? "#8E9094" : "rgba(0, 0, 0, 0.65)",
+									border: isDark ? "1px solid #404040" : "1px solid #d9d9d9",
+								}}
+							>
+								{fontVariants.totalVariants} {language === "zh" ? "变体" : "variants"}
+							</span>
+						)}
 					</div>
+					<div className="flex flex-col gap-2 sm:gap-3 sm:flex-row sm:items-center sm:justify-end min-w-0">
+						{/* 移动端：堆叠显示，桌面端：横向排列 */}
+						{!globalCustomText.trim() && (
+							<div className="flex items-center gap-2 order-2 sm:order-1 min-w-0">
+								<span className="text-xs font-medium whitespace-nowrap flex-shrink-0" style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}>
+									{t.font.textSamples}
+								</span>
+								<Select
+									value={selectedSample}
+									onChange={setSelectedSample}
+									options={[
+										...TEXT_SAMPLES.map((sample) => ({
+											label: sample.label,
+											value: sample.key,
+										})),
+										{ label: t.font.custom, value: "custom" },
+									]}
+									size="small"
+									style={{ minWidth: "70px", maxWidth: "100%", width: "140px", flexShrink: 1 }}
+									getPopupContainer={(triggerNode) => triggerNode.parentElement || document.body}
+								/>
+							</div>
+						)}
+						{globalCustomText.trim() && (
+							<div
+								className="px-3 py-2 rounded-md border order-2 sm:order-1"
+								style={{
+									backgroundColor: isDark ? "rgba(24, 144, 255, 0.08)" : "rgba(24, 144, 255, 0.08)",
+									borderColor: isDark ? "rgba(24, 144, 255, 0.2)" : "rgba(24, 144, 255, 0.2)",
+								}}
+							>
+								<span className="text-xs font-medium whitespace-nowrap" style={{ color: isDark ? "#1890ff" : "#1677ff" }}>
+									{t.font.globalTextUsed}
+								</span>
+							</div>
+						)}
+					</div>
+				</div>
 
-					{/* Individual font settings panel */}
-					<div
-						className={`transition-all duration-300 ease-in-out ${
-							showIndividualConfig ? "max-h-screen sm:max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-						}`}
-					>
-						{showIndividualConfig && (
-							<div className={`${styles.individualConfigPanel} individual-config-panel`}>
-								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-									<h4 className="text-sm sm:text-base font-medium mb-0" style={{ color: isDark ? "#ffffff" : "rgba(0, 0, 0, 0.88)" }}>
-										{t.font.individualSettings}
-									</h4>
-									<div className="min-w-16 h-6 flex items-center justify-end">
+				{/* Individual font settings panel */}
+				<div
+					className={`transition-all duration-300 ease-in-out ${
+						showIndividualConfig ? "max-h-screen sm:max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+					}`}
+				>
+					{showIndividualConfig && (
+						<div className={`${styles.individualConfigPanel} individual-config-panel`}>
+							<div className="flex items-center justify-between mb-4">
+								<h4 className="text-sm sm:text-base font-medium mb-0 flex-1 min-w-0" style={{ color: isDark ? "#ffffff" : "rgba(0, 0, 0, 0.88)" }}>
+									{t.font.individualSettings}
+								</h4>
+								<div className="flex-shrink-0 ml-3">
+									{hasIndividualSettings && (
 										<Button
 											size="small"
 											type="link"
 											onClick={resetIndividualSettings}
 											style={{
-												padding: 0,
+												padding: "0 8px",
 												minWidth: "auto",
-												opacity: hasIndividualSettings ? 1 : 0,
-												visibility: hasIndividualSettings ? "visible" : "hidden",
-												transition: "opacity 0.2s ease, visibility 0.2s ease",
+												height: "24px",
+												fontSize: "12px",
+												color: isDark ? "#1890ff" : "#1677ff",
 											}}
 										>
 											{t.font.reset}
 										</Button>
-									</div>
-								</div>
-
-								{/* 移动端: 垂直堆叠, 桌面端: 网格布局 */}
-								<div className="flex flex-col sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
-									{/* Font size */}
-									<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
-										<div className="flex justify-between items-center mb-2">
-											<span
-												className="font-medium text-xs sm:text-sm whitespace-nowrap"
-												style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
-											>
-												{t.controls.fontSize}
-											</span>
-											<span
-												className="text-xs text-white px-2 py-1 rounded-full font-medium"
-												style={{
-													backgroundColor: isDark ? "rgba(103, 153, 254, 0.8)" : "rgba(24, 144, 255, 0.8)",
-												}}
-											>
-												{individualFontSize ?? globalFontSize}px
-											</span>
-										</div>
-										<div className={styles.sliderContainer}>
-											<Slider min={14} max={64} value={individualFontSize ?? globalFontSize} onChange={(value) => setIndividualFontSize(value)} />
-										</div>
-									</div>
-
-									{/* Font weight */}
-									<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
-										<div className="flex justify-between items-center mb-2">
-											<span
-												className="font-medium text-xs sm:text-sm whitespace-nowrap"
-												style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
-											>
-												{t.controls.fontWeight}
-											</span>
-											<span
-												className="text-xs text-white px-2 py-1 rounded-full font-medium"
-												style={{
-													backgroundColor: isDark ? "rgba(114, 46, 209, 0.8)" : "rgba(114, 46, 209, 0.8)",
-												}}
-											>
-												{individualFontWeight ?? adjustedGlobalWeight}
-											</span>
-										</div>
-										<div className={`px-1 sm:px-2 ${styles.weightSliderContainer}`}>
-											<div
-												className={`${styles.sliderWrapper} ${
-													"useShortMarks" in weightConfig && weightConfig.useShortMarks ? styles.shortMarks : styles.fullMarks
-												}`}
-											>
-												{weightConfig.max > weightConfig.min && (
-													<Slider
-														min={weightConfig.min}
-														max={weightConfig.max}
-														step={weightConfig.step}
-														value={individualFontWeight ?? adjustedGlobalWeight}
-														onChange={(value) => {
-															// If we have font variants, ensure the selected weight is available
-															const adjustedValue = fontVariants ? findClosestWeight(fontVariants.weights, value) : value;
-															setIndividualFontWeight(adjustedValue);
-														}}
-														marks={weightConfig.marks}
-														tooltip={{
-															formatter: (value?: number) => value ? tooltipFormatter(value) : '',
-														}}
-													/>
-												)}
-											</div>
-										</div>
-										{fontVariants && (
-											<div className="mt-1 text-xs hidden sm:block" style={{ color: isDark ? "#1890ff" : "#1677ff" }}>
-												{language === "zh" ? `可用权重: ${fontVariants.weights.join(", ")}` : `Available weights: ${fontVariants.weights.join(", ")}`}
-											</div>
-										)}
-									</div>
-
-									{/* Font color */}
-									<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
-										<div className="mb-2 sm:mb-3">
-											<span
-												className="font-medium text-xs sm:text-sm block whitespace-nowrap"
-												style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
-											>
-												{t.controls.fontColor}
-											</span>
-										</div>
-										<div className={styles.centerContainer}>
-											<ColorPicker
-												value={individualFontColor ?? globalFontColor}
-												onChange={(color) => {
-													const hexColor = color.toHexString();
-													setIndividualFontColor(hexColor);
-												}}
-												onChangeComplete={(color) => {
-													const hexColor = color.toHexString();
-													setIndividualFontColor(hexColor);
-												}}
-												showText
-												size="small"
-												presets={[
-													{
-														label: t.controls.commonColors,
-														colors: [
-															"#3498db",
-															"#000000",
-															"#333333",
-															"#666666",
-															"#999999",
-															"#e74c3c",
-															"#2ecc71",
-															"#f39c12",
-															"#9b59b6",
-															"#1abc9c",
-															"#34495e",
-															"#7f8c8d",
-														],
-													},
-												]}
-												placement="bottomLeft"
-												style={{ zIndex: 9999 }}
-											/>
-										</div>
-									</div>
-
-									{/* Italic style */}
-									<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
-										<div className="mb-2 sm:mb-3">
-											<span
-												className="font-medium text-xs sm:text-sm block whitespace-nowrap"
-												style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
-											>
-												{t.controls.fontStyle}
-											</span>
-										</div>
-										<div className={styles.centerContainer}>
-											<Switch
-												checked={individualIsItalic ?? adjustedGlobalStyle}
-												onChange={(checked) => {
-													// If font only supports one style, don't allow changes
-													if (onlyAvailableStyle) {
-														return; // Do nothing if only one style is available
-													}
-													// Only allow the change if the font supports the target style
-													const finalValue = checked ? (italicSupported ? true : false) : normalSupported ? false : true;
-													setIndividualIsItalic(finalValue);
-												}}
-												disabled={onlyAvailableStyle !== null || (!italicSupported && !normalSupported)}
-												checkedChildren={<ItalicOutlined />}
-												unCheckedChildren={<span className="text-xs">{language === "zh" ? "正常" : "Normal"}</span>}
-											/>
-										</div>
-										{fontVariants && (
-											<div className="mt-1 text-xs text-center">
-												{onlyAvailableStyle ? (
-													<span style={{ color: onlyAvailableStyle === "italic" ? (isDark ? "#1890ff" : "#1677ff") : "#52c41a" }}>
-														{language === "zh"
-															? onlyAvailableStyle === "italic"
-																? "仅斜体"
-																: "仅正常"
-															: onlyAvailableStyle === "italic"
-															? "Italic only"
-															: "Normal only"}
-													</span>
-												) : italicSupported && normalSupported ? (
-													<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
-														{language === "zh" ? "正常+斜体" : "Both styles"}
-													</span>
-												) : italicSupported ? (
-													<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
-														{language === "zh" ? "支持斜体" : "Italic supported"}
-													</span>
-												) : normalSupported ? (
-													<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
-														{language === "zh" ? "支持正常" : "Normal supported"}
-													</span>
-												) : (
-													<span className="hidden sm:inline" style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}>
-														{language === "zh" ? "样式不可用" : "Style unavailable"}
-													</span>
-												)}
-											</div>
-										)}
-									</div>
+									)}
 								</div>
 							</div>
-						)}
-					</div>
 
-					{/* Custom text input */}
-					{selectedSample === "custom" && !globalCustomText.trim() && (
-						<div className="w-full">
-							<textarea
-								value={customText}
-								onChange={(e) => setCustomText(e.target.value)}
-								placeholder={t.font.customPlaceholder}
-								className="font-preview-textarea w-full resize-none focus:outline-none"
-								rows={2}
-							/>
+							{/* 移动端: 垂直堆叠, 桌面端: 网格布局 */}
+							<div className="flex flex-col sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
+								{/* Font size */}
+								<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
+									<div className="flex justify-between items-center mb-2">
+										<span className="font-medium text-xs sm:text-sm whitespace-nowrap" style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}>
+											{t.controls.fontSize}
+										</span>
+										<span
+											className="text-xs text-white px-2 py-1 rounded-full font-medium"
+											style={{
+												backgroundColor: isDark ? "rgba(103, 153, 254, 0.8)" : "rgba(24, 144, 255, 0.8)",
+											}}
+										>
+											{individualFontSize ?? globalFontSize}px
+										</span>
+									</div>
+									<div className={styles.sliderContainer}>
+										<Slider min={14} max={64} value={individualFontSize ?? globalFontSize} onChange={(value) => setIndividualFontSize(value)} />
+									</div>
+								</div>
+
+								{/* Font weight */}
+								<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
+									<div className="flex justify-between items-center mb-2">
+										<span className="font-medium text-xs sm:text-sm whitespace-nowrap" style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}>
+											{t.controls.fontWeight}
+										</span>
+										<span
+											className="text-xs text-white px-2 py-1 rounded-full font-medium"
+											style={{
+												backgroundColor: isDark ? "rgba(114, 46, 209, 0.8)" : "rgba(114, 46, 209, 0.8)",
+											}}
+										>
+											{individualFontWeight ?? adjustedGlobalWeight}
+										</span>
+									</div>
+									<div className={`px-1 sm:px-2 ${styles.weightSliderContainer}`}>
+										<div
+											className={`${styles.sliderWrapper} ${
+												"useShortMarks" in weightConfig && weightConfig.useShortMarks ? styles.shortMarks : styles.fullMarks
+											}`}
+										>
+											{weightConfig.max > weightConfig.min && (
+												<Slider
+													min={weightConfig.min}
+													max={weightConfig.max}
+													step={weightConfig.step}
+													value={individualFontWeight ?? adjustedGlobalWeight}
+													onChange={(value) => {
+														// If we have font variants, ensure the selected weight is available
+														const adjustedValue = fontVariants ? findClosestWeight(fontVariants.weights, value) : value;
+														setIndividualFontWeight(adjustedValue);
+													}}
+													marks={weightConfig.marks}
+													tooltip={{
+														formatter: (value?: number) => (value ? tooltipFormatter(value) : ""),
+													}}
+												/>
+											)}
+										</div>
+									</div>
+									{fontVariants && (
+										<div className="mt-1 text-xs hidden sm:block" style={{ color: isDark ? "#1890ff" : "#1677ff" }}>
+											{language === "zh" ? `可用权重: ${fontVariants.weights.join(", ")}` : `Available weights: ${fontVariants.weights.join(", ")}`}
+										</div>
+									)}
+								</div>
+
+								{/* Font color */}
+								<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
+									<div className="mb-2 sm:mb-3">
+										<span
+											className="font-medium text-xs sm:text-sm block whitespace-nowrap"
+											style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+										>
+											{t.controls.fontColor}
+										</span>
+									</div>
+									<div className={styles.centerContainer}>
+										<ColorPicker
+											value={individualFontColor ?? globalFontColor}
+											onChange={(color) => {
+												const hexColor = color.toHexString();
+												setIndividualFontColor(hexColor);
+											}}
+											onChangeComplete={(color) => {
+												const hexColor = color.toHexString();
+												setIndividualFontColor(hexColor);
+											}}
+											showText
+											size="small"
+											presets={[
+												{
+													label: t.controls.commonColors,
+													colors: [
+														"#3498db",
+														"#000000",
+														"#333333",
+														"#666666",
+														"#999999",
+														"#e74c3c",
+														"#2ecc71",
+														"#f39c12",
+														"#9b59b6",
+														"#1abc9c",
+														"#34495e",
+														"#7f8c8d",
+													],
+												},
+											]}
+											placement="bottomLeft"
+											style={{ zIndex: 9999 }}
+										/>
+									</div>
+								</div>
+
+								{/* Italic style */}
+								<div className={`${styles.individualConfigItem} min-w-0 flex-shrink-0`}>
+									<div className="mb-2 sm:mb-3">
+										<span
+											className="font-medium text-xs sm:text-sm block whitespace-nowrap"
+											style={{ color: isDark ? "#d9d9d9" : "rgba(0, 0, 0, 0.65)" }}
+										>
+											{t.controls.fontStyle}
+										</span>
+									</div>
+									<div className={styles.centerContainer}>
+										<Switch
+											checked={individualIsItalic ?? adjustedGlobalStyle}
+											onChange={(checked) => {
+												// If font only supports one style, don't allow changes
+												if (onlyAvailableStyle) {
+													return; // Do nothing if only one style is available
+												}
+												// Only allow the change if the font supports the target style
+												const finalValue = checked ? (italicSupported ? true : false) : normalSupported ? false : true;
+												setIndividualIsItalic(finalValue);
+											}}
+											disabled={onlyAvailableStyle !== null || (!italicSupported && !normalSupported)}
+											checkedChildren={<ItalicOutlined />}
+											unCheckedChildren={<span className="text-xs">{language === "zh" ? "正常" : "Normal"}</span>}
+										/>
+									</div>
+									{fontVariants && (
+										<div className="mt-1 text-xs text-center">
+											{onlyAvailableStyle ? (
+												<span style={{ color: onlyAvailableStyle === "italic" ? (isDark ? "#1890ff" : "#1677ff") : "#52c41a" }}>
+													{language === "zh"
+														? onlyAvailableStyle === "italic"
+															? "仅斜体"
+															: "仅正常"
+														: onlyAvailableStyle === "italic"
+														? "Italic only"
+														: "Normal only"}
+												</span>
+											) : italicSupported && normalSupported ? (
+												<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
+													{language === "zh" ? "正常+斜体" : "Both styles"}
+												</span>
+											) : italicSupported ? (
+												<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
+													{language === "zh" ? "支持斜体" : "Italic supported"}
+												</span>
+											) : normalSupported ? (
+												<span className="hidden sm:inline" style={{ color: "#52c41a" }}>
+													{language === "zh" ? "支持正常" : "Normal supported"}
+												</span>
+											) : (
+												<span className="hidden sm:inline" style={{ color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.45)" }}>
+													{language === "zh" ? "样式不可用" : "Style unavailable"}
+												</span>
+											)}
+										</div>
+									)}
+								</div>
+							</div>
 						</div>
 					)}
-
-					{/* Font preview area - 确保在移动设备上始终可见 */}
-					<div
-						style={{
-							...getFontStyle(),
-							minHeight: showIndividualConfig ? "80px" : "100px", // 设置面板展开时减小最小高度
-							padding: showIndividualConfig ? "16px 20px" : "20px 24px", // 设置面板展开时减小内边距
-							backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
-							borderRadius: "6px",
-							border: isDark ? "1px solid #434343" : "1px solid #d9d9d9",
-							boxShadow: "0 2px 0 rgba(0, 0, 0, 0.02)",
-							wordBreak: "break-word",
-							overflowWrap: "break-word",
-						}}
-						className={`font-preview-area transition-all duration-300 w-full flex-shrink-0 ${showIndividualConfig ? "mt-2 sm:mt-3" : ""}`}
-					>
-						{getCurrentSampleText()}
-					</div>
 				</div>
-			</Card>
-		</div>
+
+				{/* Custom text input */}
+				{selectedSample === "custom" && !globalCustomText.trim() && (
+					<div className="w-full">
+						<textarea
+							value={customText}
+							onChange={(e) => setCustomText(e.target.value)}
+							placeholder={t.font.customPlaceholder}
+							className="font-preview-textarea w-full resize-none focus:outline-none"
+							rows={2}
+						/>
+					</div>
+				)}
+
+				{/* Font preview area - 确保在移动设备上始终可见 */}
+				<div
+					style={{
+						...getFontStyle(),
+						minHeight: showIndividualConfig ? "80px" : "100px", // 设置面板展开时减小最小高度
+						padding: showIndividualConfig ? "16px 20px" : "20px 24px", // 设置面板展开时减小内边距
+						backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
+						borderRadius: "6px",
+						border: isDark ? "1px solid #434343" : "1px solid #d9d9d9",
+						boxShadow: "0 2px 0 rgba(0, 0, 0, 0.02)",
+						wordBreak: "break-word",
+						overflowWrap: "break-word",
+					}}
+					className={`font-preview-area transition-all duration-300 w-full flex-shrink-0 ${showIndividualConfig ? "mt-2 sm:mt-3" : ""}`}
+				>
+					{getCurrentSampleText()}
+				</div>
+			</div>
+		</Card>
 	);
 }

@@ -64,8 +64,8 @@ export default function FontConfig({
 	};
 
 	return (
-		<Card className="border-0 shadow-md bg-white/90 backdrop-blur-sm">
-			<div className="space-y-4 sm:space-y-6">
+		<Card className="border-0 shadow-md bg-white/90 backdrop-blur-sm w-full">
+			<div className="space-y-4 sm:space-y-6 w-full">
 				{/* Search and filter */}
 				<Row gutter={[16, 16]} align="middle">
 					<Col xs={24} sm={16} lg={14} xl={12}>

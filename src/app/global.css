@@ -40,12 +40,14 @@ body {
 html, body {
 	overflow-x: hidden;
 	max-width: 100vw;
+	min-width: 320px;
 }
 
 /* Ensure all containers respect viewport width */
 .container, .max-w-7xl {
 	max-width: 100vw;
 	overflow-x: hidden;
+	min-width: 320px;
 }
 
 /* Card and grid responsiveness */
@@ -53,11 +55,24 @@ html, body {
 	min-width: 0 !important;
 	width: 100% !important;
 	margin-bottom: 20px !important;
+	box-sizing: border-box !important;
 }
 
 .ant-card-body {
 	min-width: 0 !important;
+	width: 100% !important;
 	padding: 18px 24px !important;
+	box-sizing: border-box !important;
+}
+
+/* Ensure Row and Col components respect container width */
+.ant-row {
+	width: 100% !important;
+	box-sizing: border-box !important;
+}
+
+.ant-col {
+	box-sizing: border-box !important;
 }
 
 @media (max-width: 768px) {
@@ -108,8 +123,14 @@ html, body {
 
 /* Select responsiveness */
 .ant-select {
-	min-width: 80px !important;
-	max-width: 150px !important;
+	min-width: 60px !important;
+	max-width: 100% !important;
+}
+
+@media (max-width: 468px) {
+	.ant-select {
+		min-width: 50px !important;
+	}
 }
 
 :root {
@@ -627,75 +648,6 @@ input:focus, textarea:focus {
 		font-size: 13px !important;
 		min-height: 70px !important;
 	}
-}
-
-/* Font preview dropdown styling - Special design for preview selectors */
-.font-preview-select.ant-select {
-	border: none !important;
-	background: transparent !important;
-	box-shadow: none !important;
-}
-
-.font-preview-select.ant-select .ant-select-selector {
-	background: rgba(255, 255, 255, 0.8) !important;
-	border: 1px solid #e2e8f0 !important;
-	border-radius: 6px !important;
-	padding: 2px 8px !important;
-	font-size: 12px !important;
-	color: var(--foreground) !important;
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
-	min-height: 28px !important;
-}
-
-.font-preview-select.ant-select:hover .ant-select-selector {
-	border-color: #1890ff !important;
-	background: rgba(255, 255, 255, 0.95) !important;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
-}
-
-.font-preview-select.ant-select.ant-select-focused .ant-select-selector {
-	border-color: #1890ff !important;
-	background: rgba(255, 255, 255, 1) !important;
-	box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1) !important;
-}
-
-.font-preview-select.ant-select .ant-select-selection-item {
-	color: var(--foreground) !important;
-	font-weight: 500 !important;
-	line-height: 1.4 !important;
-}
-
-.font-preview-select.ant-select .ant-select-arrow {
-	color: #666 !important;
-}
-
-/* Dark mode for font preview select */
-.dark .font-preview-select.ant-select .ant-select-selector {
-	background: rgba(31, 31, 31, 0.8) !important;
-	border-color: #434343 !important;
-	color: #ffffff !important;
-	box-shadow: 0 1px 3px rgba(255, 255, 255, 0.04) !important;
-}
-
-.dark .font-preview-select.ant-select:hover .ant-select-selector {
-	border-color: #1890ff !important;
-	background: rgba(31, 31, 31, 0.95) !important;
-	box-shadow: 0 2px 6px rgba(255, 255, 255, 0.06) !important;
-}
-
-.dark .font-preview-select.ant-select.ant-select-focused .ant-select-selector {
-	border-color: #1890ff !important;
-	background: rgba(31, 31, 31, 1) !important;
-	box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.15) !important;
-}
-
-.dark .font-preview-select.ant-select .ant-select-selection-item {
-	color: #ffffff !important;
-}
-
-.dark .font-preview-select.ant-select .ant-select-arrow {
-	color: #999 !important;
 }
 
 /* General Select styling improvements */

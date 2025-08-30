@@ -183,7 +183,7 @@ export default function Home() {
 				)}
 
 				{/* Font Display Area */}
-				<div className="grid gap-4 sm:gap-6">
+				<div className="grid gap-4 sm:gap-6 w-full max-w-none">
 					{filteredFonts.length > 0 ? (
 						filteredFonts.map((font) => (
 							<MyFont
