@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Card, Button, Select, Slider, Switch, Space, App, ColorPicker } from "antd";
 import { HeartFilled, HeartOutlined, SettingOutlined, ItalicOutlined, DownloadOutlined } from "@ant-design/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -60,147 +60,146 @@ export default function MyFont({
 	// Font loading state - 单向状态机
 	const [fontLoadingStatus, setFontLoadingStatus] = useState<"loading" | "loaded" | "failed" | "not-started">("not-started");
 	const [allVariantsLoaded, setAllVariantsLoaded] = useState(false);
+	const [hasStartedLoad, setHasStartedLoad] = useState(false);
+	const [isVisible, setIsVisible] = useState(false);
+	const containerRef = useRef<HTMLDivElement | null>(null);
+	const DEBUG = process.env.NODE_ENV !== "production";
 
 	// Adjusted values based on font variants
 	const [adjustedGlobalWeight, setAdjustedGlobalWeight] = useState<number>(globalFontWeight);
 	const [adjustedGlobalStyle, setAdjustedGlobalStyle] = useState<boolean>(globalIsItalic);
 
-	// 字体加载管理 - 使用Font Loading API
+	// 视窗懒加载 + 变体按需加载
+	useEffect(() => {
+		if (!containerRef.current) return;
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						setIsVisible(true);
+					} else {
+						setIsVisible(false);
+					}
+				});
+			},
+			{ root: null, threshold: 0.1 }
+		);
+		observer.observe(containerRef.current);
+		return () => observer.disconnect();
+	}, []);
+
 	useEffect(() => {
 		let isMounted = true;
-		let loadingPromises: Promise<FontFace>[] = [];
+		const startTs = performance.now();
 
-		const loadFontVariants = async () => {
+		const dispatchStart = () => {
+			try {
+				document.dispatchEvent(
+					new CustomEvent("fontLoadStart", { detail: { fontClassName: font.className, fontFamily: fontFamilyName } })
+				);
+			} catch {}
+		};
+		const dispatchSuccess = () => {
+			try {
+				const loadTime = Math.round(performance.now() - startTs);
+				document.dispatchEvent(
+					new CustomEvent("fontLoaded", { detail: { fontClassName: font.className, loadTime } })
+				);
+			} catch {}
+		};
+		const dispatchError = (error: unknown) => {
+			try {
+				document.dispatchEvent(
+					new CustomEvent("fontError", { detail: { fontClassName: font.className, error: String(error) } })
+				);
+			} catch {}
+		};
+
+		const loadDescriptor = async (weight: number, style: "normal" | "italic") => {
+			const fontDescriptor = `${style === "italic" ? "italic " : ""}${weight} 16px "${fontFamilyName}"`;
+			if (document.fonts && document.fonts.load) {
+				return document.fonts.load(fontDescriptor).then((res) => res[0] as FontFace);
+			}
+			// 兼容降级
+			return new Promise<FontFace>((resolve, reject) => {
+				const testElement = document.createElement("div");
+				testElement.style.fontFamily = `"${fontFamilyName}", serif`;
+				testElement.style.fontWeight = String(weight);
+				testElement.style.fontStyle = style;
+				testElement.style.fontSize = "16px";
+				testElement.style.position = "absolute";
+				testElement.style.left = "-9999px";
+				testElement.style.opacity = "0";
+				testElement.textContent = "Font loading test";
+				document.body.appendChild(testElement);
+				let attempts = 0;
+				const maxAttempts = 100;
+				const checkFont = () => {
+					attempts++;
+					const computed = window.getComputedStyle(testElement);
+					const actualFamily = computed.fontFamily;
+					if (actualFamily.includes(fontFamilyName) || attempts >= maxAttempts) {
+						document.body.removeChild(testElement);
+						if (attempts >= maxAttempts) {
+							reject(new Error(`字体加载超时: ${fontFamilyName} ${weight} ${style}`));
+						} else {
+							resolve({ family: fontFamilyName } as FontFace);
+						}
+					} else {
+						setTimeout(checkFont, 100);
+					}
+				};
+				setTimeout(checkFont, 100);
+			});
+		};
+
+		const startLoad = async () => {
+			if (hasStartedLoad || !isVisible) return;
+			setHasStartedLoad(true);
 			if (!fontVariants || !fontVariants.variants || fontVariants.variants.length === 0) {
-				console.log(`📝 字体 ${fontFamilyName} 没有变体信息，直接标记为已加载`);
 				setAllVariantsLoaded(true);
 				setFontLoadingStatus("loaded");
 				return;
 			}
 
-			console.log(`🚀 开始加载字体: ${fontFamilyName} (${fontVariants.variants.length} 个变体)`);
 			setFontLoadingStatus("loading");
-
+			dispatchStart();
 			try {
-				// 使用Font Loading API主动加载字体
-				loadingPromises = fontVariants.variants.map(async (variant) => {
-					const fontWeight = variant.weight.toString();
-					const fontStyle = variant.style;
-
-					// 构造字体描述符
-					const fontDescriptor = `${fontStyle === "italic" ? "italic " : ""}${fontWeight} 16px "${fontFamilyName}"`;
-
-					console.log(`📥 加载字体变体: ${fontFamilyName} ${fontWeight} ${fontStyle}`);
-
-					// 使用document.fonts.load()主动加载字体
-					if (document.fonts && document.fonts.load) {
-						try {
-							const loadedFonts = await document.fonts.load(fontDescriptor);
-							console.log(`✅ 字体变体加载完成: ${fontFamilyName} ${fontWeight} ${fontStyle} (${loadedFonts.length} 个字体)`);
-							return loadedFonts[0] as FontFace; // 返回第一个加载的字体
-						} catch (error) {
-							console.warn(`⚠️ 字体变体加载失败: ${fontFamilyName} ${fontWeight} ${fontStyle}`, error);
-							throw error;
-						}
-					} else {
-						// 如果不支持Font Loading API，使用传统方法
-						return new Promise<FontFace>((resolve, reject) => {
-							const testElement = document.createElement("div");
-							testElement.style.fontFamily = `"${fontFamilyName}", serif`;
-							testElement.style.fontWeight = fontWeight;
-							testElement.style.fontStyle = fontStyle;
-							testElement.style.fontSize = "16px";
-							testElement.style.position = "absolute";
-							testElement.style.left = "-9999px";
-							testElement.style.opacity = "0";
-							testElement.textContent = "Font loading test";
-
-							document.body.appendChild(testElement);
-
-							// 检查字体是否加载
-							let attempts = 0;
-							const maxAttempts = 100; // 10秒超时
-
-							const checkFont = () => {
-								attempts++;
-								const computed = window.getComputedStyle(testElement);
-								const actualFamily = computed.fontFamily;
-
-								if (actualFamily.includes(fontFamilyName) || attempts >= maxAttempts) {
-									document.body.removeChild(testElement);
-									if (attempts >= maxAttempts) {
-										reject(new Error(`字体加载超时: ${fontFamilyName} ${fontWeight} ${fontStyle}`));
-									} else {
-										// 创建一个模拟的FontFace对象用于兼容性
-										const mockFontFace = {
-											family: fontFamilyName,
-											weight: fontWeight,
-											style: fontStyle,
-										} as FontFace;
-										resolve(mockFontFace);
-									}
-								} else {
-									setTimeout(checkFont, 100);
-								}
-							};
-
-							setTimeout(checkFont, 100);
-						});
+				// 优先加载当前展示所需权重/样式
+				const desiredWeight = fontVariants ? findClosestWeight(fontVariants.weights, individualFontWeight ?? adjustedGlobalWeight) : individualFontWeight ?? adjustedGlobalWeight;
+				const desiredStyleName = fontVariants ? findAvailableStyle(fontVariants.styles, (individualIsItalic ?? adjustedGlobalStyle) ? "italic" : "normal") : (individualIsItalic ?? adjustedGlobalStyle) ? "italic" : "normal";
+				await loadDescriptor(desiredWeight, desiredStyleName === "italic" ? "italic" : "normal");
+				// 后台分批加载其他变体
+				const rest = fontVariants.variants.filter(v => !(v.weight === desiredWeight && v.style === desiredStyleName));
+				for (let i = 0; i < rest.length; i++) {
+					const v = rest[i];
+					try {
+						await loadDescriptor(v.weight, v.style === "italic" ? "italic" : "normal");
+					} catch (e) {
+						if (DEBUG) console.warn("变体加载失败", v, e);
 					}
-				});
-
-				// 等待所有字体变体加载完成
-				const results = await Promise.allSettled(loadingPromises);
-
-				const successCount = results.filter((result) => result.status === "fulfilled").length;
-				const failedCount = results.filter((result) => result.status === "rejected").length;
-
-				console.log(`📊 字体 ${fontFamilyName} 加载结果: 成功 ${successCount}/${fontVariants.variants.length}, 失败 ${failedCount}`);
-
+					if (i % 2 === 1) await new Promise(r => setTimeout(r, 80));
+				}
 				if (isMounted) {
-					if (successCount === fontVariants.variants.length) {
-						// 所有变体都加载成功
-						setAllVariantsLoaded(true);
-						setFontLoadingStatus("loaded");
-						console.log(`🎉 字体 ${fontFamilyName} 所有变体加载完成！`);
-					} else if (successCount > 0) {
-						// 部分变体加载成功
-						setAllVariantsLoaded(true);
-						setFontLoadingStatus("loaded");
-						console.log(`⚠️ 字体 ${fontFamilyName} 部分变体加载完成 (${successCount}/${fontVariants.variants.length})`);
-					} else {
-						// 所有变体都加载失败
-						setAllVariantsLoaded(false);
-						setFontLoadingStatus("failed");
-						console.error(`❌ 字体 ${fontFamilyName} 所有变体加载失败`);
-					}
+					setAllVariantsLoaded(true);
+					setFontLoadingStatus("loaded");
+					dispatchSuccess();
 				}
 			} catch (error) {
-				console.error(`❌ 字体 ${fontFamilyName} 字体加载过程出错:`, error);
+				if (DEBUG) console.error("字体加载出错", error);
 				if (isMounted) {
 					setAllVariantsLoaded(false);
 					setFontLoadingStatus("failed");
+					dispatchError(error);
 				}
 			}
 		};
 
-		// 页面加载完成后立即开始加载字体
-		if (document.readyState === "loading") {
-			document.addEventListener("DOMContentLoaded", loadFontVariants);
-		} else {
-			// 页面已经加载完成，立即开始
-			setTimeout(loadFontVariants, 100);
-		}
-
+		startLoad();
 		return () => {
 			isMounted = false;
-			document.removeEventListener("DOMContentLoaded", loadFontVariants);
-			// 取消正在进行的字体加载
-			loadingPromises.forEach(() => {
-				// Promise无法直接取消，但我们可以忽略结果
-			});
 		};
-	}, [fontFamilyName, fontVariants]);
+	}, [isVisible, fontVariants, fontFamilyName, font.className, individualFontWeight, adjustedGlobalWeight, individualIsItalic, adjustedGlobalStyle]);
 
 	// Effect to adjust global settings when they change
 	useEffect(() => {
@@ -413,7 +412,7 @@ export default function MyFont({
 				borderColor: isDark ? '#434343' : '#d9d9d9'
 			}}
 		>
-			<div className="space-y-4 sm:space-y-5">
+			<div ref={containerRef} className="space-y-4 sm:space-y-5">
 				{/* Font name and control buttons */}
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
 					<div className="flex items-center space-x-2 min-w-0">

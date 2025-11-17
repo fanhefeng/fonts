@@ -1,16 +1,17 @@
 "use client";
 
-import { myFonts, DouyinSans } from "../../styles/fonts";
+import { myFonts, DouyinSans } from "@/fonts";
 import MyFont from "@/components/ui/MyFont";
 import FontConfig from "@/components/ui/FontConfig";
-import { Typography, Spin, Button, Space } from "antd";
+import { Typography, Spin, Button, Space, Progress } from "antd";
 import { BulbOutlined, BulbFilled, GlobalOutlined } from "@ant-design/icons";
 import { useFontLikes } from "@/hooks/useFontLikes";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import type { Color } from "@/types/global";
 import "@ant-design/v5-patch-for-react-19";
+import { useSimpleFontLoading } from "@/hooks/useFontLoading";
 
 const { Title } = Typography;
 
@@ -19,6 +20,13 @@ export default function Home() {
 	const { isLoaded, toggleLike, isLiked, getLikeCount } = useFontLikes();
 	const { isDark, toggleTheme } = useTheme();
 	const { language, setLanguage, t } = useLanguage();
+	const { isLoading, progress, hasErrors, errorCount } = useSimpleFontLoading();
+
+	useEffect(() => {
+		try {
+			document.dispatchEvent(new CustomEvent("fontManagerReady"));
+		} catch {}
+	}, []);
 
 	// Search and filter state
 	const [searchValue, setSearchValue] = useState("");
@@ -137,6 +145,29 @@ export default function Home() {
 
 			{/* Main Content */}
 			<div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-7xl">
+				{/* Global Loading Progress */}
+				{isLoading && (
+					<div
+						className="mb-4 sm:mb-6 rounded-lg px-3 sm:px-4 py-2 border"
+						style={{
+							color: isDark ? "#8c8c8c" : "rgba(0, 0, 0, 0.65)",
+							backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
+							borderColor: isDark ? "#434343" : "#d9d9d9",
+						}}
+					>
+						<div className="flex items-center justify-between gap-3">
+							<span>{language === "zh" ? "字体加载中" : "Fonts loading"}</span>
+							<div className="flex-1">
+								<Progress percent={progress} size="small" showInfo />
+							</div>
+							{hasErrors && (
+								<span style={{ color: isDark ? "#ff4d4f" : "#ff4d4f" }}>
+									{language === "zh" ? `失败 ${errorCount} 个` : `${errorCount} failed`}
+								</span>
+							)}
+						</div>
+					</div>
+				)}
 				{/* Global Controls */}
 				<div className="mb-6 sm:mb-8">
 					<FontConfig
